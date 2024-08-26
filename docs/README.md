@@ -17,24 +17,24 @@ Bem-vindo à Rede Social IFSP, uma plataforma exclusiva para alunos matriculados
 
 ## Estrutura do Projeto
 
-/backend
-│   ├── /src
-│   │   ├── /controllers
-│   │   ├── /middlewares
-│   │   ├── /routes
-│   │   ├── /services
-│   │   ├── /prisma
-│   │   ├── app.js
-│   └── /tests
-│
-/frontend
-│   ├── /html
-│   ├── /css
-│   ├── /js
-│   ├── /assets
-└── /docs
+- /backend
+- │   ├── /src
+- │   │   ├── /controllers
+- │   │   ├── /middlewares
+- │   │   ├── /routes
+- │   │   ├── /services
+- │   │   ├── /prisma
+- │   │   ├── app.js
+- │   └── /tests
+- │
+- /frontend
+- │   ├── /html
+- │   ├── /css
+- │   ├── /js
+- │   ├── /assets
+- └── /docs
 
-# Backend
+- # Backend
 
 - **/src**: Contém todo o código-fonte do backend da aplicação.
 - **/controllers**: Armazena os controladores, que são responsáveis por gerenciar a lógica de negócios associada a cada rota. Eles recebem as requisições, processam os dados, e retornam as respostas apropriadas.
