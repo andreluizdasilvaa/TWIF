@@ -1,0 +1,22 @@
+{
+  "name": "twif",
+  "version": "1.0.0",
+  "description": "Uma rede Social criada de Alunos para alunos do IFSP",
+  "main": "app.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "André, Isabela, Júlia, Geovana, Erick",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^5.18.0",
+    "express": "^4.19.2",
+    "mysql2": "^3.11.0"
+  },
+  "devDependencies": {
+    "prisma": "^5.18.0"
+  }
+}

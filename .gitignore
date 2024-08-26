@@ -1,0 +1,10 @@
+# Mantenha as variáveis ​​de ambiente fora do controle de versão
+
+# Ignora a pasta node_modules
+node_modules
+
+# Ignora o arquivo de variáveis de ambiente
+.env
+
+# Ignora arquivos temporários de editores
+.vscode/
