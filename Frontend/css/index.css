@@ -1,0 +1,44 @@
+/* All */
+ul{
+    padding-left: 0;
+    list-style: none;
+    display: flex;
+    gap: 57px;
+    
+}
+
+/* Utilitários */
+.container{
+    width: 100%;
+    max-width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+
+/* Header */
+.header-nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 30px 0px 30px;
+    
+
+}
+
+.header-nav a{
+    text-decoration: none;
+    color: #011214;
+    font-size: 18px;
+    font-family: Lexend Deca;
+    font-weight: 600;
+}
+
+ a:hover{
+    color: #025648;
+    transform: scale(1.5);
+}
+
+
+
