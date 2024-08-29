@@ -48,7 +48,7 @@ ul{
     transform: scale(1.5);
 }
 
-/* section1 CADASTRO*/
+/* SECTION 1 - CADASTRO*/
 
 .section1{
     display: grid;
@@ -57,7 +57,6 @@ ul{
     justify-items: center;
     margin-bottom: 400px;
 }
-
 
 .cadastro h1{
     font-family: GilroyEB;
@@ -98,7 +97,7 @@ ul{
     background-color: #7EC543;
 }
 
-/* section1 LOGIN*/
+/* SECTION 1 - LOGIN*/
 
 .login{
     display: grid;
@@ -119,6 +118,13 @@ ul{
     border: none;
     width: 260px;
     margin-bottom: 30px;
+    font-family: Lexend Deca;
+    font-size: 12px;
+    padding: 5px;
+}
+
+.login input:hover, input:focus{
+    outline: none;
 }
 
 .login button{
@@ -141,4 +147,144 @@ ul{
 
 .login button:hover{
     transform: scale(1.02);
+}
+
+/* SECTION 2 */
+
+.p-sec2{
+    font-family:Gilroy;
+    font-size: 30px;
+    text-align: center;
+    padding-bottom: 100px;
+}
+
+.img1{
+    display: flex;
+    margin-bottom: 50px;
+}
+
+.img1 p{
+    color: #011214;
+    font-family: Gilroy;
+    font-size: 20px;
+}
+
+.img1 img{
+    width: 500px;
+}
+
+.img2{
+    display: flex;
+    margin-bottom: 400px;
+}
+
+.img2 p{
+    color: #011214;
+    font-family: Gilroy;
+    font-size: 20px;
+    padding: 10px;
+    text-align: right;
+}
+
+.img2 img{
+    width: 400px;
+}
+
+#bold{
+    font-family: GilroyEB;
+}
+
+/* SECTION 3 - INFO */
+.section3{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    justify-items: center;
+    align-items: center;
+}
+
+.info h1{
+    font-family: gilroyeb;
+    font-size: 30px;
+}
+
+.info p{
+    font-family: Lexend Deca;
+    max-width: 50%;
+}
+
+.info button{
+    padding: 20px 50px;
+    background-color: #011214;
+    color: #7EC543;
+    border: none;
+    border-radius: 15px;
+    font-family: Lexend Deca;
+    transition: all 0.3s;
+}
+
+.info a{
+    text-decoration: none;
+    color: #7EC543;
+}
+
+.info button:hover{
+    transform: scale(1.02);
+    color: #011214;
+    background-color: #7EC543;
+}
+
+.info{
+    display: grid;
+    justify-items: start;
+    gap: 20px;
+}
+
+
+/* SECTION 3 - ACCORDION*/
+ .sanfona{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 500px;
+ }
+
+ .accordion{
+    border-radius: 8px;
+    padding: 12px;
+    cursor: pointer;
+ }
+
+ .accordion-header{
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+ }
+
+.accordion-header span{
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.accordion-body{
+    color: #444;
+    padding: 5px 0px;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: opacity .3s;
+}
+
+.accordion-body.active{
+    height: 100%;
+    opacity: 1;
+}
+
+.accordion:has(.active) .arrow {
+    transform: rotate(180deg);
 }
