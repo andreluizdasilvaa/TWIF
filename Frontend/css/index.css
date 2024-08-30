@@ -160,7 +160,7 @@ ul{
 
 .img1{
     display: flex;
-    margin-bottom: 50px;
+    margin-bottom: 60px;
 }
 
 .img1 p{
@@ -170,7 +170,7 @@ ul{
 }
 
 .img1 img{
-    width: 500px;
+    width: 300px;
 }
 
 .img2{
@@ -256,6 +256,8 @@ ul{
 
  .accordion-header{
     width: 100%;
+    font-family: Lexend Deca;
+    color: #011214;
     border: none;
     background-color: transparent;
     display: flex;
@@ -269,11 +271,12 @@ ul{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-family: Lezend Deca;
 }
 
 .accordion-body{
     color: #444;
-    padding: 5px 0px;
+    padding: 2px 0px;
     opacity: 0;
     height: 0;
     overflow: hidden;
