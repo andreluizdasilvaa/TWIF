@@ -10,6 +10,7 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="../css/login_page.css">
+  <link rel="stylesheet" href="../css/mq/login_page-mq.css">
 
   <!-- Fontes -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,7 +25,7 @@
     <a href="index.html"><img src="../assets/img/logo-dark.svg" alt="Logo"/></a>
     <nav>
       <ul>
-        <li><a href="#">Suporte</a></li>
+        <li><a href="#suporte">Suporte</a></li>
         <li><a href="#">Sobre Nós</a></li>
       </ul>
     </nav>
@@ -34,18 +35,20 @@
   <section>
     <div class="container_sec1">
       <div class="sec1_text">
-        <h1><span>conecte</span>.<br><span>compartilhe</span>.<br><span>curta</span>.</h1>
+        <h1><span id="pulse-1">conecte</span>.<br><span id="pulse-2">compartilhe</span>.<br><span id="pulse-3">curta</span>.</h1>
         <p>Twif é a rede social para alunos do IFSP,<br> onde você interage do seu jeito.</p>
         <a href="" class="Button-padrão-Az-escuro">Criar Conta</a>
       </div>
 
       <div class="sec1_form">
         <form class="login" method="post">
-          <label for="email">E-MAIL</label>
+          <label for="email">E-MAIL OU CG</label>
           <input type="email" placeholder="Email" required maxlength="255">
 
           <label for="password">SENHA</label>
-          <input type="password" placeholder="********" required minlength="8" maxlength="255">
+          <input type="password" placeholder="********" required minlength="8" maxlength="255" id="none_bottom-magim">
+
+          <a href="" id="esqueceu_senha">Esqueceu a senha?</a>
 
           <button type="submit"><a href="#">ENTRAR</a></button>
         </form>
@@ -58,7 +61,7 @@
     <div class="container_sec2">
       <h2>O <span class="bold">twif</span> é uma rede pensada especialmente para você.</h2>
 
-      <div>
+      <div id="sec2_div1">
         <p>se <span class="bold">conecte</span> com quem faz parte do seu mundo. Novas amizades, grupos de estudo, e muito mais estão a um clique de
         distância.</p>
         <img src="../assets/img/balao1.svg" alt="img1">
@@ -72,14 +75,15 @@
     </div>
    </section>
 
+   <!-- Section 3 -->
    <section>
-    <div class="container_sec3">
+    <div class="container_sec3" id="suporte">
       <div class="text_sec3">
         <h2>Dúvidas<br>Frequentes</h2>
         <p>Não encontrou o que procurava?Estamos aqui para garantir que você aproveite ao máximo o Twif!</p>
-        <a href="" class="Button-padrão-Az-escuro" id="button_suport">Suporte</a>
+        <a href="" class="Button-padrão-Az-escuro">Suporte</a>
       </div>
-      
+      <!-- accordion -->
       <div>
         <div class="sanfona">
           <div class="accordion">
@@ -138,7 +142,8 @@
     </div>
    </section>
   <script src="../js/acordin_login_page.js"></script>
-
+  
+   <!-- Footer -->
   <footer>
     <div class="container_footer">
       <div class="flex_links">
@@ -172,5 +177,6 @@
       <p id="copy">Twif S.A 4002-8922/0000000 - Todos os direitos reservados &copy;</p>
     </div>
   </footer>
+  <script src="../js/Animation_login-page.js"></script>
 </body>
 </html>

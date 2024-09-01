@@ -6,4 +6,9 @@
     --verde-padrao: #7ec543;
     --bg-padrao: #ffffff;
     --vermelho: #6b0000;
+
+    /* Font size */
+    --heading-GG: 81.6px;
+    --heading-G:70px;
+    --heading-M: 38px;
 }
