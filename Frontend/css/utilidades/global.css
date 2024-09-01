@@ -1,3 +1,5 @@
+/* reset */
+
 /*
   Josh's Custom CSS Reset
   https://www.joshwcomeau.com/css/custom-css-reset/
@@ -10,6 +12,7 @@
 
 * {
     margin: 0;
+    text-decoration: none;
 }
 
 body {
@@ -47,3 +50,13 @@ h6 {
 #__next {
     isolation: isolate;
 }
+
+ul,li{
+    list-style: none;
+}
+
+/* Cursor personalizado */
+html {
+    cursor: url(http://www.rw-designer.com/cursor-extern.php?id=154889), auto;
+}
+

@@ -1,0 +1,256 @@
+@import url(utilidades/fonts.css);
+@import url(utilidades/global.css);
+@import url(utilidades/utilidades.css);
+@import url(utilidades/variaveis.css);
+
+body {
+    background-color: var(--bg-padrao);
+    font-family: Lexend Deca;
+    font-size: 24px;
+}
+
+/* Header */
+
+header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 94px;
+}
+
+header nav ul {
+    display: flex;
+    gap: 34px;
+}
+
+header nav ul li a{
+    color: black;
+    font-size: .7em;
+}
+
+header nav ul li a:hover {
+    color: var(--verde-neutro);
+    transition: .3s;
+}
+
+/* sec1 */
+.container_sec1 {
+    padding: 5em;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+    gap: 50px;
+}
+
+.sec1_text {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 30px;
+}
+
+.sec1_text h1 {
+    line-height: 1.3em;
+    font-size: 3em;
+    color: var(--vermelho);
+}
+
+.sec1_text h1 span {
+    color: var(--azul-escuro-A);
+}
+
+.sec1_text h1 span:hover {
+    color: var(--verde-padrao);
+    transition: .6s;
+}
+
+.sec1_text p {
+    font-size: .8em;
+}
+
+/* SEC 1 - LOGIN*/
+
+.login{
+    display: grid;
+    background-color: var(--azul-escuro-A);
+    padding: 100px 70px;
+    border-radius: 20px;
+}
+
+.login label{
+    font-weight: 400;
+    font-size: .6em;
+    color: white;
+}
+
+.login input{
+    border-radius: 5px;
+    border: none;
+    width: 360px;
+    margin-bottom: 30px;
+    font-size: 12px;
+    padding: 1em;
+}
+
+.login input:hover, input:focus{
+    outline: none;
+}
+
+.login button{
+    font-family: GilroyEB;
+    font-size: .8em;
+    font-weight: 400;
+
+    background-color: var(--verde-padrao);
+    border: none;
+    border-radius: 5px;
+    padding: .5em;
+    transition: all 0.3s;
+}
+
+.login button a{
+    text-decoration: none;
+    color: #011214;
+}
+
+.login button:hover{
+    transform: scale(1.02);
+}
+
+/* Sec 2 */
+.container_sec2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 4em;
+    padding: 9em;
+}
+
+.container_sec2 div {
+    display: flex;
+    max-width: 1000px;
+    gap: 100px;
+    font-weight: 300;
+}
+
+/* sec 3 */
+.container_sec3 {
+    display: flex;
+    justify-content: space-around;
+    padding: 0 0 5em 0;
+}
+
+.text_sec3 {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    font-size: .8em;
+
+    gap: 50px;
+}
+
+.text_sec3 h2 {
+    font-size: 3em;
+    line-height: 1.3em;
+}
+
+#button_suport {
+    font-size: 1.2em;
+}
+
+/* SECTION 3 - ACCORDION*/
+ .sanfona {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 500px;
+ }
+
+ .accordion {
+    border-radius: 8px;
+    padding: 12px;
+    cursor: pointer;
+ }
+
+ .accordion-header{
+    width: 100%;
+    font-family: Lexend Deca;
+    color: #011214;
+    border: none;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+ }
+
+.accordion-header span{
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: .8em;
+}
+
+.accordion-body{
+    color: #444;
+    padding: 2px 0px;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: opacity .3s;
+    font-size: .8em;
+}
+
+.accordion-body.active{
+    height: 100%;
+    opacity: 1;
+}
+
+.accordion:has(.active) .arrow {
+    transform: rotate(180deg);
+}
+
+/* Footer */
+footer {
+    background-color: var(--azul-escuro-A);
+    padding: 1em;
+}
+.container_footer {
+    max-width: 90vw;
+    margin: auto;
+}
+
+.flex_links {
+    display: flex;
+    justify-content: center;
+    padding: 4em;
+    gap: 2em;
+}
+
+
+.flex_links div ul li a {
+    color: white;
+    font-size: .8em;
+    font-weight: 300;
+}
+
+.flex_links div ul li a:hover {
+    color: var(--verde-neutro);
+}
+
+.container_footer hr {
+    border: 0;
+    border-top: 2px solid #032F37;
+    width: 90vw;
+    margin: 12px;
+}
+
+#copy {
+    color: #464646;
+    text-align: center;
+}
