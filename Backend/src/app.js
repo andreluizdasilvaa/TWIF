@@ -1,6 +1,5 @@
 // Importa as bibliotecas necessárias
 const express = require('express');
-const session = require('express-session');
 const { PrismaClient } = require('@prisma/client');
 const path = require('path');
 
@@ -61,15 +60,6 @@ app.post('/register', async (req, res) => {
     // Após o cadastro, redireciona o usuário para a página inicial/Login
     res.sendFile(path.join(__dirname, '..', '..', 'Frontend', 'html', 'index.html'));
 });
-
-// Configuração do middleware express-session para gerenciar sessões de usuário
-app.use(session({
-    secret: 'senha-dificil123', 
-    resave: false, 
-    saveUninitialized: false,
-    cookie: { secure: false } 
-}));
-
 
 const PORT = 3000;
 app.listen(PORT, () => {
