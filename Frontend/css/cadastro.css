@@ -10,8 +10,6 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-
-
 }
 
 .preencher {
@@ -25,26 +23,23 @@ body {
 
 #logo {
     width: 150px;
-    /* margin-left: -110px; */
 }
 
 .preenchimento {
     display: flexbox;
     border-radius: 7px;
-    border-color: black;
+    border-color: var(--azul-escuro-A);
     border-style: solid;
     border-width: 0.19em;
     width: 250px;
     height: 24px;
-    color: black;
+    color: var(--azul-escuro-A);
     font-family: lexend deca;
-    /* background-image: url(../img/user-solid.svg);
-    background-repeat: no-repeat; */
 }
 
 .icon {
     font-size: larger;
-    color: black;
+    color:var(--azul-escuro-A);
     margin-right: 5px;
 }
 
@@ -66,7 +61,7 @@ body {
 
 #botao-cadastrar {
     background-color:var(--azul-escuro-A) ;
-    color: #7ec543;
+    color: var(--verde-padrao);
     margin-top: 30px;
     border-radius: 7px;
     height: 35px;
@@ -77,22 +72,25 @@ body {
 }
 
 #botao-cadastrar:hover {
-    background-color: #7ec543;
+    background-color: var(--verde-padrao);
     color: var(--azul-escuro-A);
     border: none;
 }
 
 #p-crie {
-    /* margin-left: -100px;
-    margin-top: -1px; */
     margin-bottom: 10px;
     font-family: lexend deca;
     color: #a2a2a2;
 }
 
 #a-login {
-    color: black;
+    color: var(--azul-escuro-A);
     text-decoration: none;
+}
+
+#a-login:hover{
+    color: var(--verde-neutro);
+    text-decoration: underline;
 }
 
 #a-login:hover {
@@ -105,6 +103,7 @@ body {
 
 .item {
     margin: 9px 2px 2px 2px;
+   
 }
 
 .the-icons {
