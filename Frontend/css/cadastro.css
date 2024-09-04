@@ -120,3 +120,8 @@ body {
 .cont {
     display: flex;
 }
+
+/* Cursor personalizado */
+html {
+    cursor: url(http://www.rw-designer.com/cursor-extern.php?id=154889), auto;
+}
