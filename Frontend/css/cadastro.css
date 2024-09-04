@@ -1,14 +1,17 @@
+@import url(utilidades/variaveis.css);
+
 .icons {
     display: flex;
     flex-direction: column;
 }
 
 .cadastro {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    align-self: center;
-    align-content: center;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+
 }
 
 .preencher {
@@ -22,7 +25,7 @@ body {
 
 #logo {
     width: 150px;
-    margin-left: -110px;
+    /* margin-left: -110px; */
 }
 
 .preenchimento {
@@ -62,22 +65,26 @@ body {
 }
 
 #botao-cadastrar {
-    background-color: black;
+    background-color:var(--azul-escuro-A) ;
     color: #7ec543;
     margin-top: 30px;
     border-radius: 7px;
     height: 35px;
     font-family: lexend deca;
     font-size: 15px;
+    width: 300px;
+    transition: all 0.3s;
 }
 
-.botao-cadastrar:hover {
-    box-shadow: #000;
+#botao-cadastrar:hover {
+    background-color: #7ec543;
+    color: var(--azul-escuro-A);
+    border: none;
 }
 
 #p-crie {
-    margin-left: -100px;
-    margin-top: -1px;
+    /* margin-left: -100px;
+    margin-top: -1px; */
     margin-bottom: 10px;
     font-family: lexend deca;
     color: #a2a2a2;

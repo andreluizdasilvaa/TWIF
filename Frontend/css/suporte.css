@@ -8,9 +8,9 @@ body {
 }
 
 .container {
-    display: flex;
-    flex-direction: column;
-    margin: 50px 350px;
+    display: grid;
+    justify-items: start;
+    justify-content: space-around;
 }
 
 input {
@@ -57,3 +57,13 @@ button:hover {
     color: black;
     transform: scale(1.2em);
 }
+
+.sec{
+        position: relative;
+        top: 50%;
+        transform: translateY(50%) ;
+    }
+
+.relate{
+    color: #a2a2a2;
+}    
