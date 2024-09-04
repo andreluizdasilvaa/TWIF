@@ -50,12 +50,14 @@ button {
     padding: 16px 18px;
     margin-top: 4px;
     width: 522px;
+    transition: all 0.3s;
 }
 
 button:hover {
     background-color: #7ec543;
     color: black;
     transform: scale(1.2em);
+    cursor: pointer;
 }
 
 .sec{

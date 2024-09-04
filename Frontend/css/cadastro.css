@@ -80,6 +80,7 @@ body {
     background-color: #7ec543;
     color: var(--azul-escuro-A);
     border: none;
+    cursor: pointer;
 }
 
 #p-crie {
