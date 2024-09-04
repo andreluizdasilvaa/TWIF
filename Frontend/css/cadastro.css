@@ -1,0 +1,115 @@
+.icons {
+    display: flex;
+    flex-direction: column;
+}
+
+.cadastro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+}
+
+.preencher {
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    background-color: rgb(255, 255, 255);
+}
+
+#logo {
+    width: 150px;
+    margin-left: -110px;
+}
+
+.preenchimento {
+    display: flexbox;
+    border-radius: 7px;
+    border-color: black;
+    border-style: solid;
+    border-width: 0.19em;
+    width: 250px;
+    height: 24px;
+    color: black;
+    font-family: lexend deca;
+    /* background-image: url(../img/user-solid.svg);
+    background-repeat: no-repeat; */
+}
+
+.icon {
+    font-size: larger;
+    color: black;
+    margin-right: 5px;
+}
+
+#i-user {
+    margin-top: 14px;
+}
+
+#i-email {
+    margin-top: 21px;
+}
+
+#i-cg {
+    margin-top: 20px;
+}
+
+#i-senha {
+    margin-top: 21px;
+}
+
+#botao-cadastrar {
+    background-color: black;
+    color: #7ec543;
+    margin-top: 30px;
+    border-radius: 7px;
+    height: 35px;
+    font-family: lexend deca;
+    font-size: 15px;
+}
+
+.botao-cadastrar:hover {
+    box-shadow: #000;
+}
+
+#p-crie {
+    margin-left: -100px;
+    margin-top: -1px;
+    margin-bottom: 10px;
+    font-family: lexend deca;
+    color: #a2a2a2;
+}
+
+#a-login {
+    color: black;
+    text-decoration: none;
+}
+
+#a-login:hover {
+    text-decoration: underline;
+}
+
+#p-login {
+    font-family: lexend deca;
+}
+
+.item {
+    margin: 9px 2px 2px 2px;
+}
+
+.the-icons {
+    display: flex;
+    flex-direction: column;
+}
+
+.the-items {
+    display: flex;
+    flex-direction: column;
+}
+
+.cont {
+    display: flex;
+}
