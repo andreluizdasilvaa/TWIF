@@ -75,6 +75,7 @@ body {
     background-color: var(--verde-padrao);
     color: var(--azul-escuro-A);
     border: none;
+    cursor: pointer;
 }
 
 #p-crie {
