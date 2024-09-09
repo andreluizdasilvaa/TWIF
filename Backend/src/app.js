@@ -7,12 +7,13 @@ const path = require('path');
 const app = express();
 const prisma = new PrismaClient();
 
-// Middleware para interpretar JSON e dados de formulário
-app.use(express.json()); // Permite que o Express entenda requisições com corpo em JSON
-app.use(express.urlencoded({ extended: true })); // Permite que o Express entenda dados de formulários HTML
+app.use(express.json());
+app.use(express.urlencoded({ extended: true })); // Permite que o Express entenda dados de formulários HTML ( url ex: /html/tal.html)
 
 // Middleware para servir arquivos estáticos (CSS, imagens, etc.)
 app.use(express.static(path.join(__dirname, '..', '..', 'Frontend'))); // Define a pasta onde estão os arquivos estáticos
+
+// =-=-=-=-=-=-=-=-=-=-=-=-=-= ROTAS GET =-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 // Rota para carregar a página inicial
 app.get('/', (req, res) => {
@@ -23,8 +24,17 @@ app.get('/', (req, res) => {
 // Rota para carregar o formulário de cadastro
 app.get('/register', (req, res) => {
     // Envia o arquivo cadastro-TESTE.html quando a rota "/register" é acessada
-    res.sendFile(path.join(__dirname, '..', '..', 'Frontend', 'html', 'cadastro-TESTE.html'));
+    res.sendFile(path.join(__dirname, '..', '..', 'Frontend', 'html', 'cadastre-se.html'));
 });
+
+// Rota para carregar o formulario de suporte
+app.get("/suporte", (req, res) => {
+  // Envia o arquivo suporte.html quando a rota "/suporte" é acessada
+  res.sendFile(
+    path.join(__dirname, "..", "..", "Frontend", "html", "suporte.html"));
+});
+
+// =-=-=-=-=-=-=-=-=-=-=-=-=-= ROTAS POST =-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 // Rota para processar o cadastro de um novo usuário
 app.post('/register', async (req, res) => {
