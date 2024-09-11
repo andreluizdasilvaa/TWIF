@@ -60,10 +60,10 @@ app.post('/register', async (req, res) => {
     // Cria um novo usuário no banco de dados com os dados fornecidos
     const user = await prisma.user.create({
         data: {
+            nome,
             email,
-            senha, // Nota: Armazenar senhas em texto simples não é seguro. Considere utilizar criptografia.
             matricula,
-            nome // Inclui o campo nome
+            senha // Nota: Armazenar senhas em texto simples não é seguro. Considere utilizar criptografia.
         },
     });
 
