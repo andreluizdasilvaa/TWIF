@@ -42,33 +42,40 @@ app.post('/register', async (req, res) => {
 
     const { email, senha, matricula, nome } = req.body; // Extrai dados do corpo da requisição
 
-    // Verifica se um usuário com o mesmo e-mail já existe
-    const existingUser = await prisma.user.findUnique({
-        where: { email }
-    });
+    // VALIDAÇÃO
 
-    // Verifica se um usuário com o mesmo número de matrícula já existe
-    const existingMatricula = await prisma.user.findUnique({
-        where: { matricula }
-    });
+    try{
+        // Verifica se um usuário com o mesmo e-mail já existe
+        const existingUser = await prisma.user.findUnique({
+            where: { email }
+        });
 
-    // Se o e-mail ou matrícula já estiverem cadastrados, retorna um erro
-    if (existingUser || existingMatricula) {
-        return res.status(400).json({ message: 'Usuário ou número de matrícula já cadastrados' });
+        // Verifica se um usuário com o mesmo número de matrícula já existe
+        const existingMatricula = await prisma.user.findUnique({
+            where: { matricula }
+        });
+
+        // Se o e-mail ou matrícula já estiverem cadastrados, retorna um erro
+        if (existingUser || existingMatricula) {
+            return res.status(400).json({ msg: 'Email ou número de matrícula já cadastrados!' });
+        }
+
+        // Cria um novo usuário no banco de dados com os dados fornecidos
+        const user = await prisma.user.create({
+            data: {
+                nome,
+                email,
+                matricula,
+                senha
+            },
+        });
+
+        res.redirect('/'); // Redireciona o usuário para a página inicial
+    } catch (error) {
+        // Se ocorrer um erro inesperado, retorna um erro 500 (Internal Server Error)
+        console.error(error);
+        res.status(500).json({ msg: 'Erro interno, entre em contato com o suporte' });
     }
-
-    // Cria um novo usuário no banco de dados com os dados fornecidos
-    const user = await prisma.user.create({
-        data: {
-            nome,
-            email,
-            matricula,
-            senha // Nota: Armazenar senhas em texto simples não é seguro. Considere utilizar criptografia.
-        },
-    });
-
-    // Após o cadastro, redireciona o usuário para a página inicial/Login
-    res.sendFile(path.join(__dirname, '..', '..', 'Frontend', 'html', 'index.html'));
 });
 
 const PORT = 3000;
