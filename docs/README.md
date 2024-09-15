@@ -25,14 +25,16 @@ Bem-vindo à Rede Social IFSP, uma plataforma exclusiva para alunos matriculados
 - │   │   ├── /services
 - │   │   ├── /prisma
 - │   │   ├── app.js
-- │   └── /tests
+- │   └───
+- /docs
+- │  └── README.md
 - │
 - /frontend
 - │   ├── /html
 - │   ├── /css
 - │   ├── /js
-- │   ├── /assets
-- └── /docs
+- └───└── /assets
+
 
 - # Backend
 

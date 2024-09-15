@@ -34,6 +34,14 @@ app.get("/suporte", (req, res) => {
     path.join(__dirname, "..", "..", "Frontend", "html", "suporte.html"));
 });
 
+// Rota para Erro 404
+app.get("*", (req, res) => {
+  // Envia o arquivo Page_404.html quando uma rota não declarada e feita
+  res.status(404).sendFile(
+    path.join(__dirname, "..", "..", "Frontend", "html", "Page_404.html")
+  );
+});
+
 // =-=-=-=-=-=-=-=-=-=-=-=-=-= ROTAS POST =-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 // Rota para processar o cadastro de um novo usuário
@@ -70,7 +78,7 @@ app.post('/register', async (req, res) => {
             },
         });
 
-        res.redirect('/'); // Redireciona o usuário para a página inicial
+        return res.redirect('/?success=true'); // Redireciona o usuário para a página inicial com um parâmetro de sucesso
     } catch (error) {
         // Se ocorrer um erro inesperado, retorna um erro 500 (Internal Server Error)
         console.error(error);
