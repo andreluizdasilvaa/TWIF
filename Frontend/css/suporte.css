@@ -5,30 +5,32 @@ body {
 .logo {
     height: 100px;
     align-self: flex-start;
+    margin-left: -229px;
 }
 
 .container {
     display: grid;
-    justify-items: start;
+    justify-items: center;
     justify-content: space-around;
 }
 
 input {
-    font-family: lexend deca;  
+    font-family: lexend deca; 
+    font-size: 20px; 
     padding: 5px 10px;
     border-radius: 6px;
     border-style: solid;
     border-width: 2px;
     border-color: black;
-    margin: 6px 0px;
-    width: 460px;
+    margin: 10px 0px;
+    width: 400px;
+    height: 30px;
 }
 
 .item {
     display: flex;
     align-items: center;
     align-content: flex-start;
-    
 }
 
 i {
@@ -37,7 +39,7 @@ i {
 
 
 #input-texto {
-    padding-bottom: 80px;
+    padding-bottom: 140px;
 }
 
 button {
@@ -45,12 +47,14 @@ button {
     color: #7ec543;
     font-family: lexend deca;
     font-weight: 600;
+    font-size: large;
     border-style: none;
     border-radius: 5px;
     padding: 16px 18px;
-    margin-top: 4px;
-    width: 522px;
+    margin-top: 8px;
+    width: 423.2px;
     transition: all 0.3s;
+    margin-left: 18px;
 }
 
 button:hover {
@@ -62,13 +66,14 @@ button:hover {
 
 .sec{
         position: relative;
-        top: 50%;
-        transform: translateY(50%) ;
+        top: 25%;
+        transform: translate(0%, 10%) ;
     }
 
 .relate{
     color: #a2a2a2;
-    max-width: 55%;
+    max-width: 65%;
+    font-size: 20px;
 }
 
 /* Cursor personalizado */
