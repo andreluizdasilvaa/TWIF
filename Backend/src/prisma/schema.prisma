@@ -19,7 +19,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// tabela do prisma para usuarios. ( ele cria automaticamente quando conectado com o DB ).
+
 model User {
   id            Int       @id @default(autoincrement())
   email         String    @unique

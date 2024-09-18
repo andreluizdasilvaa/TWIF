@@ -1,9 +1,7 @@
-// Importa as bibliotecas necessárias
 const express = require('express');
 const { PrismaClient } = require('@prisma/client');
 const path = require('path');
 
-// Cria uma instância do Express e do Prisma Client
 const app = express();
 const prisma = new PrismaClient();
 
@@ -32,6 +30,14 @@ app.get("/suporte", (req, res) => {
   // Envia o arquivo suporte.html quando a rota "/suporte" é acessada
   res.sendFile(
     path.join(__dirname, "..", "..", "Frontend", "html", "suporte.html"));
+});
+
+// Rota para carregar a pagina sobre nós.
+app.get("/sobrenos", (req, res) => {
+    
+  res.sendFile(
+    path.join(__dirname, "..", "..", "Frontend", "html", "sobrenos.html")
+  );
 });
 
 // Rota para Erro 404
