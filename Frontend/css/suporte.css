@@ -18,9 +18,9 @@ input {
     font-family: lexend deca; 
     font-size: 20px; 
     padding: 5px 10px;
-    border-radius: 6px;
+    border-radius: 10px;
     border-style: solid;
-    border-width: 2px;
+    border-width: 0.15em;
     border-color: black;
     margin: 10px 0px;
     width: 400px;
@@ -34,6 +34,7 @@ input {
 }
 
 i {
+    font-size: larger;
     padding-right: 4px;
 }
 
@@ -47,9 +48,9 @@ button {
     color: #7ec543;
     font-family: lexend deca;
     font-weight: 600;
-    font-size: large;
+    font-size: larger;
     border-style: none;
-    border-radius: 5px;
+    border-radius: 6px;
     padding: 16px 18px;
     margin-top: 8px;
     width: 423.2px;

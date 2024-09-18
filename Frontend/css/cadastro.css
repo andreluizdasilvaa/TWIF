@@ -22,19 +22,25 @@ body {
 }
 
 #logo {
-    width: 150px;
+    height: 100px;
+}
+
+ul {
+    padding-inline-start: 0px;
 }
 
 .preenchimento {
     display: flexbox;
-    border-radius: 7px;
+    border-radius: 10px;
     border-color: var(--azul-escuro-A);
     border-style: solid;
-    border-width: 0.19em;
-    width: 250px;
-    height: 24px;
+    border-width: 0.15em;
+    padding: 5px 10px;
+    width: 400px;
+    height: 30px;
     color: var(--azul-escuro-A);
     font-family: lexend deca;
+    font-size: 20px;
 }
 
 .icon {
@@ -44,31 +50,34 @@ body {
 }
 
 #i-user {
-    margin-top: 14px;
+    margin-top: 31px;
 }
 
 #i-email {
-    margin-top: 21px;
+    margin-top: 47px;
 }
 
 #i-cg {
-    margin-top: 20px;
+    margin-top: 45px;
 }
 
 #i-senha {
-    margin-top: 21px;
+    margin-top: 44px;
 }
 
 #botao-cadastrar {
     background-color:var(--azul-escuro-A) ;
     color: var(--verde-padrao);
-    margin-top: 30px;
+    margin-top: 50px;
     border-radius: 7px;
-    height: 35px;
+    height: 60px;
     font-family: lexend deca;
-    font-size: 15px;
-    width: 300px;
+    font-weight: 600;
+    font-size: larger;
+    width: 450px;
     transition: all 0.3s;
+    justify-content: center;
+    align-self: center;
 }
 
 #botao-cadastrar:hover {
@@ -81,6 +90,7 @@ body {
 #p-crie {
     margin-bottom: 10px;
     font-family: lexend deca;
+    font-size: 20px;
     color: #a2a2a2;
 }
 
@@ -100,11 +110,12 @@ body {
 
 #p-login {
     font-family: lexend deca;
+    font-size: 20px;
+    text-align: center;
 }
 
 .item {
-    margin: 9px 2px 2px 2px;
-   
+    margin: 20px 2px 2px 2px;
 }
 
 .the-icons {
