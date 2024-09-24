@@ -15,7 +15,7 @@ Bem-vindo à Rede Social IFSP, uma plataforma exclusiva para alunos matriculados
 - **Banco de Dados**: MySQL
 - **Frontend**: HTML, CSS, JavaScript
 
-## Estrutura do Projeto
+## Estrutura do Projeto ( Ignore por enquanto )
 
 - /backend
 - │   ├── /src
