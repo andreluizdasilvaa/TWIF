@@ -29,7 +29,7 @@ header nav ul li a{
 }
 
 header nav ul li a:hover {
-    color: var(--verde-neutro);
+    color: var(--verde-padrao);
     transition: .3s;
 }
 
@@ -107,6 +107,7 @@ header nav ul li a:hover {
     padding: .5em;
     transition: all 0.3s;
     margin-top: 1.5em;
+    cursor: pointer;
 }
 
 .login button a{

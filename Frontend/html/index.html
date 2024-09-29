@@ -61,21 +61,22 @@
         <div class="sec1_form">
           <form class="login" method="post">
             <label for="email">E-MAIL OU CG</label>
-            <input type="email" placeholder="Email" required maxlength="255" />
+            <input type="text" placeholder="Email" name="emailCG" required maxlength="191" minlength="7"/>
 
             <label for="password">SENHA</label>
             <input
               type="password"
-              placeholder="********"
+              placeholder="*******"
               required
               minlength="8"
-              maxlength="255"
+              maxlength="191"
               id="none_bottom-magim"
+              name="senha"
             />
 
             <a href="" id="esqueceu_senha">Esqueceu a senha?</a>
 
-            <button type="submit"><a href="#">ENTRAR</a></button>
+            <button type="submit">Entrar</button>
           </form>
         </div>
       </div>
