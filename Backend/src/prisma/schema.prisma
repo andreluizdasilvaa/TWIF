@@ -26,5 +26,6 @@ model User {
   senha         String
   matricula     String    @unique 
   nome          String
+  isadmin       Boolean   @default(false)
   createdAt     DateTime  @default(now())
 }

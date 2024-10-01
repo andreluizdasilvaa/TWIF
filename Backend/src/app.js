@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 // importação do middleware para verificar a autenticação do token
-const verifyjwt = require('./middlewares/verifyJwt')
+const { auth_user } = require('./middlewares/auth');
 
 dotenv.config(); // mostra ao dotenv onde está o arq .env no 
 const app = express();
@@ -48,7 +48,7 @@ app.get("/sobrenos", (req, res) => {
 });
 
 // teste de rota privada a users logados ( só sera possivel entrar nela se o token estiver valido e presente )
-app.get('/testetoken', verifyjwt, (req, res) => {
+app.get('/testetoken', auth_user, (req, res) => {
     console.log('Rota acessada!');
     res.status(200).json({ msg: "Rota acessada com sucesso!" });
 });

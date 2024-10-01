@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-function verifyjwt(req, res, next) {
+function auth_user (req, res, next) {
     console.log('teste-token');
     const token = req.cookies['your-session'];
 
@@ -20,4 +20,6 @@ function verifyjwt(req, res, next) {
     });
 }
 
-module.exports = verifyjwt;
+
+
+module.exports = { auth_user,  }
