@@ -16,16 +16,22 @@ li {
 
 header {
     width: 100%;
-    height: 50px;
+    height: 80px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0px 30px;
+    padding: 0px 30px 0px;
+}
+
+#logo_header {
+    max-width: 100px;
+    max-height: 100px;
 }
 
 .main {
     max-width: 900px;
     margin: 0 auto;
+    padding: 0 24px;
 }
 
 div.newPost {
@@ -151,6 +157,12 @@ ul.posts li.post div.infoUserPost div.nameAndHour >p{
 ul.posts li.post div.infoUserPost div.nameAndHour{
     margin-left: 10px;
 }
+ul.posts li.post > p{
+    width: 100%;
+    margin: 20px 0px;
+    font-size: 14px;
+    overflow-wrap: break-word;
+}
 
 ul.posts li.post >p{
     width: 100%;
@@ -175,4 +187,5 @@ button.filesPost{
     border: none;
     background-color: transparent;
     font-size: large;
+    cursor: pointer;
 }
