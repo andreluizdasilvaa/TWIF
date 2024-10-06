@@ -1,8 +1,8 @@
-@media screen and (max-width: 1280px){
+@media screen and (max-width: 1280px) {
     :root {
         /* Font size */
         --heading-GG: 61.6px;
-        --heading-G:50px;
+        --heading-G: 50px;
         --heading-M: 18px;
     }
 
@@ -16,12 +16,11 @@
 }
 
 @media screen and (max-width: 800px) {
-
     .container_sec1 {
         justify-content: center;
     }
 
-    .container_sec2 div{
+    .container_sec2 div {
         flex-wrap: wrap;
         text-align: center;
     }

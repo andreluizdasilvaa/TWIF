@@ -1,72 +1,73 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastrar-se</title>
-    <link rel="shortcut icon" href="../assets/img/favicon.svg" type="image/x-icon">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/cadastro.css">
-</head>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Cadastrar-se</title>
+        <link rel="shortcut icon" href="../assets/img/favicon.svg" type="image/x-icon" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="../css/cadastro.css" />
+    </head>
 
-<body>
+    <body>
+        <div class="cadastro">
+            <img src="../assets/img/logo-dark.svg" alt="logo" id="logo" />
+            <p id="p-crie">Crie sua conta.</p>
 
-<div class="cadastro">
+            <form action="" method="post">
+                <ul class="preencher">
+                    <div class="cont">
+                        <div class="the-icons">
+                            <label for="nome" class="icon" id="i-user"><i class="fa-solid fa-user" style="color: #011214"></i></label>
 
-    <img src="../assets/img/logo-dark.svg" alt="logo" id="logo">
-    <p id="p-crie">Crie sua conta.</p>
+                            <label for="email" class="icon" id="i-email"><i class="fa-solid fa-envelope" style="color: #011214"></i></label>
 
-    <form action="" method="post">
+                            <label for="cg" class="icon" id="i-cg"><i class="fa-solid fa-face-smile" style="color: #011214"></i></label>
 
-    
-        <ul class="preencher">
-        
-            <div class="cont">
+                            <label for="senha" class="icon" id="i-senha"><i class="fa-solid fa-lock" style="color: #011214"></i></label>
+                        </div>
 
-                <div class="the-icons">
+                        <div class="the-items">
+                            <div class="item">
+                                <input type="text" name="nome" id="nome" class="preenchimento" placeholder="Nome" required maxlength="255" />
+                            </div>
 
-                    <label for="nome" class="icon" id="i-user"><i class="fa-solid fa-user" style="color: #011214"></i></label>
+                            <div class="item">
+                                <input type="email" name="email" id="email" class="preenchimento" placeholder="E-mail" required maxlength="255" />
+                            </div>
 
-                    <label for="email" class="icon" id="i-email"><i class="fa-solid fa-envelope" style="color: #011214"></i></label>
+                            <div class="item">
+                                <input type="text" name="matricula" id="cg" class="preenchimento" placeholder="Cg" required maxlength="9" />
+                            </div>
 
-                    <label for="cg" class="icon" id="i-cg"><i class="fa-solid fa-face-smile" style="color: #011214"></i></label>
+                            <div class="item">
+                                <input type="password" name="senha" id="senha" class="preenchimento" placeholder="Senha" required minlength="8" maxlength="255" />
+                            </div>
+                        </div>
+                    </div>
 
-                    <label for="senha" class="icon" id="i-senha"><i class="fa-solid fa-lock" style="color: #011214"></i></label>
+                    <input type="submit" value="CADASTRAR" id="botao-cadastrar" class="botao-cadastrar" />
+                    
+                    <p id="p-login">Já faz parte da turma? Faça seu <a href="/" id="a-login">Login</a>.</p>
+                </ul>
+                <script src="../js/register-pop-up.js"></script>
+                <!-- Adicionado para teste -->
+                <section>
+                    <div class="user_photo">
+                        <h3>Escolha uma foto de perfil!</h3>
+                        <img src="../assets/profile-pictures/profile1.jpg" alt="Foto_user-profilePics" class="profile-pic">
+                        <img src="../assets/profile-pictures/profile2.jpg" alt="Foto_user-profilePics" class="profile-pic">
+                        <img src="../assets/profile-pictures/profile3.jpg" alt="Foto_user-profilePics" class="profile-pic">
+                        <img src="../assets/profile-pictures/profile4.jpg" alt="Foto_user-profilePics" class="profile-pic">
+                    </div>
+                    <input type="hidden" id="selectedProfilePicture" name="profilePicture" value="defaultphoto.jpg" required> <!-- Definido o valor default do input. -->
+                </section>
 
-                </div>
+            </form>
+        </div>
 
-            <div class="the-items">
-
-                <div class="item">
-                    <input type="text" name="nome" id="nome" class="preenchimento" placeholder="Nome" required maxlength="255">
-                </div>
-
-                <div class="item">
-                    <input type="email" name="email" id="email" class="preenchimento" placeholder="E-mail" required maxlength="255">
-                </div>
-
-                <div class="item">
-                    <input type="text" name="matricula" id="cg" class="preenchimento" placeholder="Cg" required maxlength="9">
-                </div>
-
-                <div class="item">
-                    <input type="password" name="senha" id="senha" class="preenchimento" placeholder="Senha" required minlength="8" maxlength="255">
-                </div>
-            </div>
-
-            </div>
-    
-                <input type="submit" value="CADASTRAR" id="botao-cadastrar" class="botao-cadastrar">
-
-                <p id="p-login">Já faz parte da turma? Faça seu <a href="/" id="a-login">Login</a>.</p>
-                
-        </ul>
-    </form>
-</div>
-
-
-    <script src="https://kit.fontawesome.com/0f8de72cee.js" crossorigin="anonymous"></script> 
-</body>
+        <script src="https://kit.fontawesome.com/0f8de72cee.js" crossorigin="anonymous"></script>
+    </body>
 </html>

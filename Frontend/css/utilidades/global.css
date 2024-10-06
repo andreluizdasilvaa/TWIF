@@ -53,7 +53,8 @@ h6 {
     isolation: isolate;
 }
 
-ul,li{
+ul,
+li {
     list-style: none;
 }
 
@@ -62,16 +63,15 @@ html {
     cursor: url(http://www.rw-designer.com/cursor-extern.php?id=10190), auto;
 }
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
     width: 8px;
 }
 
-::-webkit-scrollbar-thumb{
+::-webkit-scrollbar-thumb {
     background-color: var(--verde-neutro);
     border-radius: 10px;
 }
 
-::-webkit-scrollbar-track{
+::-webkit-scrollbar-track {
     background-color: var(--azul-escuro-A);
 }
-

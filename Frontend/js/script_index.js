@@ -65,7 +65,6 @@ function checkUrlAndAlert() {
             break;
 
         default:
-            // Opcional: adicionar um caso padrão se necessário
             break;
     }
 }

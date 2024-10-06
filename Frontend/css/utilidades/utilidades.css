@@ -10,7 +10,7 @@
 .Button-padrão-Az-escuro:hover {
     color: var(--azul-escuro-A);
     background-color: var(--verde-padrao);
-    transition: .3s;
+    transition: 0.3s;
 }
 
 .bold {

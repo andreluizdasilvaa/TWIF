@@ -24,13 +24,13 @@ header nav ul {
     gap: 34px;
 }
 
-header nav ul li a{
+header nav ul li a {
     color: black;
 }
 
 header nav ul li a:hover {
     color: var(--verde-padrao);
-    transition: .3s;
+    transition: 0.3s;
 }
 
 /* sec1 */
@@ -59,11 +59,11 @@ header nav ul li a:hover {
 
 .sec1_text h1 span {
     color: var(--azul-escuro-A);
-    transition: .8s;
+    transition: 0.8s;
 }
 
 /* SEC 1 - LOGIN*/
-.login{
+.login {
     display: grid;
     background-color: var(--azul-escuro-A);
     padding: 100px 70px;
@@ -73,22 +73,22 @@ header nav ul li a:hover {
 /* Esqueceu a senha */
 #esqueceu_senha {
     color: var(--verde-padrao);
-    font-size: .7em;
+    font-size: 0.7em;
     text-align: end;
 }
 
-.login label{
+.login label {
     font-weight: 400;
-    font-size: .7em;
+    font-size: 0.7em;
     color: white;
 }
 
-.login input{
+.login input {
     border-radius: 5px;
     border: none;
     width: 360px;
     margin-bottom: 30px;
-    font-size: .5em;
+    font-size: 0.5em;
     padding: 1em;
 }
 
@@ -96,28 +96,29 @@ header nav ul li a:hover {
     margin: 0;
 }
 
-.login input:hover, input:focus{
+.login input:hover,
+input:focus {
     outline: none;
 }
 
-.login button{
+.login button {
     background-color: var(--verde-padrao);
     border: none;
     border-radius: 5px;
-    padding: .5em;
+    padding: 0.5em;
     transition: all 0.3s;
     margin-top: 1.5em;
     cursor: pointer;
 }
 
-.login button a{
+.login button a {
     font-weight: bold;
 
     text-decoration: none;
     color: #011214;
 }
 
-.login button:hover{
+.login button:hover {
     transform: scale(1.02);
 }
 
@@ -168,20 +169,20 @@ header nav ul li a:hover {
 }
 
 /* SECTION 3 - ACCORDION*/
- .sanfona {
+.sanfona {
     display: flex;
     flex-direction: column;
     gap: 8px;
     width: 500px;
- }
+}
 
- .accordion {
+.accordion {
     border-radius: 8px;
     padding: 12px;
     cursor: pointer;
- }
+}
 
- .accordion-header{
+.accordion-header {
     width: 100%;
     font-family: Lexend Deca;
     color: #011214;
@@ -191,26 +192,26 @@ header nav ul li a:hover {
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
- }
+}
 
-.accordion-header span{
+.accordion-header span {
     max-width: 100%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.accordion-body{
+.accordion-body {
     color: #444;
     padding: 2px 0px;
     opacity: 0;
     height: 0;
     overflow: hidden;
-    transition: opacity .3s;
-    font-size: .8em;
+    transition: opacity 0.3s;
+    font-size: 0.8em;
 }
 
-.accordion-body.active{
+.accordion-body.active {
     height: 100%;
     opacity: 1;
 }
@@ -236,21 +237,20 @@ footer {
     gap: 2em;
 }
 
-
 .flex_links div ul li a {
     color: white;
-    font-size: .8em;
+    font-size: 0.8em;
     font-weight: 300;
 }
 
 .flex_links div ul li a:hover {
     color: var(--verde-neutro);
-    transition: .2s;
+    transition: 0.2s;
 }
 
 .container_footer hr {
     border: 0;
-    border-top: 2px solid #032F37;
+    border-top: 2px solid #032f37;
     width: 90vw;
     margin: 12px;
 }

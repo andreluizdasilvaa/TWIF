@@ -1,0 +1,198 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #ffff;
+    font-family: 'Lexend Deca';
+    -webkit-font-smoothing: antialisd !important;
+}
+
+li {
+    list-style: none;
+}
+
+header {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 30px 0px;
+}
+
+#User_profile {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid black;
+}
+
+#logo_header {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+div.newPost {
+    width: 100%;
+    height: 250px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 50px 0;
+    padding: 25px;
+
+    background-color: transparent;
+    border: 3px #011214 solid;
+    border-radius: 30px;
+}
+
+div.newPost div.infoUser {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div.newPost div.infoUser div.imgUser img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+div.newPost div.infoUser strong {
+    font-size: 16px;
+    margin-left: 10px;
+    color: #011214;
+    font-weight: 700;
+}
+
+div.newPost form.formPost {
+    background-color: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+div.newPost form.formPost textarea {
+    height: 90px;
+    margin: 15px;
+    resize: none;
+    outline: none;
+    border: none;
+    color: #868686;
+}
+
+form.formPost textarea {
+    width: 100%;
+    font-family: 'Lexend Deca';
+    font-size: 14px;
+}
+
+div.newPost form.formPost div.iconsAndButton {
+    display: flex;
+    justify-content: flex-end;
+}
+
+div.newPost form.formPost div.iconsAndButton div.icons button {
+    outline: none;
+    margin-right: 15px;
+    border: 0;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+div.newPost form.formPost div.iconsAndButton button.btnSubmitForm {
+    background-color: #7ec543;
+    color: #011214;
+    font-weight: bold;
+    font-family: Lexend Deca;
+    text-transform: uppercase;
+    font-size: 14px;
+
+    padding: 8px 60px;
+    border-style: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+div.newPost form.formPost div.iconsAndButton button.btnSubmitForm:hover {
+    background: #011214;
+    color: #7ec543;
+}
+
+ul.posts li.post {
+    margin-bottom: 50px;
+    width: 100%;
+    background-color: white;
+    border-radius: 30px;
+    padding: 25px;
+    box-shadow: 1px 0 3px #0000004d;
+    transition: 0.2s;
+}
+
+ul.posts li.post:hover {
+    background-color: #f9f9f9;
+}
+
+ul.posts li.post div.infoUserPost div.imgUserPost img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+ul.posts li.post div.infoUserPost {
+    display: flex;
+    align-items: center;
+}
+
+ul.posts li.post div.infoUserPost div.nameAndHour > strong {
+    color: #032f37;
+}
+
+ul.posts li.post div.infoUserPost div.nameAndHour > p {
+    color: #d1d1d1;
+    font-size: 12px;
+}
+
+ul.posts li.post div.infoUserPost div.nameAndHour {
+    margin-left: 10px;
+}
+ul.posts li.post > p {
+    width: 100%;
+    margin: 20px 0px;
+    font-size: 14px;
+    overflow-wrap: break-word;
+}
+
+ul.posts li.post > p {
+    width: 100%;
+    margin: 20px 0px;
+    font-size: 14px;
+}
+
+ul.posts li.post div.actionBtnPost {
+    display: flex;
+    align-items: center;
+}
+
+div.actionBtnPost {
+    display: flex;
+    justify-content: flex-end;
+    gap: 30px;
+}
+
+button.filesPost {
+    border: none;
+    background-color: transparent;
+    font-size: large;
+    cursor: pointer;
+}

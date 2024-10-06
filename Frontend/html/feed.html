@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Twif</title>
+        <link rel="shortcut icon" href="assets/img/favicon.svg" type="image/x-icon" />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap" rel="stylesheet" />
+
+        <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+        <link rel="stylesheet" href="../css/feed.css" />
+    </head>
+
+    <body>
+        <header>
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#011214" viewBox="0 0 256 256">
+                <path
+                    d="M228,128a12,12,0,0,1-12,12H40a12,12,0,0,1,0-24H216A12,12,0,0,1,228,128ZM40,76H216a12,12,0,0,0,0-24H40a12,12,0,0,0,0,24ZM216,180H40a12,12,0,0,0,0,24H216a12,12,0,0,0,0-24Z">
+                </path>
+            </svg>
+
+            <a href="/feed"><img id="logo_header" src="../assets/img/logo-dark.svg" alt="Logo Twif" /></a>
+
+            <a href=""><img id="User_profile" src="" alt=""></a>
+        </header>
+
+        <main class="main">
+            <!-- Formulário de postagem -->
+            <div class="newPost">
+                <div class="infoUser">
+                    <div class="imgUser">
+                        <img src="../assets/profile-pictures/defaultphoto.jpg" alt="">
+                    </div>
+                    <strong id="name_user">Name user</strong>
+                </div>
+
+                <form method="post" class="formPost" id="formPost">
+                    <textarea name="content" placeholder="O que há de novo?..." id="textarea" maxlength="120"></textarea>
+
+                    <div class="iconsAndButton">
+                        <button type="submit" id="botao" class="btnSubmitForm">Publicar</button>
+                    </div>
+                </form>
+            </div>
+
+            <ul class="posts" id="posts">
+                <li class="post">
+                    <div class="infoUserPost">
+                        <div class="imgUserPost">
+                            <img src="../assets/profile-pictures/defaultphoto.jpg" alt="">
+                        </div><!-- IGNORAR POR ENQUANTO -->
+
+                        <div class="nameAndHour">
+                            <strong>Name user (Post)</strong> <!--  NOME DO USER -->
+                            <p>hours</p> <!--  HORA QUE FOI CRIADO -->
+                        </div>
+                    </div>
+
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, fugiat!</p><!-- CONTENT(CONTEUDO) DO POST -->
+
+                    <div class="actionBtnPost"><!-- ignorar por enquanto -->
+                        <button type="button" class="filesPost like"><i class="ph-bold ph-heart"></i></button>
+
+                        <button type="button" class="filesPost comment"><i class="ph-bold ph-chat-circle"></i></button>
+                    </div>
+                </li>
+            </ul>
+        </main>
+        <script type="module" src="../js/FormPost.js"></script>
+    </body>
+</html>

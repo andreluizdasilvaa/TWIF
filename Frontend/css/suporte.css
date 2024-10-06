@@ -15,8 +15,8 @@ body {
 }
 
 input {
-    font-family: lexend deca; 
-    font-size: 20px; 
+    font-family: lexend deca;
+    font-size: 20px;
     padding: 5px 10px;
     border-radius: 10px;
     border-style: solid;
@@ -37,7 +37,6 @@ i {
     font-size: larger;
     padding-right: 4px;
 }
-
 
 #input-texto {
     padding-bottom: 140px;
@@ -65,13 +64,13 @@ button:hover {
     cursor: pointer;
 }
 
-.sec{
-        position: relative;
-        top: 25%;
-        transform: translate(0%, 10%) ;
-    }
+.sec {
+    position: relative;
+    top: 25%;
+    transform: translate(0%, 10%);
+}
 
-.relate{
+.relate {
     color: #a2a2a2;
     max-width: 65%;
     font-size: 20px;
