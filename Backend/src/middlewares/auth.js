@@ -1,5 +1,6 @@
 const { PrismaClient } = require('@prisma/client');
 const jwt = require('jsonwebtoken');
+var cookieParser = require('cookie-parser');
 
 const prisma = new PrismaClient();
 
@@ -34,7 +35,8 @@ async function auth_user(req, res, next) {
 
             if (!user) {
                 // Usuário não encontrado, token inválido
-                return res.redirect('/?error=4');
+                // 'clearCookie' limpa o cookie your-session, de todas as rotas '/', e retorna o '/?erro=4'.
+                return res.clearCookie('your-session', { path: '/' }).redirect('/?error=4');
             }
 
             req.user = decoded;

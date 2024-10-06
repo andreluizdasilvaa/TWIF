@@ -150,8 +150,10 @@ ul.posts li.post div.infoUserPost div.imgUserPost img {
 }
 
 ul.posts li.post div.infoUserPost {
+    width: fit-content;
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 ul.posts li.post div.infoUserPost div.nameAndHour > strong {
@@ -187,7 +189,12 @@ ul.posts li.post div.actionBtnPost {
 div.actionBtnPost {
     display: flex;
     justify-content: flex-end;
-    gap: 30px;
+    gap: 24px;
+}
+div.content_metric {
+    display: flex;
+    gap: 2px;
+    cursor: pointer;
 }
 
 button.filesPost {

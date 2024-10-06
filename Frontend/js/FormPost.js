@@ -62,7 +62,7 @@ addEventListener('DOMContentLoaded', () => {
                     postElement.innerHTML = `
                         <div class="infoUserPost">
                             <div class="imgUserPost">
-                                <img src="/assets/profile-pictures/${post.user.profilePicture}" alt="">
+                                <img src="../assets/profile-pictures/${post.user.profilePicture}" alt="">
                             </div>
 
                             <div class="nameAndHour">
@@ -73,10 +73,17 @@ addEventListener('DOMContentLoaded', () => {
 
                         <p>${post.content}</p>
                         
-                        <div class="actionBtnPost">
+                    <div class="actionBtnPost"><!-- ignorar por enquanto -->
+                        <div class="content_metric">
+                            <p id="number_like">0</p>
                             <button type="button" class="filesPost like"><i class="ph-bold ph-heart"></i></button>
+                        </div>
+                        
+                        <div class="content_metric">
+                            <p id="number_coments">0</p>
                             <button type="button" class="filesPost comment"><i class="ph-bold ph-chat-circle"></i></button>
                         </div>
+                    </div>
                     `;
                     postsList.appendChild(postElement);
                 });

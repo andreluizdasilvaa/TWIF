@@ -49,23 +49,29 @@
 
             <ul class="posts" id="posts">
                 <li class="post">
-                    <div class="infoUserPost">
-                        <div class="imgUserPost">
-                            <img src="../assets/profile-pictures/defaultphoto.jpg" alt="">
-                        </div><!-- IGNORAR POR ENQUANTO -->
-
-                        <div class="nameAndHour">
-                            <strong>Name user (Post)</strong> <!--  NOME DO USER -->
-                            <p>hours</p> <!--  HORA QUE FOI CRIADO -->
+                        <div class="infoUserPost">
+                            <div class="imgUserPost">
+                                <img src="../assets/profile-pictures/defaultphoto.jpg" alt="">
+                            </div><!-- IGNORAR POR ENQUANTO -->
+                        
+                            <div class="nameAndHour">
+                                <strong>Name user (Post)</strong> <!--  NOME DO USER -->
+                                <p>hours</p> <!--  HORA QUE FOI CRIADO -->
+                            </div>
                         </div>
-                    </div>
 
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, fugiat!</p><!-- CONTENT(CONTEUDO) DO POST -->
 
                     <div class="actionBtnPost"><!-- ignorar por enquanto -->
-                        <button type="button" class="filesPost like"><i class="ph-bold ph-heart"></i></button>
-
-                        <button type="button" class="filesPost comment"><i class="ph-bold ph-chat-circle"></i></button>
+                        <div class="content_metric">
+                            <p id="number_like">0</p>
+                            <button type="button" class="filesPost like"><i class="ph-bold ph-heart"></i></button>
+                        </div>
+                        
+                        <div class="content_metric">
+                            <p id="number_coments">0</p>
+                            <button type="button" class="filesPost comment"><i class="ph-bold ph-chat-circle"></i></button>
+                        </div>
                     </div>
                 </li>
             </ul>
