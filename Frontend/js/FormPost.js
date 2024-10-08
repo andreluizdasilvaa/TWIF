@@ -46,7 +46,7 @@ addEventListener('DOMContentLoaded', () => {
         nome.textContent = data.nome;
         imgUser.src = `../assets/profile-pictures/${data.profilePicture}`;
         user_profile.src = `../assets/profile-pictures/${data.profilePicture}`;
-    })
+    });
 
     // lista todos os posts
     fetch('/feed/posts')

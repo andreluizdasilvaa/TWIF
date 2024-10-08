@@ -46,10 +46,10 @@ avatarButtons.forEach(function(button) {
 document.getElementById('botao-cadastrar').addEventListener('click', function () {
     var nome = document.getElementById('nome').value;
     var email = document.getElementById('email').value;
-    var matricula = document.getElementById('cg').value;
+    var usernick = document.getElementById('user').value;
     var senha = document.getElementById('senha').value;
 
-    if (!nome || !email || !matricula || !senha) {
+    if (!nome || !email || !usernick || !senha) {
         alert('Por favor, preencha todos os campos obrigatórios antes de prosseguir.');
     } else {
         document.getElementById('avatarModal').style.display = 'block';

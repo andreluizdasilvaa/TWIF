@@ -122,24 +122,24 @@ app.get('*', (req, res) => {
 
 // Rota para processar o cadastro de um novo usuário
 app.post('/register', async (req, res) => {
-    const { email, senha, matricula, nome, profilePicture } = req.body; // Extrai dados do corpo da requisição
+    const { email, senha, usernick, nome, profilePicture } = req.body; // Extrai dados do corpo da requisição
 
     // VALIDAÇÃO
 
     try {
         // Verifica se um usuário com o mesmo e-mail já existe
-        const existingUser = await prisma.user.findUnique({
+        const existingMail = await prisma.user.findUnique({
             where: { email },
         });
 
-        // Verifica se um usuário com o mesmo número de matrícula já existe
-        const existingMatricula = await prisma.user.findUnique({
-            where: { matricula },
-        });
+        // Verifica se o @user já existe no banco de dados
+        const existingUser = await prisma.user.findUnique({
+            where: { usernick }
+        })
 
         // Se o e-mail ou matrícula já estiverem cadastrados, retorna um erro
-        if (existingUser || existingMatricula) {
-            return res.status(400).json({ msg: 'Email ou número de matrícula já cadastrados!' });
+        if (existingMail || existingUser) {
+            return res.status(400).json({ msg: 'Email ou @user já cadastrados!' });
         }
 
         // Criptografando a senha com proteção 8
@@ -150,7 +150,7 @@ app.post('/register', async (req, res) => {
             data: {
                 nome,
                 email,
-                matricula,
+                usernick,
                 senha: senhaHash,
                 profilePicture
             },
@@ -170,24 +170,15 @@ app.post('/register', async (req, res) => {
 
 // Rota para processar o login
 app.post('/', async (req, res) => {
-    const { emailCG, senha } = req.body;
+    const { email, senha } = req.body;
     try {
         let user;
 
-        // Verifica que é senha ou email fornecido
-        if (emailCG.length === 7 && !isNaN(emailCG)) {
-            user = await prisma.user.findUnique({
-                where: {
-                    matricula: emailCG,
-                },
-            });
-        } else {
-            user = await prisma.user.findUnique({
-                where: {
-                    email: emailCG,
-                },
-            });
-        }
+        user = await prisma.user.findUnique({
+            where: {
+                email: email
+            }
+        })
 
         // verifica se o usuario existe
         if (!user) {

@@ -23,7 +23,7 @@ model User {
   id            Int       @id @default(autoincrement())
   email         String    @unique
   senha         String
-  matricula     String    @unique 
+  usernick      String    @unique 
   nome          String
   isadmin       Boolean   @default(false)
   profilePicture String   @default("defaultphoto.jpg")
