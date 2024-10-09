@@ -165,7 +165,15 @@ ul.posts li.post div.infoUserPost div.nameAndHour > p {
     font-size: 12px;
 }
 
+#userNick {
+    color: #b1b1b1;
+    font-size: 14px;
+}
+
 ul.posts li.post div.infoUserPost div.nameAndHour {
+    display: flex;
+    gap: 10px;
+    align-items: center;
     margin-left: 10px;
 }
 ul.posts li.post > p {

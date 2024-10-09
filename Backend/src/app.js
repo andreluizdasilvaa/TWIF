@@ -61,8 +61,9 @@ app.get('/feed/posts', auth_user, async (req, res) => {
                 user: {
                     select: { 
                         nome: true,
-                        profilePicture: true
-                    }
+                        profilePicture: true,
+                        usernick: true,
+                    },
                 },
                 comments: true, // traz os comentários
                 likes: true,    // traz as curtidas

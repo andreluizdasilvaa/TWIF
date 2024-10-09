@@ -66,7 +66,7 @@ addEventListener('DOMContentLoaded', () => {
                             </div>
 
                             <div class="nameAndHour">
-                                <strong>${post.user.nome}</strong>
+                                <strong>${post.user.nome} <span id="userNick">@${post.user.usernick}</span></strong>
                                 <p>${new Date(post.createdAt).toLocaleTimeString()}</p>
                             </div>
                         </div>
@@ -75,21 +75,36 @@ addEventListener('DOMContentLoaded', () => {
                         
                     <div class="actionBtnPost"><!-- ignorar por enquanto -->
                         <div class="content_metric">
-                            <p id="number_like">0</p>
+                            <p id="number_like">${post.likes.length}</p>
                             <button type="button" class="filesPost like"><i class="ph-bold ph-heart"></i></button>
                         </div>
                         
                         <div class="content_metric">
-                            <p id="number_coments">0</p>
+                            <p id="number_coments">${post.comments.length}</p>
                             <button type="button" class="filesPost comment"><i class="ph-bold ph-chat-circle"></i></button>
                         </div>
                     </div>
                     `;
                     postsList.appendChild(postElement);
+
+                    // Curtir Visualmente --! Não acabado ( Não Pronto )
+                    const btn_likes = document.querySelectorAll('.like');
+                    btn_likes.forEach(btn_like => {
+                        const number_likes = document.getElementById('number_like').value;
+                        btn_like.addEventListener("click", () => {
+                            
+                            number_likes.innerText = parseInt(number_likes) + 1;
+                        })
+                    })
+
                 });
+
+
             })
             .catch(err => console.error('Erro ao carregar posts:', err));
 
+
+            
 
     // se algum problema de usuario acontecer..
     function checkUrlAndAlertFeed() {
