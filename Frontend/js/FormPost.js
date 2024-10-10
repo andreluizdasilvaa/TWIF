@@ -50,61 +50,71 @@ addEventListener('DOMContentLoaded', () => {
 
     // lista todos os posts
     fetch('/feed/posts')
-            .then(response => response.json())
-            .then(posts => {
-                const postsList = document.getElementById('posts');
-                postsList.innerHTML = '';
+        .then((response) => response.json())
+        .then((posts) => {
+            const postsList = document.getElementById('posts');
+            postsList.innerHTML = '';
 
-                posts.forEach(post => {
-                    const postElement = document.createElement('li');
-                    postElement.classList.add('post');
+            posts.forEach((post) => {
+                const postElement = document.createElement('li');
+                postElement.classList.add('post');
 
-                    postElement.innerHTML = `
-                        <div class="infoUserPost">
-                            <div class="imgUserPost">
-                                <img src="../assets/profile-pictures/${post.user.profilePicture}" alt="">
-                            </div>
-
-                            <div class="nameAndHour">
-                                <strong>${post.user.nome} <span id="userNick">@${post.user.usernick}</span></strong>
-                                <p>${new Date(post.createdAt).toLocaleTimeString()}</p>
-                            </div>
+                postElement.innerHTML = `
+                    <div class="infoUserPost">
+                        <div class="imgUserPost">
+                            <img src="../assets/profile-pictures/${post.user.profilePicture}" alt="">
                         </div>
-
-                        <p>${post.content}</p>
-                        
-                    <div class="actionBtnPost"><!-- ignorar por enquanto -->
-                        <div class="content_metric">
-                            <p id="number_like">${post.likes.length}</p>
-                            <button type="button" class="filesPost like"><i class="ph-bold ph-heart"></i></button>
+                        <div class="nameAndHour">
+                            <strong>${post.user.nome} <span id="userNick">@${post.user.usernick}</span></strong>
+                            <p>${new Date(post.createdAt).toLocaleTimeString()}</p>
                         </div>
-                        
+                    </div>
+                    <p>${post.content}</p>
+                    <div class="actionBtnPost">
                         <div class="content_metric">
-                            <p id="number_coments">${post.comments.length}</p>
+                            <p class="number_like">${post.likes.length}</p>
+                            <button type="button" class="filesPost like" data-post-id="${post.id}">
+                                <i class="ph-bold ph-heart"></i>
+                            </button>
+                        </div>
+                        <div class="content_metric">
+                            <p class="number_coments">${post.comments.length}</p>
                             <button type="button" class="filesPost comment"><i class="ph-bold ph-chat-circle"></i></button>
                         </div>
                     </div>
-                    `;
-                    postsList.appendChild(postElement);
+                `;
+                postsList.appendChild(postElement);
 
-                    // Curtir Visualmente --! Não acabado ( Não Pronto )
-                    const btn_likes = document.querySelectorAll('.like');
-                    btn_likes.forEach(btn_like => {
-                        const number_likes = document.getElementById('number_like').value;
-                        btn_like.addEventListener("click", () => {
-                            
-                            number_likes.innerText = parseInt(number_likes) + 1;
-                        })
+                // Adiciona evento de clique no botão de curtir
+                const likeButton = postElement.querySelector('.like');
+                const likeCountElement = postElement.querySelector('.number_like');
+
+                likeButton.addEventListener('click', () => {
+                    const postId = likeButton.getAttribute('data-post-id');
+
+                    fetch(`/posts/${postId}/like`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
                     })
-
+                        .then((response) => response.json())
+                        .then((data) => {
+                            if (data.message === 'Post curtido') {
+                                // Incrementa o número de curtidas
+                                likeCountElement.textContent = parseInt(likeCountElement.textContent) + 1;
+                                likeButton.style.color = 'red'
+                            } else if (data.message === 'Curtida removida') {
+                                // Decrementa o número de curtidas
+                                likeCountElement.textContent = parseInt(likeCountElement.textContent) - 1;
+                                likeButton.style.color = 'black';
+                            }
+                        })
+                        .catch((error) => console.error('Erro ao curtir/descurtir:', error));
                 });
-
-
-            })
-            .catch(err => console.error('Erro ao carregar posts:', err));
-
-
-            
+            });
+        })
+        .catch((err) => console.error('Erro ao carregar posts:', err));
 
     // se algum problema de usuario acontecer..
     function checkUrlAndAlertFeed() {

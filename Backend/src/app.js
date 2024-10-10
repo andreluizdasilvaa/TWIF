@@ -233,6 +233,46 @@ app.post('/feed', auth_user, async (req, res) => {
     };
 });
 
+// Rota para curtir/descurtir um post
+app.post('/posts/:postId/like', auth_user, async (req, res) => {
+    const { postId } = req.params;
+    const userId = req.user.id; // Assumindo que o middleware auth_user adiciona o userId no contexto
+
+    try {
+        // Verifica se o usuário já curtiu a postagem
+        const existingLike = await prisma.like.findUnique({
+            where: {
+                userId_postId: {
+                    userId: userId,
+                    postId: parseInt(postId),
+                },
+            },
+        });
+
+        if (existingLike) {
+            // Se já curtiu, remove a curtida (descurtir)
+            await prisma.like.delete({
+                where: {
+                    id: existingLike.id,
+                },
+            });
+            return res.json({ message: 'Curtida removida' });
+        } else {
+            // Caso contrário, adiciona uma nova curtida
+            await prisma.like.create({
+                data: {
+                    userId: userId,
+                    postId: parseInt(postId),
+                },
+            });
+            return res.json({ message: 'Post curtido' });
+        }
+    } catch (error) {
+        console.error('Erro ao curtir/descurtir post:', error);
+        res.status(500).json({ message: 'Erro interno ao curtir/descurtir post' });
+    }
+});
+
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta http://localhost:${PORT}`);
