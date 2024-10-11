@@ -211,3 +211,7 @@ button.filesPost {
     font-size: large;
     cursor: pointer;
 }
+
+.ph-fill.ph-heart:before {
+    color: #7ec543;
+}

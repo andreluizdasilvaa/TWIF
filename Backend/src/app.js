@@ -123,7 +123,7 @@ app.get('*', (req, res) => {
 
 // Rota para processar o cadastro de um novo usuário
 app.post('/register', async (req, res) => {
-    const { email, senha, usernick, nome, profilePicture } = req.body; // Extrai dados do corpo da requisição
+    const { email, senha, usernick, nome, profilePicture } = req.body;
 
     // VALIDAÇÃO
 
@@ -236,7 +236,7 @@ app.post('/feed', auth_user, async (req, res) => {
 // Rota para curtir/descurtir um post
 app.post('/posts/:postId/like', auth_user, async (req, res) => {
     const { postId } = req.params;
-    const userId = req.user.id; // Assumindo que o middleware auth_user adiciona o userId no contexto
+    const userId = req.user.id; 
 
     try {
         // Verifica se o usuário já curtiu a postagem

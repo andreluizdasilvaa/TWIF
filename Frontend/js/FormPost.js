@@ -74,7 +74,10 @@ addEventListener('DOMContentLoaded', () => {
                         <div class="content_metric">
                             <p class="number_like">${post.likes.length}</p>
                             <button type="button" class="filesPost like" data-post-id="${post.id}">
-                                <i class="ph-bold ph-heart"></i>
+                                <!-- Icon Não curtido -->
+                                <i class="ph-bold ph-heart likeFalse"></i>
+                                <!-- Icon curtido -->
+                                <i style="display: none;" class="ph-fill ph-heart likeTrue"></i>
                             </button>
                         </div>
                         <div class="content_metric">
@@ -88,6 +91,10 @@ addEventListener('DOMContentLoaded', () => {
                 // Adiciona evento de clique no botão de curtir
                 const likeButton = postElement.querySelector('.like');
                 const likeCountElement = postElement.querySelector('.number_like');
+
+                // Icons de coração para se alterarem
+                const likeTrue = likeButton.querySelector('.ph-fill.ph-heart.likeTrue');
+                const likeFalse = likeButton.querySelector('.ph-bold.ph-heart.likeFalse');
 
                 likeButton.addEventListener('click', () => {
                     const postId = likeButton.getAttribute('data-post-id');
@@ -103,11 +110,13 @@ addEventListener('DOMContentLoaded', () => {
                             if (data.message === 'Post curtido') {
                                 // Incrementa o número de curtidas
                                 likeCountElement.textContent = parseInt(likeCountElement.textContent) + 1;
-                                likeButton.style.color = 'red'
+                                likeFalse.style.display = 'none'
+                                likeTrue.style.display = 'block'
                             } else if (data.message === 'Curtida removida') {
                                 // Decrementa o número de curtidas
                                 likeCountElement.textContent = parseInt(likeCountElement.textContent) - 1;
-                                likeButton.style.color = 'black';
+                                likeTrue.style.display = 'none';
+                                likeFalse.style.display = 'block';
                             }
                         })
                         .catch((error) => console.error('Erro ao curtir/descurtir:', error));
