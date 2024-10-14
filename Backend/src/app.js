@@ -56,25 +56,47 @@ app.get('/feed' ,auth_user, (req, res) => {
 // Rota para retornar todos os posts do DB
 app.get('/feed/posts', auth_user, async (req, res) => {
     try {
+        const userId = req.user.id; // ID do usuário autenticado
+
         const posts = await prisma.post.findMany({
             include: {
                 user: {
-                    select: { 
+                    select: {
                         nome: true,
                         profilePicture: true,
                         usernick: true,
                     },
                 },
-                comments: true, // traz os comentários
-                likes: true,    // traz as curtidas
+                comments: true,
+                likes: {
+                    select: {
+                        userId: true,
+                    },
+                },
             },
             orderBy: {
-                // Ordena pela contagem de curtidas em ordem decrescente
                 likes: {
-                    _count: 'desc' 
+                    _count: 'desc',
+                },
+            },
+        });
+
+        // Adiciona o campo 'likedByCurrentUser' em cada post usando um loop for
+        for (let i = 0; i < posts.length; i++) {
+            const post = posts[i];
+            let likedByCurrentUser = false;
+
+            // Itera sobre cada curtida do post para verificar se o usuário curtiu
+            for (let j = 0; j < post.likes.length; j++) {
+                if (post.likes[j].userId === userId) {
+                    likedByCurrentUser = true;
+                    break; // Interrompe a busca após encontrar a curtida do usuário
                 }
             }
-        });
+
+            post.likedByCurrentUser = likedByCurrentUser;
+        }
+
         res.status(200).json(posts);
     } catch (err) {
         console.error(err);
@@ -83,6 +105,8 @@ app.get('/feed/posts', auth_user, async (req, res) => {
         });
     }
 });
+
+
 
 // Rota para retornar todas as informações do usuario que está acessando a rota
 app.get('/user/me', auth_user, async (req, res) => {
@@ -271,6 +295,11 @@ app.post('/posts/:postId/like', auth_user, async (req, res) => {
         console.error('Erro ao curtir/descurtir post:', error);
         res.status(500).json({ message: 'Erro interno ao curtir/descurtir post' });
     }
+});
+
+app.post('/logout', (req, res)=> {
+    res.clearCookie('your-session', { path: '/' });
+    res.status(200).send('Logged out successfully');
 });
 
 const PORT = process.env.PORT;

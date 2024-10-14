@@ -2,7 +2,7 @@ const form = document.getElementById('formPost');
 
 // Cadastrar um post quando enviarem o form.
 form.addEventListener('submit', (event) => {
-    event.preventDefault(); // impede o envio do formulário
+    event.preventDefault(); 
     console.log('Formulário enviado');
 
     const conteudo = document.getElementById('textarea').value;
@@ -23,9 +23,7 @@ form.addEventListener('submit', (event) => {
     }).then((response) => {
             if (response.ok) {
                 window.location.reload();
-                // Você pode adicionar aqui lógica para atualizar a UI
             } else {
-                // Tratar erro, se necessário
                 console.error('Erro ao criar post:', response.statusText);
             }
         }).catch((error) => {
@@ -60,32 +58,32 @@ addEventListener('DOMContentLoaded', () => {
                 postElement.classList.add('post');
 
                 postElement.innerHTML = `
-                    <div class="infoUserPost">
-                        <div class="imgUserPost">
-                            <img src="../assets/profile-pictures/${post.user.profilePicture}" alt="">
-                        </div>
-                        <div class="nameAndHour">
-                            <strong>${post.user.nome} <span id="userNick">@${post.user.usernick}</span></strong>
-                            <p>${new Date(post.createdAt).toLocaleTimeString()}</p>
-                        </div>
+                <div class="infoUserPost">
+                    <div class="imgUserPost">
+                        <img src="../assets/profile-pictures/${post.user.profilePicture}" alt="">
                     </div>
-                    <p>${post.content}</p>
-                    <div class="actionBtnPost">
-                        <div class="content_metric">
-                            <p class="number_like">${post.likes.length}</p>
-                            <button type="button" class="filesPost like" data-post-id="${post.id}">
-                                <!-- Icon Não curtido -->
-                                <i class="ph-bold ph-heart likeFalse"></i>
-                                <!-- Icon curtido -->
-                                <i style="display: none;" class="ph-fill ph-heart likeTrue"></i>
-                            </button>
-                        </div>
-                        <div class="content_metric">
-                            <p class="number_coments">${post.comments.length}</p>
-                            <button type="button" class="filesPost comment"><i class="ph-bold ph-chat-circle"></i></button>
-                        </div>
+                    <div class="nameAndHour">
+                        <strong>${post.user.nome} <span id="userNick">@${post.user.usernick}</span></strong>
+                        <p>${new Date(post.createdAt).toLocaleTimeString()}</p>
                     </div>
-                `;
+                </div>
+                <p>${post.content}</p>
+                <div class="actionBtnPost">
+                    <div class="content_metric">
+                        <p class="number_like">${post.likes.length}</p>
+                        <button type="button" class="filesPost like" data-post-id="${post.id}">
+                            <!-- Icon Não curtido -->
+                            <i class="ph-bold ph-heart likeFalse"></i>
+                            <!-- Icon curtido -->
+                            <i style="display: none;" class="ph-fill ph-heart likeTrue"></i>
+                        </button>
+                    </div>
+                    <div class="content_metric">
+                        <p class="number_coments">${post.comments.length}</p>
+                        <button type="button" class="filesPost comment"><i class="ph-bold ph-chat-circle"></i></button>
+                    </div>
+                </div>
+            `;
                 postsList.appendChild(postElement);
 
                 // Adiciona evento de clique no botão de curtir
@@ -95,6 +93,12 @@ addEventListener('DOMContentLoaded', () => {
                 // Icons de coração para se alterarem
                 const likeTrue = likeButton.querySelector('.ph-fill.ph-heart.likeTrue');
                 const likeFalse = likeButton.querySelector('.ph-bold.ph-heart.likeFalse');
+
+                // Verifica se o usuário já curtiu o post
+                if (post.likedByCurrentUser) {
+                    likeTrue.style.display = 'block';
+                    likeFalse.style.display = 'none';
+                }
 
                 likeButton.addEventListener('click', () => {
                     const postId = likeButton.getAttribute('data-post-id');
@@ -108,12 +112,10 @@ addEventListener('DOMContentLoaded', () => {
                         .then((response) => response.json())
                         .then((data) => {
                             if (data.message === 'Post curtido') {
-                                // Incrementa o número de curtidas
                                 likeCountElement.textContent = parseInt(likeCountElement.textContent) + 1;
-                                likeFalse.style.display = 'none'
-                                likeTrue.style.display = 'block'
+                                likeFalse.style.display = 'none';
+                                likeTrue.style.display = 'block';
                             } else if (data.message === 'Curtida removida') {
-                                // Decrementa o número de curtidas
                                 likeCountElement.textContent = parseInt(likeCountElement.textContent) - 1;
                                 likeTrue.style.display = 'none';
                                 likeFalse.style.display = 'block';
@@ -124,6 +126,7 @@ addEventListener('DOMContentLoaded', () => {
             });
         })
         .catch((err) => console.error('Erro ao carregar posts:', err));
+
 
     // se algum problema de usuario acontecer..
     function checkUrlAndAlertFeed() {

@@ -26,7 +26,7 @@ model User {
   usernick      String    @unique 
   nome          String
   isadmin       Boolean   @default(false)
-  profilePicture String   @default("defaultphoto.jpg")
+  profilePicture String   @default("defaultphoto.png")
   createdAt     DateTime  @default(now())
 
   // Relacionamento com Postagens e Comentários
