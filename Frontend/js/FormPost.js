@@ -147,3 +147,51 @@ addEventListener('DOMContentLoaded', () => {
     }
     checkUrlAndAlertFeed();
 });
+
+
+// Função para abrir e fechar o modal
+const modal = document.getElementById('modalHamburguer');
+const hamburguerIcon = document.getElementById('hamburguerIcon');
+const closeModal = document.querySelector('.close-modal');
+const sairBtn = document.getElementById('sairBtn');
+
+// Elementos do modal para atualizar com dados do usuário
+const profilePictureModal = document.getElementById('profilePictureModal');
+const userNameModal = document.getElementById('userNameModal');
+const userNickModal = document.getElementById('userNickModal')
+
+// Abre o modal quando o ícone é clicado
+hamburguerIcon.addEventListener('click', () => {
+  modal.style.display = 'block';
+});
+
+// Fecha o modal quando o botão "Sair" é clicado
+sairBtn.addEventListener('click', () => {
+  alert('Você saiu!');
+  window.location.href = '/';
+});
+
+
+
+// Puxa dados do usuário e exibe no modal
+fetch('/user/me')
+  .then(response => response.json())
+  .then(data => {
+    profilePictureModal.src = `../assets/profile-pictures/${data.profilePicture}`;
+    userNameModal.textContent = data.nome;
+    userNickModal.textContent = `@${data.usernick}`;
+  })
+  .catch(error => console.error('Erro ao carregar dados do usuário:', error));
+
+// Fecha o modal ao clicar no botão de fechar
+closeModal.addEventListener('click', () => {
+  modal.style.display = 'none';
+});
+
+// Fecha o modal ao clicar fora do conteúdo
+window.addEventListener('click', (event) => {
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
+});
+

@@ -1,89 +1,128 @@
 <!doctype html>
 <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Twif</title>
-        <link rel="shortcut icon" href="assets/img/favicon.svg" type="image/x-icon" />
 
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap" rel="stylesheet" />
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Twif</title>
 
-        <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Ícone da aba do navegador -->
+    <link rel="shortcut icon" href="assets/img/favicon.svg" type="image/x-icon" />
 
-        <link rel="stylesheet" href="../css/feed.css" />
-    </head>
+    <!-- Preconexão para otimizar o carregamento das fontes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap" rel="stylesheet" />
 
-    <body>
-        <header>
-            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#011214" viewBox="0 0 256 256">
-                <path
-                    d="M228,128a12,12,0,0,1-12,12H40a12,12,0,0,1,0-24H216A12,12,0,0,1,228,128ZM40,76H216a12,12,0,0,0,0-24H40a12,12,0,0,0,0,24ZM216,180H40a12,12,0,0,0,0,24H216a12,12,0,0,0,0-24Z">
-                </path>
-            </svg>
+    <!-- Script para ícones Phosphor -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
-            <a href="/feed"><img id="logo_header" src="../assets/img/logo-dark.svg" alt="Logo Twif" /></a>
+    <!-- Link para o arquivo CSS da página de feed -->
+    <link rel="stylesheet" href="../css/feed.css" />
+</head>
 
-            <a href=""><img id="User_profile" src="" alt=""></a>
-        </header>
+<body>
+    <!-- Cabeçalho com ícone de menu, logo e perfil do usuário -->
+    <header>
+        <button id="hamburguerIcon" class="hamburguer-btn">
+            <img src="../assets/img/list.svg" alt="Menu">
+        </button>
 
-        <main class="main">
-            <!-- Formulário de postagem -->
-            <div class="newPost">
-                <div class="infoUser">
-                    <div class="imgUser">
-                        <img src="../assets/profile-pictures/defaultphoto.jpg" alt="">
-                    </div>
-                    <strong id="name_user">Name user</strong>
+        <a href="/feed">
+            <img id="logo_header" src="../assets/img/logo-dark.svg" alt="Logo Twif" />
+        </a>
+
+        <a href="">
+            <img id="User_profile" src="" alt="">
+        </a>
+    </header>
+
+    <!-- Modal do menu hambúrguer -->
+    <div id="modalHamburguer" class="modal">
+        <button id="closeModalBtn" class="close-modal">X</button>
+        <div class="modal-content">
+            <!-- Informações do usuário dentro do modal -->
+            <div class="user-info">
+                <div class="one">
+                    <img id="profilePictureModal" src="" alt="Foto de perfil">
                 </div>
 
-                <form method="post" class="formPost" id="formPost">
-                    <textarea name="content" placeholder="O que há de novo?..." id="textarea" maxlength="120"></textarea>
+                <div class="dois">
+                    <span id="userNameModal"></span>
+                    <span id="userNickModal"></span>
+                    <button><a href="/perfil"></a>Meu Perfil</button>
+                </div>
+            </div>
+            <button id="sairBtn" class="sair">Sair</button>
+        </div>
+    </div>
 
-                    <div class="iconsAndButton">
-                        <button type="submit" id="botao" class="btnSubmitForm">Publicar</button>
-                    </div>
-                </form>
+    <!-- Conteúdo principal da página -->
+    <main class="main">
+        <!-- Seção de criação de um novo post -->
+        <div class="newPost">
+            <div class="infoUser">
+                <div class="imgUser">
+                    <img src="../assets/profile-pictures/defaultphoto.jpg" alt="">
+                </div>
+                <strong id="name_user">Name user</strong>
             </div>
 
-            <!--  |UL| CONTAINER DOS POSTS -->
-            <ul class="posts" id="posts">
-                <!-- |LI| = Cada post -->
-                <li class="post">
-                        <div class="infoUserPost">
-                            <div class="imgUserPost">
-                                <img src="../assets/profile-pictures/defaultphoto.png" alt="">
-                            </div><!-- IGNORAR POR ENQUANTO -->
-                        
-                            <div class="nameAndHour">
-                                <strong>Name user (Post) <span id="userNick">@user_123</span></strong> <!--  NOME DO USER -->
-                                <p>hours</p> <!--  HORA QUE FOI CRIADO -->
-                            </div>
-                        </div>
+            <!-- Formulário de postagem -->
+            <form method="post" class="formPost" id="formPost">
+                <textarea name="content" placeholder="O que há de novo?..." id="textarea" maxlength="120"></textarea>
 
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, fugiat!</p><!-- CONTENT(CONTEUDO) DO POST -->
+                <!-- Botão para publicar o post -->
+                <div class="iconsAndButton">
+                    <button type="submit" id="botao" class="btnSubmitForm">Publicar</button>
+                </div>
+            </form>
+        </div>
 
-                    <div class="actionBtnPost"><!-- ignorar por enquanto -->
-                        <div class="content_metric">
-                            <p id="number_like">0</p>
-                            <button type="button" class="filesPost like">
-                                <!-- Icon Não curtido -->
-                                <i class="ph-bold ph-heart"></i>
-                                <!-- Icon curtido -->
-                                <i style="display: none;" class="ph-fill ph-heart"></i>
-                            </button>
-                        </div>
-
-                        <div class="content_metric">
-                            <p id="number_coments">0</p>
-                            <button type="button" class="filesPost comment"><i class="ph-bold ph-chat-circle"></i></button>
-                        </div>
+        <!-- Lista de posts existentes -->
+        <ul class="posts" id="posts">
+            <!-- Estrutura de um post individual -->
+            <li class="post">
+                <div class="infoUserPost">
+                    <div class="imgUserPost">
+                        <img src="../assets/profile-pictures/defaultphoto.png" alt="">
                     </div>
-                </li>
-            </ul>
-            
-        </main>
-        <script type="module" src="../js/FormPost.js"></script>
-    </body>
+
+                    <div class="nameAndHour">
+                        <!-- Nome do usuário e horário do post -->
+                        <strong>Name user (Post) <span id="userNick">@user_123</span></strong>
+                        <p>hours</p>
+                    </div>
+                </div>
+
+                <!-- Conteúdo do post -->
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, fugiat!</p>
+
+                <!-- Botões de ação do post (curtir, comentar) -->
+                <div class="actionBtnPost">
+                    <div class="content_metric">
+                        <p id="number_like">0</p>
+                        <button type="button" class="filesPost like">
+                            <!-- Ícone para curtir o post -->
+                            <i class="ph-bold ph-heart"></i>
+                            <!-- Ícone quando o post está curtido -->
+                            <i style="display: none;" class="ph-fill ph-heart"></i>
+                        </button>
+                    </div>
+
+                    <div class="content_metric">
+                        <p id="number_coments">0</p>
+                        <button type="button" class="filesPost comment">
+                            <i class="ph-bold ph-chat-circle"></i>
+                        </button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </main>
+
+    <!-- Script para o formulário de postagem -->
+    <script type="module" src="../js/FormPost.js"></script>
+</body>
+
 </html>

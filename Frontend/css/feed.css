@@ -1,33 +1,57 @@
+/* Importação de variáveis */
+@import url(utilidades/variaveis.css);
+
+/* RESET GLOBAL */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Estilos Gerais */
 body {
     background: #ffff;
-    font-family: 'Lexend Deca';
-    -webkit-font-smoothing: antialisd !important;
+    font-family: 'Lexend Deca', sans-serif;
+    -webkit-font-smoothing: antialiased !important;
 }
 
 li {
     list-style: none;
 }
 
+/* Cursor personalizado */
+html {
+    cursor: url(http://www.rw-designer.com/cursor-extern.php?id=10190), auto;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--verde-neutro);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--azul-escuro-A);
+}
+
+/* ===== Cabeçalho ===== */
 header {
     width: 100%;
     height: 80px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0px 30px 0px;
+    padding: 0px 30px;
 }
 
 #User_profile {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    border: 1px solid #7ec543;
+    border: 1px solid var(--verde);
 }
 
 #logo_header {
@@ -35,22 +59,22 @@ header {
     max-height: 100px;
 }
 
+/* ===== Seção Principal ===== */
 .main {
     max-width: 900px;
     margin: 0 auto;
     padding: 0 24px;
 }
 
+/* ===== Novo Post ===== */
 div.newPost {
     width: 100%;
     height: 250px;
-
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     margin: 50px 0;
     padding: 25px;
-
     background-color: transparent;
     border: 3px #011214 solid;
     border-radius: 30px;
@@ -76,7 +100,7 @@ div.newPost div.infoUser strong {
 }
 
 div.newPost form.formPost {
-    background-color: flex;
+    display: flex;
     flex-direction: column;
     width: 100%;
 }
@@ -88,9 +112,6 @@ div.newPost form.formPost textarea {
     outline: none;
     border: none;
     color: #868686;
-}
-
-form.formPost textarea {
     width: 100%;
     font-family: 'Lexend Deca';
     font-size: 14px;
@@ -113,10 +134,9 @@ div.newPost form.formPost div.iconsAndButton button.btnSubmitForm {
     background-color: #7ec543;
     color: #011214;
     font-weight: bold;
-    font-family: Lexend Deca;
+    font-family: 'Lexend Deca';
     text-transform: uppercase;
     font-size: 14px;
-
     padding: 8px 60px;
     border-style: none;
     border-radius: 10px;
@@ -129,6 +149,7 @@ div.newPost form.formPost div.iconsAndButton button.btnSubmitForm:hover {
     color: #7ec543;
 }
 
+/* ===== Posts ===== */
 ul.posts li.post {
     margin-bottom: 50px;
     width: 100%;
@@ -176,19 +197,15 @@ ul.posts li.post div.infoUserPost div.nameAndHour {
     align-items: center;
     margin-left: 10px;
 }
+
 ul.posts li.post > p {
     width: 100%;
-    margin: 20px 0px;
+    margin: 20px 0;
     font-size: 14px;
     overflow-wrap: break-word;
 }
 
-ul.posts li.post > p {
-    width: 100%;
-    margin: 20px 0px;
-    font-size: 14px;
-}
-
+/* ===== Botões de Ação nos Posts ===== */
 ul.posts li.post div.actionBtnPost {
     display: flex;
     align-items: center;
@@ -199,6 +216,7 @@ div.actionBtnPost {
     justify-content: flex-end;
     gap: 24px;
 }
+
 div.content_metric {
     display: flex;
     gap: 2px;
@@ -214,4 +232,103 @@ button.filesPost {
 
 .ph-fill.ph-heart:before {
     color: #7ec543;
+}
+
+/* ===== Modal Hambúrguer ===== */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 100vh;
+    background-color: white;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    border-radius: 20px 0 0 20px;
+}
+
+#hamburguerIcon {
+    background: none;
+    border: none;
+}
+
+.modal-content {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    gap: 20px;
+}
+
+/* ===== Informações do Usuário no Modal ===== */
+.user-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.user-info img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+#userNameModal {
+    font-size: 20px;
+    font-weight: 500;
+    color: #011214;
+    font-family: 'Lexend Deca';
+}
+
+#userNickModal {
+    font-size: 14px;
+    font-weight: 400;
+    color: gray;
+    font-family: 'Lexend Deca';
+}
+
+.dois button {
+    background-color: #011214;
+    color: white;
+    border: none;
+    padding: 5px 11px;
+    font-family: 'Lexend Deca';
+    font-size: 12px;
+    border-radius: 15px;
+    transition: all 0.2s;
+}
+
+.dois button:hover {
+    background-color: #7ec543;
+    color: #011214;
+}
+
+#closeModalBtn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: 'Lexend Deca';
+}
+
+#closeModalBtn:hover {
+    color: var(--vermelho);
+}
+
+/* ===== Botão de Sair ===== */
+.sair {
+    background-color: var(--vermelho);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    font-family: 'Lexend Deca';
 }
