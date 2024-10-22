@@ -72,28 +72,46 @@
                 </form>
             </div>
 
-            <ul class="posts" id="posts">
-                <li class="post">
-                    <div class="infoUserPost">
-                        <div class="imgUserPost"></div>
-            
-                        <div class="nameAndHour">
-                            <strong>Douglas Pujol</strong>
-                            <p>21h</p>
-                        </div>
+              <!-- Lista de posts existentes -->
+        <ul class="posts" id="posts">
+            <!-- Estrutura de um post individual -->
+            <li class="post">
+                <div class="infoUserPost">
+                    <div class="imgUserPost">
+                        <img src="../assets/profile-pictures/defaultphoto.png" alt="">
                     </div>
-            
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, fugiat!
-                    </p>
-            
-                    <div class="actionBtnPost">
-                        <button type="button" class="filesPost like"><i class="ph-bold ph-heart"></i></button>
-            
-                        <button type="button" class="filesPost comment"><i class="ph-bold ph-chat-circle"></i></button>
+
+                    <div class="nameAndHour">
+                        <!-- Nome do usuário e horário do post -->
+                        <strong>Name user (Post) <span id="userNick">@user_123</span></strong>
+                        <p>hours</p>
                     </div>
-                </li>
-            </ul>
+                </div>
+
+                <!-- Conteúdo do post -->
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, fugiat!</p>
+
+                <!-- Botões de ação do post (curtir, comentar) -->
+                <div class="actionBtnPost">
+                    <div class="content_metric">
+                        <p id="number_like">0</p>
+                        <button type="button" class="filesPost like">
+                            <!-- Ícone para curtir o post -->
+                            <i class="ph-bold ph-heart"></i>
+                            <!-- Ícone quando o post está curtido -->
+                            <i style="display: none;" class="ph-fill ph-heart"></i>
+                        </button>
+                    </div>
+
+                    <div class="content_metric">
+                        <p id="number_coments">0</p>
+                        <button type="button" class="filesPost comment">
+                            <i class="ph-bold ph-chat-circle"></i>
+                        </button>
+                    </div>
+                </div>
+            </li>
+        </ul>
         </div>
     </div>
 
@@ -116,6 +134,7 @@
         </div>
     </div>
 
+    <script src="../js/FormPost.js"></script>
     <script src="../js/perfil.js"></script>
 </body>
 

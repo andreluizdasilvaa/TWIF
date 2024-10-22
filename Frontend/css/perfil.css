@@ -331,3 +331,188 @@ button.filesPost{
     display: none; 
     z-index: 2; 
 }
+
+
+/* ===== Posts ===== */
+ul.posts li.post {
+    margin-bottom: 50px;
+    width: 100%;
+    background-color: white;
+    border-radius: 30px;
+    padding: 25px;
+    box-shadow: 1px 0 3px #0000004d;
+    transition: 0.2s;
+}
+
+ul.posts li.post:hover {
+    background-color: #f9f9f9;
+}
+
+ul.posts li.post div.infoUserPost div.imgUserPost img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+ul.posts li.post div.infoUserPost {
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+ul.posts li.post div.infoUserPost div.nameAndHour > strong {
+    color: #032f37;
+}
+
+ul.posts li.post div.infoUserPost div.nameAndHour > p {
+    color: #d1d1d1;
+    font-size: 12px;
+}
+
+#userNick {
+    color: #b1b1b1;
+    font-size: 14px;
+}
+
+ul.posts li.post div.infoUserPost div.nameAndHour {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-left: 10px;
+}
+
+ul.posts li.post > p {
+    width: 100%;
+    margin: 20px 0;
+    font-size: 14px;
+    overflow-wrap: break-word;
+}
+
+/* ===== Botões de Ação nos Posts ===== */
+ul.posts li.post div.actionBtnPost {
+    display: flex;
+    align-items: center;
+}
+
+div.actionBtnPost {
+    display: flex;
+    justify-content: flex-end;
+    gap: 24px;
+}
+
+div.content_metric {
+    display: flex;
+    gap: 2px;
+    cursor: pointer;
+}
+
+button.filesPost {
+    border: none;
+    background-color: transparent;
+    font-size: large;
+    cursor: pointer;
+}
+
+.ph-fill.ph-heart:before {
+    color: #7ec543;
+}
+
+/* ===== Modal Hambúrguer ===== */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 100vh;
+    background-color: white;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    border-radius: 20px 0 0 20px;
+}
+
+#hamburguerIcon {
+    background: none;
+    border: none;
+}
+
+.modal-content {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    gap: 20px;
+}
+
+/* ===== Informações do Usuário no Modal ===== */
+.user-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.user-info img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+#userNameModal {
+    font-size: 20px;
+    font-weight: 500;
+    color: #011214;
+    font-family: 'Lexend Deca';
+}
+
+#userNickModal {
+    font-size: 14px;
+    font-weight: 400;
+    color: gray;
+    font-family: 'Lexend Deca';
+}
+
+.dois button {
+    background-color: #011214;
+    color: white;
+    border: none;
+    padding: 5px 11px;
+    font-family: 'Lexend Deca';
+    font-size: 12px;
+    border-radius: 15px;
+    transition: all 0.2s;
+}
+
+.dois button:hover {
+    background-color: #7ec543;
+    color: #011214;
+}
+
+#closeModalBtn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: 'Lexend Deca';
+}
+
+#closeModalBtn:hover {
+    color: var(--vermelho);
+}
+
+/* ===== Botão de Sair ===== */
+.sair {
+    background-color: var(--vermelho);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    font-family: 'Lexend Deca';
+}
