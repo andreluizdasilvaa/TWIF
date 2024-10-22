@@ -45,7 +45,7 @@ function checkUrlAndAlert() {
             break;
 
         case error === '1':
-            alert('Email ou CG não encontrados');
+            alert('Email ou Senha Incorreto!');
             window.location.href = '/';
             break;
 

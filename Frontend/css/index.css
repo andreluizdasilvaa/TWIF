@@ -63,18 +63,34 @@ header nav ul li a:hover {
 }
 
 /* SEC 1 - LOGIN*/
+.sec1_form {
+
+}
+
 .login {
     display: grid;
     background-color: var(--azul-escuro-A);
-    padding: 100px 70px;
-    border-radius: 20px;
+    padding: 30px 70px 100px;
+    border-radius: 30px;
+}
+
+#about_form {
+    text-align: center;
+    margin: 15px 0px;
+    color: white;
+    font-size: 2em;
+}
+
+#about_form span {
+    color: var(--vermelho);
 }
 
 /* Esqueceu a senha */
 #esqueceu_senha {
     color: var(--verde-padrao);
     font-size: 0.7em;
-    text-align: end;
+    width: fit-content;
+    margin-left: auto;
 }
 
 .login label {
@@ -88,16 +104,15 @@ header nav ul li a:hover {
     border: none;
     width: 360px;
     margin-bottom: 30px;
-    font-size: 0.5em;
-    padding: 1em;
+    font-size: .8em;
+    padding: .6em;
 }
 
 #none_bottom-magim {
     margin: 0;
 }
 
-.login input:hover,
-input:focus {
+.login input:focus {
     outline: none;
 }
 
@@ -109,6 +124,7 @@ input:focus {
     transition: all 0.3s;
     margin-top: 1.5em;
     cursor: pointer;
+    font-weight: 700;
 }
 
 .login button a {
@@ -263,4 +279,16 @@ footer {
 /* Animação */
 .pulse {
     color: var(--verde-padrao) !important;
+}
+
+.effect_form_l {
+    padding: 3px;
+    background-color: white;
+    border-radius: 30px;
+    transition: background-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.effect_form_l:hover {
+    background-color: var(--verde-escuro-A);
+    box-shadow: 0px 0px 15px var(--verde-escuro-A);
 }

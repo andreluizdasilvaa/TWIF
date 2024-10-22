@@ -38,7 +38,7 @@ addEventListener('DOMContentLoaded', () => {
     const imgUser = document.querySelector('.imgUser img');
     const user_profile = document.getElementById('User_profile');
 
-    fetch('/user/me')
+    fetch('user/me')
     .then((response) => response.json())
     .then((data) => {
         nome.textContent = data.nome;
@@ -166,17 +166,29 @@ hamburguerIcon.addEventListener('click', () => {
 });
 
 // Fecha o modal quando o botão "Sair" é clicado
+
+// ?
+
+// Exclui a sessão do usuario quando clica em 'sair'.
 sairBtn.addEventListener('click', () => {
-  alert('Você saiu!');
-  window.location.href = '/';
+  fetch('/logout', {
+    method: 'DELETE',
+  })
+  .then((response) => {
+    if(response.ok) {
+        alert('Sessão encerrada!');
+        window.location.href = '/';
+    } else {
+        alert('Erro ao sair');
+        console.error(response.error);
+    }
+  })
 });
 
-
-
 // Puxa dados do usuário e exibe no modal
-fetch('/user/me')
-  .then(response => response.json())
-  .then(data => {
+fetch('user/me')
+  .then((response) => response.json())
+  .then((data) => {
     profilePictureModal.src = `../assets/profile-pictures/${data.profilePicture}`;
     userNameModal.textContent = data.nome;
     userNickModal.textContent = `@${data.usernick}`;
@@ -194,4 +206,3 @@ window.addEventListener('click', (event) => {
         modal.style.display = 'none';
     }
 });
-

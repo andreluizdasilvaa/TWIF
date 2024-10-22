@@ -43,7 +43,9 @@ avatarButtons.forEach(function(button) {
 });
 
 // Verificar se os campos estão preenchidos antes de abrir o modal
-document.getElementById('botao-cadastrar').addEventListener('click', function () {
+document.getElementById('botao-cadastrar').addEventListener('click', function (event) {
+    event.preventDefault();
+    
     var nome = document.getElementById('nome').value;
     var email = document.getElementById('email').value;
     var usernick = document.getElementById('user').value;

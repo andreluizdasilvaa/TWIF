@@ -24,9 +24,11 @@ app.use(cookieParser()); // Para lidar com cookies
 // Rota para carregar a página inicial
 app.get('/', (req, res) => {
     // Se o usuário estiver autenticado, redireciona para /feed
-    if (req.user) {
+    const sessionCookie = req.cookies['your-session'];
+    if (sessionCookie) {
         return res.redirect('/feed');
-    }
+    } 
+    
     // Envia o arquivo index.html quando a rota raiz ("/") é acessada
     res.sendFile(path.join(__dirname, '..', '..', 'Frontend', 'html', 'index.html'));
 });
@@ -101,7 +103,7 @@ app.get('/feed/posts', auth_user, async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).json({
-            msg: 'Erro interno, entre em contato com o suporte',
+            msg: 'Erro interno ao enviar posts p/Feed, entre em contato com o suporte',
         });
     }
 });
@@ -116,6 +118,7 @@ app.get('/user/me', auth_user, async (req, res) => {
             select: {
                 nome: true,
                 profilePicture: true,
+                usernick: true,
                 posts: {
                     select: {
                         id: true,
@@ -189,7 +192,7 @@ app.post('/register', async (req, res) => {
     } catch (error) {
         // Se ocorrer um erro inesperado, retorna um erro 500 (Internal Server Error)
         console.error(error);
-        res.status(500).json({ msg: 'Erro interno, entre em contato com o suporte' });
+        res.status(500).json({ msg: 'Erro interno ao cadastrar usuario, entre em contato com o suporte' });
     }
 });
 
@@ -215,17 +218,17 @@ app.post('/', async (req, res) => {
 
         // Verifica se a senha é valida
         if (!IspasswordValid) {
-            return res.redirect('/?error=2');
+            return res.redirect('/?error=1');
         }
 
         // Gere o token e configure o cookie
         generate_token_user(user, req, res, () => {
-            res.redirect('/feed');
+            res.status(201).redirect('/feed');
         });
     } catch (err) {
         console.error(err);
         res.status(500).json({
-            msg: 'Erro interno, entre em contato com o suporte',
+            msg: 'Erro interno ao Fazer login, entre em contato com o suporte',
         });
     }
 });
@@ -250,10 +253,8 @@ app.post('/feed', auth_user, async (req, res) => {
 
         res.status(201).json({msg: "Post criado com sucesso!"});
     } catch (err) {
-        console.error(err);
-        res.status(500).json({
-            msg: 'Erro interno, entre em contato com o suporte',
-        });
+        console.error('Erro ao criar um Post, Erro: ',err);
+        res.status(500).json({ msg: 'Erro interno ao criar um Post, entre em contato com o suporte'});
     };
 });
 
@@ -292,14 +293,22 @@ app.post('/posts/:postId/like', auth_user, async (req, res) => {
             return res.json({ message: 'Post curtido' });
         }
     } catch (error) {
-        console.error('Erro ao curtir/descurtir post:', error);
-        res.status(500).json({ message: 'Erro interno ao curtir/descurtir post' });
+        console.error('Erro ao curtir/descurtir post, Erro: ', error);
+        res.status(500).json({ message: 'Erro interno ao curtir/descurtir post, entre em contato com o suporte'});
     }
 });
 
-app.post('/logout', (req, res)=> {
-    res.clearCookie('your-session', { path: '/' });
-    res.status(200).send('Logged out successfully');
+// | =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=| ROTAS DELETE |-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= |
+
+// Ecerrar sessão do usuario = delete -> cookie
+app.delete('/logout', (req, res)=> {
+    try {
+        res.clearCookie('your-session', { path: '/' });
+        res.status(200).send('Sessão encerrada');
+    } catch (error) {
+        console.error('Erro ao encerrar sessão do user, Erro: ', error);
+        res.status(500).json({ message: 'Erro interno ao encerrar sessão, entre em contato com o suporte'});
+    }
 });
 
 const PORT = process.env.PORT;
