@@ -332,3 +332,94 @@ button.filesPost {
     font-size: 18px;
     font-family: 'Lexend Deca';
 }
+
+
+/* Estilos para o botão flutuante */
+.botao-flutuante {
+    position: fixed;
+    bottom: 70px;
+    right: 70px;
+    background-color: #7ec543;
+    height: 100px;
+    width: 100px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.botao-flutuante:hover {
+    background-color: var(--verde-neutro);
+}
+
+/* modal novo post*/
+.modalDois {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-conteudo {
+    background-color: white;
+    padding: 30px;
+    border-radius: 20px;
+    width: 600px;
+
+}
+
+.modal-conteudo h2 {
+    font-family: 'Gilroy ExtraBold';
+    font-size: px;
+    color: #011214;
+}
+
+.fechar-modal {
+    float: right;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.fechar-modal:hover {
+    color: var(--vermelho);
+}
+
+
+.modal-conteudo input, .modal-conteudo textarea {
+    width: 100%;
+    resize: vertical;
+    padding: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 3px solid #011214;
+    border-radius: 10px;
+    font-family: Lexend Deca;
+}
+
+.modal-conteudo button {
+    width: 100%;
+    padding: 10px;
+    background-color: #7ec543;
+    color: #011214;
+    font-weight: bold;
+    font-family: 'Lexend Deca';
+    text-transform: uppercase;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.modal-conteudo button:hover {
+    background-color: #011214;
+    color: #7ec543;
+}
+
+.bold{
+    color: var(--vermelho);
+}

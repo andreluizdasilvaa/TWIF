@@ -121,6 +121,22 @@
         </ul>
     </main>
 
+  <!-- Botão flutuante para novo post -->
+<button id="btnNovoPost" class="botao-flutuante"><img src="../assets/img/newpost.svg"></button>
+
+<!-- Modal de novo post -->
+<div id="modalNovoPost" class="modalDois">
+  <div class="modal-conteudo">
+      <span id="fecharModal" class="fechar-modal">&times;</span>
+      <h2>nova publicação<span class="bold">!</span></h2>
+      <form id="formNovoPost">
+          <textarea id="conteudoPost" rows="5" placeholder="Escreva seu post..." required></textarea>
+          <button type="submit">Publicar</button>
+      </form>
+  </div>
+</div>
+
+
     <!-- Script para o formulário de postagem -->
     <script type="module" src="../js/FormPost.js"></script>
 </body>

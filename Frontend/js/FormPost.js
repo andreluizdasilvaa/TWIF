@@ -149,6 +149,10 @@ addEventListener('DOMContentLoaded', () => {
 });
 
 
+// ===================== ===================== =====================
+// =====================   Modal Hamburguer   =====================
+// ===================== ===================== =====================
+
 // Função para abrir e fechar o modal
 const modal = document.getElementById('modalHamburguer');
 const hamburguerIcon = document.getElementById('hamburguerIcon');
@@ -206,3 +210,85 @@ window.addEventListener('click', (event) => {
         modal.style.display = 'none';
     }
 });
+
+
+// ===================== ===================== =====================
+// =====================   Modal Novo Post   =====================
+// ===================== ===================== =====================
+
+// Abrir e fechar modal
+const modalNovoPost = document.getElementById('modalNovoPost');
+const btnNovoPost = document.getElementById('btnNovoPost');
+const fecharModal = document.getElementById('fecharModal');
+
+// Abrir modal ao clicar no botão flutuante
+btnNovoPost.addEventListener('click', () => {
+  modalNovoPost.style.display = 'flex';
+});
+
+// Fechar modal ao clicar no "X"
+fecharModal.addEventListener('click', () => {
+  modalNovoPost.style.display = 'none';
+});
+
+// Fechar modal ao clicar fora da área de conteúdo
+window.addEventListener('click', (event) => {
+  if (event.target === modalNovoPost) {
+    modalNovoPost.style.display = 'none';
+  }
+});
+
+// Função para publicar o post
+document.getElementById('formNovoPost').addEventListener('submit', async function (event) {
+  // Obter dados do formulário
+  const conteudo = document.getElementById('conteudoPost').value;
+
+  // Montar objeto com os dados do post
+  const novoPost = {
+    conteudo: conteudo
+  };
+
+  try {
+    // Fazer requisição para a rota existente
+    const resposta = await fetch('/feed', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(novoPost)
+    });
+
+    if (resposta.ok) {
+      const postCriado = await resposta.json();
+
+      // Exibir o novo post no feed
+      adicionarPostAoFeed(postCriado);
+
+      // Fechar o modal e limpar o formulário
+      modalNovoPost.style.display = 'none';
+      document.getElementById('formNovoPost').reset();
+    } else {
+      console.error('Erro ao criar o post');
+    }
+  } catch (erro) {
+    console.error('Erro na requisição:', erro);
+  }
+});
+
+// Função para adicionar o post ao feed
+function adicionarPostAoFeed(post) {
+  const feed = document.getElementById('feed');
+  const postDiv = document.createElement('div');
+  postDiv.classList.add('post');
+  
+  const titulo = document.createElement('h3');
+  titulo.textContent = post.titulo;
+  
+  const conteudo = document.createElement('p');
+  conteudo.textContent = post.conteudo;
+
+  postDiv.appendChild(titulo);
+  postDiv.appendChild(conteudo);
+
+  feed.appendChild(postDiv);
+}
