@@ -277,3 +277,91 @@ ul {
     transform: scale(1.1);
     border: 5px solid var(--azul-escuro-A);
 }
+
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: var(--azul-escuro-A);
+    color: #ffffff;
+}
+
+body.dark-mode .preenchimento {
+    background-color: #fff;
+    border: solid 3px #fff;
+    color: var(--azul-escuro-A);
+}
+
+body.dark-mode .icon i {
+    color: var(--verde-padrao);
+}
+
+body.dark-mode #botao-cadastrar {
+    background-color: var(--verde-padrao);
+    color: var(--azul-escuro-A);
+}
+
+body.dark-mode #botao-cadastrar:hover {
+    background-color: var(--verde-neutro);
+}
+
+.dark-mode-toggle {
+    --input-focus: var(--azul-escuro-A);
+    --font-color: #323232;
+    --font-color-sub: #666;
+    --bg-color: #fff;
+    --bg-color-alt: #666;
+    --main-color: #323232;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    width: 50px; /* Ajuste se necessário */
+    height: 20px; /* Ajuste se necessário */
+  }
+  
+  .dark-mode-switch {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 2px solid var(--main-color);
+    box-shadow: 4px 4px var(--main-color);
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--bg-color);
+    transition: 0.3s;
+  }
+  
+  .slider:before {
+    box-sizing: border-box;
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    border: 2px solid var(--main-color);
+    border-radius: 5px;
+    left: -2px;
+    bottom: 2px;
+    background-color: var(--bg-color);
+    box-shadow: 0 3px 0 var(--main-color);
+    transition: 0.3s;
+  }
+  
+  .dark-mode-switch:checked + .slider {
+    background-color: var(--input-focus);
+  }
+  
+  .dark-mode-switch:checked + .slider:before {
+    transform: translateX(30px);
+  }
+  
