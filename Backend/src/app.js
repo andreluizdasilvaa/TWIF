@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 // importação do middleware para verificar a autenticação do token
-const { auth_user, generate_token_user } = require('./middlewares/auth');
+const { auth_user, generate_token_user, remove_session } = require('./middlewares/auth');
 
 dotenv.config(); // mostra ao dotenv onde está o arq .env no
 const app = express();
@@ -51,8 +51,15 @@ app.get('/sobrenos', (req, res) => {
 });
 
 // Rota para carregar o feed
-app.get('/feed' ,auth_user, (req, res) => {
+app.get('/feed', auth_user, (req, res) => {
     res.sendFile(path.join(__dirname, '..', '..', 'Frontend', 'html', 'feed.html'));
+});
+
+// Rota para carregar a pagina de perfil do user
+app.get('/perfil/:usernick', auth_user, (req, res) => {
+    // ..
+    // Envia o arquivo perfil.html quando a rota "/suporte" é acessada
+    res.sendFile(path.join(__dirname, '..', '..', 'Frontend', 'html', 'perfil.html'));
 });
 
 // Rota para retornar todos os posts do DB
@@ -108,6 +115,39 @@ app.get('/feed/posts', auth_user, async (req, res) => {
     }
 });
 
+// Rota para acessar o perfil pelo usernick
+app.get('/api/perfil/:usernick', async (req, res) => {
+    const { usernick } = req.params;
+    try {
+        const user = await prisma.user.findUnique({
+            where: { 
+                usernick: usernick
+             }, 
+            select: {
+                nome: true,
+                profilePicture: true,
+                usernick: true,
+                posts: {
+                    select: {
+                        id: true,
+                        content: true,
+                        createdAt: true,
+                    },
+                },
+            },
+        });
+
+        if (user) {
+            res.json(user);
+            console.log(user);
+        } else {
+            res.status(404).send('Usuário não encontrado');
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Erro ao buscar o usuário');
+    }
+});
 
 
 // Rota para retornar todas as informações do usuario que está acessando a rota
@@ -303,8 +343,7 @@ app.post('/posts/:postId/like', auth_user, async (req, res) => {
 // Ecerrar sessão do usuario = delete -> cookie
 app.delete('/logout', (req, res)=> {
     try {
-        res.clearCookie('your-session', { path: '/' });
-        res.status(200).send('Sessão encerrada');
+        remove_session(req, res);
     } catch (error) {
         console.error('Erro ao encerrar sessão do user, Erro: ', error);
         res.status(500).json({ message: 'Erro interno ao encerrar sessão, entre em contato com o suporte'});

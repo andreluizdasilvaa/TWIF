@@ -54,6 +54,11 @@ header {
     border: 1px solid var(--verde);
 }
 
+.user-profile-link {
+    text-decoration: none;
+    color: black;
+}
+
 #logo_header {
     max-width: 100px;
     max-height: 100px;
@@ -308,6 +313,7 @@ button.filesPost {
     border-radius: 15px;
     transition: all 0.2s;
     margin-top: 12px;
+    cursor: pointer;
 }
 
 .dois button:hover {
@@ -348,6 +354,7 @@ button.filesPost {
     bottom: 70px;
     right: 70px;
     background-color: #7ec543;
+    box-shadow: 5px 5px 0px black;
     height: 100px;
     width: 100px;
     border: none;

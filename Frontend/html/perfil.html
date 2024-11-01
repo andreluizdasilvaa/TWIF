@@ -20,13 +20,16 @@
     <div class="container">
 
         <div class="background">
-
             <div id="icone-voltar" class="first-icon-header">
-                <svg class="icone-voltar"  xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#7ec543" viewBox="0 0 256 256">
-                    <path
-                        d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm48-88a8,8,0,0,1-8,8H107.31l18.35,18.34a8,8,0,0,1-11.32,11.32l-32-32a8,8,0,0,1,0-11.32l32-32a8,8,0,0,1,11.32,11.32L107.31,120H168A8,8,0,0,1,176,128Z">
-                    </path>
-                </svg>
+                <a href="/feed">
+                    <svg class="icone-voltar"  xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#7ec543" viewBox="0 0 256 256">
+                        <path
+                            d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm48-88a8,8,0,0,1-8,8H107.31l18.35,18.34a8,8,0,0,1-11.32,11.32l-32-32a8,8,0,0,1,0-11.32l32-32a8,8,0,0,1,11.32,11.32L107.31,120H168A8,8,0,0,1,176,128Z">
+                        </path>
+                    </svg>
+                        
+                    </svg>
+                </a>
             </div>
 
             <div id="icone-logout" class="second-icon-header">
@@ -39,7 +42,7 @@
 
 
             <div class="foto-perfil-usuario">
-                <img src="../assets/profile-pictures/defaultphoto.png" />
+                <img id="User_profile" src="../assets/profile-pictures/defaultphoto.png" />
                 <div class="icon-writepen" id="troca_perfil">
                     <svg class="icone-pen" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#011214"
                         viewBox="0 0 256 256">
@@ -55,7 +58,7 @@
         </div>
 
         <div class="nome-user-perfil">
-            <h3>Menina da Silva</h3>
+            <h3 id="User_name">Menina da Silva</h3>
             <p class="p-perfil">@meninai</p>
         </div>
 
@@ -80,17 +83,17 @@
                     <div class="imgUserPost">
                         <img src="../assets/profile-pictures/defaultphoto.png" alt="">
                     </div>
-
+            
                     <div class="nameAndHour">
                         <!-- Nome do usuário e horário do post -->
                         <strong>Name user (Post) <span id="userNick">@user_123</span></strong>
                         <p>hours</p>
                     </div>
                 </div>
-
+            
                 <!-- Conteúdo do post -->
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, fugiat!</p>
-
+                <p>a</p>
+            
                 <!-- Botões de ação do post (curtir, comentar) -->
                 <div class="actionBtnPost">
                     <div class="content_metric">
@@ -102,7 +105,7 @@
                             <i style="display: none;" class="ph-fill ph-heart"></i>
                         </button>
                     </div>
-
+            
                     <div class="content_metric">
                         <p id="number_coments">0</p>
                         <button type="button" class="filesPost comment">
@@ -111,6 +114,7 @@
                     </div>
                 </div>
             </li>
+
         </ul>
         </div>
     </div>
@@ -134,7 +138,6 @@
         </div>
     </div>
 
-    <script src="../js/FormPost.js"></script>
     <script src="../js/perfil.js"></script>
 </body>
 

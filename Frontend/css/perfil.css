@@ -1,7 +1,6 @@
 * {
  margin: 0;
  padding: 0;
- width: 100%;
 }
 
 body {
@@ -96,8 +95,7 @@ div.second-icon-header {
 
 .post-perfil {
     display: flex;
-    width: fit-content;
-    justify-content: space-evenly;
+    flex-wrap: wrap;
 }
 
 li {
@@ -106,7 +104,7 @@ li {
 
 div.newPost {
     width: 400px;
-    height: auto;
+    height: fit-content;
 
     display: flex;
     flex-direction: column;
@@ -192,11 +190,17 @@ div.newPost form.formPost div.iconsAndButton div.icons button {
     color: #7EC543;
 }
 
+.posts {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 700px;
+    width: 100%;
+}
+
 ul.posts li.post{
-    margin-top: 25px;
-    margin-bottom: 50px;
-    margin-left: 50px;
-    width: 900px;
+    margin: 20px;
+    max-width: 700px;
     background-color: white;
     border-radius:30px;
     padding: 25px;
@@ -335,8 +339,8 @@ button.filesPost{
 
 /* ===== Posts ===== */
 ul.posts li.post {
-    margin-bottom: 50px;
-    width: 100%;
+    /* margin-bottom: 50px; 
+    width: 100%;*/
     background-color: white;
     border-radius: 30px;
     padding: 25px;

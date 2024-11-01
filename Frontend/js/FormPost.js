@@ -33,18 +33,22 @@ form.addEventListener('submit', (event) => {
 
 // quando o DOM carregar..
 addEventListener('DOMContentLoaded', () => {
-
     const nome = document.getElementById('name_user');
     const imgUser = document.querySelector('.imgUser img');
     const user_profile = document.getElementById('User_profile');
+    const link_perfil_me = document.querySelectorAll('.me_user_perfil');
 
     fetch('user/me')
-    .then((response) => response.json())
-    .then((data) => {
-        nome.textContent = data.nome;
-        imgUser.src = `../assets/profile-pictures/${data.profilePicture}`;
-        user_profile.src = `../assets/profile-pictures/${data.profilePicture}`;
-    });
+        .then((response) => response.json())
+        .then((data) => {
+            nome.textContent = data.nome;
+            imgUser.src = `../assets/profile-pictures/${data.profilePicture}`;
+            user_profile.src = `../assets/profile-pictures/${data.profilePicture}`;
+            // Adiciona em todos os links com a classe tal
+            link_perfil_me.forEach((link) => {
+                link.href = `/perfil/${data.usernick}`;
+            });
+        });
 
     // lista todos os posts
     fetch('/feed/posts')
@@ -58,31 +62,35 @@ addEventListener('DOMContentLoaded', () => {
                 postElement.classList.add('post');
 
                 postElement.innerHTML = `
-                <div class="infoUserPost">
-                    <div class="imgUserPost">
-                        <img src="../assets/profile-pictures/${post.user.profilePicture}" alt="">
-                    </div>
-                    <div class="nameAndHour">
-                        <strong>${post.user.nome} <span id="userNick">@${post.user.usernick}</span></strong>
-                        <p>${new Date(post.createdAt).toLocaleTimeString()}</p>
-                    </div>
+            <div class="infoUserPost">
+                <div class="imgUserPost">
+                    <img src="../assets/profile-pictures/${post.user.profilePicture}" alt="">
                 </div>
-                <p>${post.content}</p>
-                <div class="actionBtnPost">
-                    <div class="content_metric">
-                        <p class="number_like">${post.likes.length}</p>
-                        <button type="button" class="filesPost like" data-post-id="${post.id}">
-                            <!-- Icon Não curtido -->
-                            <i class="ph-bold ph-heart likeFalse"></i>
-                            <!-- Icon curtido -->
-                            <i style="display: none;" class="ph-fill ph-heart likeTrue"></i>
-                        </button>
-                    </div>
-                    <div class="content_metric">
-                        <p class="number_coments">${post.comments.length}</p>
-                        <button type="button" class="filesPost comment"><i class="ph-bold ph-chat-circle"></i></button>
-                    </div>
+                <div class="nameAndHour">
+                    <strong>
+                        <a href="/perfil/${post.user.usernick}" class="user-profile-link">
+                            ${post.user.nome} <span id="userNick">@${post.user.usernick}</span>
+                        </a>
+                    </strong>
+                    <p>${new Date(post.createdAt).toLocaleTimeString()}</p>
                 </div>
+            </div>
+            <p>${post.content}</p>
+            <div class="actionBtnPost">
+                <div class="content_metric">
+                    <p class="number_like">${post.likes.length}</p>
+                    <button type="button" class="filesPost like" data-post-id="${post.id}">
+                        <!-- Icon Não curtido -->
+                        <i class="ph-bold ph-heart likeFalse"></i>
+                        <!-- Icon curtido -->
+                        <i style="display: none;" class="ph-fill ph-heart likeTrue"></i>
+                    </button>
+                </div>
+                <div class="content_metric">
+                    <p class="number_coments">${post.comments.length}</p>
+                    <button type="button" class="filesPost comment"><i class="ph-bold ph-chat-circle"></i></button>
+                </div>
+            </div>
             `;
                 postsList.appendChild(postElement);
 
@@ -126,7 +134,6 @@ addEventListener('DOMContentLoaded', () => {
             });
         })
         .catch((err) => console.error('Erro ao carregar posts:', err));
-
 
     // se algum problema de usuario acontecer..
     function checkUrlAndAlertFeed() {

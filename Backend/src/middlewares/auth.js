@@ -47,4 +47,16 @@ async function auth_user(req, res, next) {
     });
 }
 
-module.exports = { auth_user, generate_token_user };
+// Função para encerrar a sessão
+function remove_session(req, res, next) {
+    try {
+        res.clearCookie('your-session', { path: '/' });
+        res.status(200).json({ message: 'Sessão encerrada!' });
+        next();
+    } catch (error) {
+        console.error('Erro ao encerrar sessão do user, Erro: ', error);
+        res.status(500).json({ message: 'Erro interno ao encerrar sessão, entre em contato com o suporte' });
+    }
+}
+
+module.exports = { auth_user, generate_token_user, remove_session };

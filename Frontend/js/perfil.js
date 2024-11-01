@@ -1,109 +1,103 @@
-// function voltarAoFeed() {
-//     document.getElementById(icone-voltar).location.href='../html/feed.html'
-// };
+addEventListener('DOMContentLoaded', () => {
+    // Adiciona as informações do usuário na página
+    const user_profile = document.getElementById('User_profile'); // Elemento do perfil
+    const user_name = document.getElementById('User_name'); // Elemento do nome
+    const user_nick = document.querySelector('.p-perfil'); // Elemento do nick
 
-// // function LogOut();
+    // Obtém o usernick da URL
+    const pathSegments = window.location.pathname.split('/');
+    const usernick = pathSegments[pathSegments.length - 1]; // Último segmento da URL
 
-// // function alterarFoto()
+    // Faz a requisição para buscar as informações do usuário
+    fetch(`http://localhost:3000/api/perfil/${usernick}`)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Usuário não encontrado');
+            }
+            return response.json();
+        })
+        .then((data) => {
+            console.log(data); // Para verificar o retorno no console
+            user_name.innerHTML = data.nome; // Exibe o nome do usuário
+            user_profile.src = `../assets/profile-pictures/${data.profilePicture}`; // Define a imagem de perfil
+            user_nick.innerHTML = `@${data.usernick}`; // Exibe o nickname
+        })
+        .catch((error) => {
+            console.error('Erro ao buscar informações do usuário:', error);
+            alert('Erro ao buscar informações do usuário');
+        });
 
+    // Exibir apenas o post do user que entrou no
 
-// //==//==//==//==//==//==//==//
-// // FORMULÁRIO DE POSTAGENS  //
-// //==//==//==//==//==//==//==//
+    // Modal de logout
+    document.addEventListener('DOMContentLoaded', () => {
+        const icone_logout = document.getElementById('icone-logout');
+        const modal_logout = document.getElementById('modal_logout');
+        const model_button_cancelar = document.getElementById('button_logout_cancelar');
+        const model_button_sair = document.getElementById('button_logout_sair');
+        const overlay = document.getElementById('overlay');
 
-// export class FormPost{
-//     constructor(idForm, idTextarea, idUlPost) {
-//         this.form = document.getElementById(idForm);
-//         this.textarea = document.getElementById(idTextarea);
-//         this.ulPost = document.getElementById(idUlPost);
-//         this.addSubmit();
-//     }
-//     console(){
-//         return console.log(`Esta é a mensagem: ${this.teste}`)
-//     }
+        icone_logout.addEventListener('click', () => {
+            modal_logout.style.display = 'flex';
+            overlay.style.display = 'block';
+        });
+        model_button_cancelar.addEventListener('click', () => {
+            modal_logout.style.display = 'none';
+            overlay.style.display = 'none';
+        });
 
-//     onSubmit(func){
-//         this.form.addEventListener('submit', func)
-//     }
+        model_button_sair.addEventListener('click', () => {
+            // toda logica para remover o cookie com token jwt
+        });
+    });
 
-//     formValidate(value) {
-//         if(value === '' || value === null || value === undefined || value.lenght <2) {
-//             return false
-//         }
-//             return true
-//     }
+    // Remover sessão
+    document.getElementById('button_logout_sair').addEventListener('click', () => {
+        fetch('http://localhost:3000/logout', {
+            method: 'DELETE',
+        })
+            .then((resp) => {
+                if (resp.ok) {
+                    alert('Sessão encerrada!');
+                    window.location.href = '/';
+                }
+            })
+            .catch((err) => {
+                console.error(`Erro ao encerrar sessão, Erro: ${err}`);
+            });
+    });
 
-//     getTime(){
-//         const time = new Date();
-//         const hour = time.getHours();
-//         const minutes = time.getMinutes();
-//         return `${hour}h ${minutes}min`
-//     }
+    // Cadastrar um post quando enviarem o form.
+    const form = document.getElementById('formPost');
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        console.log('Formulário enviado');
 
-//     addSubmit(){
-//         const handleSubmit = (event) => {
-//             event.preventDefault();
-//             if (this.formValidate(this.textarea.value)) {
-//             const time = this.getTime();
-//             const newPost = document.createElement('li');
-//             newPost.classList.add('post');
-//             newPost.innerHTML = 
-//             `   <div class="infoUserPost">
-//                     <div class="imgUserPost"></div>
+        const conteudo = document.getElementById('textarea').value;
 
-//                     <div class="nameAndHour">
-//                         <strong>Douglas Pujol</strong>
-//                         <p>${time}</p>
-//                     </div>
-//                 </div>
+        if (!conteudo) {
+            alert('Tamanho mínimo de 1 caractere');
+            return; // Não prossegue se não houver conteúdo
+        }
 
-//                 <p>
-//                     ${this.textarea.value}
-//                 </p>
-
-//                 <div class="actionBtnPost">
-//                     <button type="button" class="filesPost like"><i class="ph-bold ph-heart"></i></button>
-
-//                     <button type="button" class="filesPost comment"><i class="ph-bold ph-chat-circle"></i></button>
-//                 </div>
-//                 `;
-//                 this.ulPost.append(newPost);
-//                 this.textarea.value = "";
-//             } else {
-//                 alert('Verifique o campo digitado.')
-//             }
-//         }
-             
-//         this.onSubmit(handleSubmit)
-//     }
-
-// }
-
-// const postForm = new FormPost('formPost', 'textarea', 'posts')
-
-// Não funfo esse codigo de cima  ):
-
-
-
-// Modal de logout
-document.addEventListener('DOMContentLoaded', ()=> {
-    const icone_logout = document.getElementById('icone-logout');
-    const modal_logout = document.getElementById('modal_logout');
-    const model_button_cancelar = document.getElementById('button_logout_cancelar');
-    const model_button_sair = document.getElementById('button_logout_sair');
-    const overlay = document.getElementById('overlay');
-
-    icone_logout.addEventListener("click", ()=> {
-        modal_logout.style.display = 'flex'
-        overlay.style.display = 'block';
-    })
-    model_button_cancelar.addEventListener('click', ()=> {
-        modal_logout.style.display = 'none'
-        overlay.style.display = 'none';
-    })
-
-    model_button_sair.addEventListener('click', ()=> {
-        // toda logica para remover o cookie com token jwt
-        
-    })
+        fetch('/feed', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                conteudo: conteudo,
+            }),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    window.location.reload();
+                } else {
+                    console.error('Erro ao criar post:', response.statusText);
+                }
+            })
+            .catch((error) => {
+                console.error('Erro na requisição:', error);
+            });
+    });
 })
