@@ -520,3 +520,8 @@ button.filesPost {
     font-size: 18px;
     font-family: 'Lexend Deca';
 }
+
+.user-profile-link {
+    text-decoration: none;
+    color: black;
+}

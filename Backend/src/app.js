@@ -116,8 +116,9 @@ app.get('/feed/posts', auth_user, async (req, res) => {
 });
 
 // Rota para acessar o perfil pelo usernick
-app.get('/api/perfil/:usernick', async (req, res) => {
+app.get('/api/perfil/:usernick', auth_user, async (req, res) => {
     const { usernick } = req.params;
+    const userId = req.user.id; // ID do usuário autenticado
     try {
         const user = await prisma.user.findUnique({
             where: { 
@@ -132,14 +133,35 @@ app.get('/api/perfil/:usernick', async (req, res) => {
                         id: true,
                         content: true,
                         createdAt: true,
+                        comments: true,
+                        likes: {
+                            select: {
+                                userId: true,
+                            },
+                        },
                     },
                 },
             },
         });
 
+        // Adiciona o campo 'likedByCurrentUser' em cada post usando um loop for
+        for (let i = 0; i < user.posts.length; i++) {
+            const post = user.posts[i];
+            let likedByCurrentUser = false;
+
+            // Itera sobre cada curtida do post para verificar se o usuário curtiu
+            for (let j = 0; j < post.likes.length; j++) {
+                if (post.likes[j].userId === userId) {
+                    likedByCurrentUser = true;
+                    break; // Interrompe a busca após encontrar a curtida do usuário
+                }
+            }
+
+            post.likedByCurrentUser = likedByCurrentUser;
+        }
+
         if (user) {
             res.json(user);
-            console.log(user);
         } else {
             res.status(404).send('Usuário não encontrado');
         }

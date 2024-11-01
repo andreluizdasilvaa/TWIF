@@ -17,7 +17,6 @@ addEventListener('DOMContentLoaded', () => {
             return response.json();
         })
         .then((data) => {
-            console.log(data); // Para verificar o retorno no console
             user_name.innerHTML = data.nome; // Exibe o nome do usuário
             user_profile.src = `../assets/profile-pictures/${data.profilePicture}`; // Define a imagem de perfil
             user_nick.innerHTML = `@${data.usernick}`; // Exibe o nickname
@@ -27,10 +26,99 @@ addEventListener('DOMContentLoaded', () => {
             alert('Erro ao buscar informações do usuário');
         });
 
-    // Exibir apenas o post do user que entrou no
+    // Exibir apenas o post do user que entrou no perfil
+    fetch(`/api/perfil/${usernick}`)
+        .then((response) => response.json())
+        .then((data) => {
+            const postsList = document.getElementById('posts');
+            postsList.innerHTML = '';
+
+            // Verifica se `data.posts` existe antes de tentar ordená-lo
+            if (data.posts && Array.isArray(data.posts)) {
+                // Ordena os posts por data, do mais recente para o mais antigo
+                const sortedPosts = data.posts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+                sortedPosts.forEach((post) => {
+                    const postElement = document.createElement('li');
+                    postElement.classList.add('post');
+
+                    postElement.innerHTML = `
+                        <div class="infoUserPost">
+                            <div class="imgUserPost">
+                                <img src="../assets/profile-pictures/${data.profilePicture}" alt="">
+                            </div>
+                            <div class="nameAndHour">
+                                <strong>
+                                    <a href="/perfil/${data.usernick}" class="user-profile-link">
+                                        ${data.nome} <span id="userNick">@${data.usernick}</span>
+                                    </a>
+                                </strong>
+                                <p>${new Date(post.createdAt).toLocaleTimeString()}</p>
+                            </div>
+                        </div>
+                        <p>${post.content}</p>
+                        <div class="actionBtnPost">
+                            <div class="content_metric">
+                                <p class="number_like">${post.likes ? post.likes.length : 0}</p>
+                                <button type="button" class="filesPost like" data-post-id="${post.id}">
+                                    <i class="ph-bold ph-heart likeFalse"></i>
+                                    <i style="display: none;" class="ph-fill ph-heart likeTrue"></i>
+                                </button>
+                            </div>
+                            <div class="content_metric">
+                                <p class="number_coments">${post.comments ? post.comments.length : 0}</p>
+                                <button type="button" class="filesPost comment"><i class="ph-bold ph-chat-circle"></i></button>
+                            </div>
+                        </div>
+                    `;
+                    postsList.appendChild(postElement);
+
+                    // Adiciona evento de clique no botão de curtir
+                    const likeButton = postElement.querySelector('.like');
+                    const likeCountElement = postElement.querySelector('.number_like');
+
+                    // Icons de coração para se alterarem
+                    const likeTrue = likeButton.querySelector('.ph-fill.ph-heart.likeTrue');
+                    const likeFalse = likeButton.querySelector('.ph-bold.ph-heart.likeFalse');
+
+                    // Verifica se o usuário já curtiu o post
+                    if (post.likedByCurrentUser) {
+                        likeTrue.style.display = 'block';
+                        likeFalse.style.display = 'none';
+                    }
+
+                    likeButton.addEventListener('click', () => {
+                        const postId = likeButton.getAttribute('data-post-id');
+
+                        fetch(`/posts/${postId}/like`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                        })
+                            .then((response) => response.json())
+                            .then((data) => {
+                                if (data.message === 'Post curtido') {
+                                    likeCountElement.textContent = parseInt(likeCountElement.textContent) + 1;
+                                    likeFalse.style.display = 'none';
+                                    likeTrue.style.display = 'block';
+                                } else if (data.message === 'Curtida removida') {
+                                    likeCountElement.textContent = parseInt(likeCountElement.textContent) - 1;
+                                    likeTrue.style.display = 'none';
+                                    likeFalse.style.display = 'block';
+                                }
+                            })
+                            .catch((error) => console.error('Erro ao curtir/descurtir:', error));
+                    });
+                });
+            } else {
+                console.error("Posts não encontrados no formato esperado.");
+            }
+        })
+        .catch((error) => console.error('Erro ao carregar posts:', error));
+
 
     // Modal de logout
-    document.addEventListener('DOMContentLoaded', () => {
         const icone_logout = document.getElementById('icone-logout');
         const modal_logout = document.getElementById('modal_logout');
         const model_button_cancelar = document.getElementById('button_logout_cancelar');
@@ -49,12 +137,11 @@ addEventListener('DOMContentLoaded', () => {
         model_button_sair.addEventListener('click', () => {
             // toda logica para remover o cookie com token jwt
         });
-    });
 
     // Remover sessão
     document.getElementById('button_logout_sair').addEventListener('click', () => {
         fetch('http://localhost:3000/logout', {
-            method: 'DELETE',
+            method: "DELETE",
         })
             .then((resp) => {
                 if (resp.ok) {
