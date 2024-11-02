@@ -83,11 +83,16 @@ app.get('/feed/posts', auth_user, async (req, res) => {
                     },
                 },
             },
-            orderBy: {
-                likes: {
-                    _count: 'desc',
+            orderBy: [
+                {
+                    likes: {
+                        _count: 'desc',
+                    },
                 },
-            },
+                {
+                    createdAt: 'desc', // Ordem decrescente pela data de criação
+                },
+            ],
         });
 
         // Adiciona o campo 'likedByCurrentUser' em cada post usando um loop for
@@ -119,11 +124,24 @@ app.get('/feed/posts', auth_user, async (req, res) => {
 app.get('/api/perfil/:usernick', auth_user, async (req, res) => {
     const { usernick } = req.params;
     const userId = req.user.id; // ID do usuário autenticado
+
     try {
+        // Busca o usernick do usuário autenticado
+        const currentUser = await prisma.user.findUnique({
+            where: { id: userId },
+            select: { usernick: true },
+        });
+
+        if (!currentUser) {
+            return res.status(404).json({ message: 'Usuário autenticado não encontrado' });
+        }
+
+        // Define a flag `isCurrentUser` comparando o usernick da URL com o usernick do usuário logado
+        const isCurrentUser = currentUser.usernick === usernick;
+
+        // Busca o perfil do usuário acessado
         const user = await prisma.user.findUnique({
-            where: { 
-                usernick: usernick
-             }, 
+            where: { usernick: usernick },
             select: {
                 nome: true,
                 profilePicture: true,
@@ -144,32 +162,24 @@ app.get('/api/perfil/:usernick', auth_user, async (req, res) => {
             },
         });
 
-        // Adiciona o campo 'likedByCurrentUser' em cada post usando um loop for
-        for (let i = 0; i < user.posts.length; i++) {
-            const post = user.posts[i];
-            let likedByCurrentUser = false;
+        if (user) {
+            user.isCurrentUser = isCurrentUser; // Adiciona a flag `isCurrentUser`
 
-            // Itera sobre cada curtida do post para verificar se o usuário curtiu
-            for (let j = 0; j < post.likes.length; j++) {
-                if (post.likes[j].userId === userId) {
-                    likedByCurrentUser = true;
-                    break; // Interrompe a busca após encontrar a curtida do usuário
-                }
+            // Adiciona o campo `likedByCurrentUser` em cada post
+            for (let post of user.posts) {
+                post.likedByCurrentUser = post.likes.some(like => like.userId === userId);
             }
 
-            post.likedByCurrentUser = likedByCurrentUser;
-        }
-
-        if (user) {
             res.json(user);
         } else {
-            res.status(404).send('Usuário não encontrado');
+            res.status(404).json({ message: 'Usuário não encontrado' });
         }
     } catch (error) {
         console.error(error);
-        res.status(500).send('Erro ao buscar o usuário');
+        res.status(500).json({ message: 'Erro ao buscar o usuário' });
     }
 });
+
 
 
 // Rota para retornar todas as informações do usuario que está acessando a rota
@@ -201,6 +211,11 @@ app.get('/user/me', auth_user, async (req, res) => {
         res.status(500).send('Erro ao buscar o usuário');
     }
 });
+
+// Rota para se o usuario não for encontrado
+app.get('/user404', (req, res) => {
+    res.status(404).sendFile(path.join(__dirname, '..', '..', 'Frontend', 'html', 'user_page_404.html'));
+})
 
 // Rota para Erro 404 ( SEMPRE DEIXE ESSA ROTA POR ULTIMO, DE CIMA PARA BAIXO );
 app.get('*', (req, res) => {
@@ -363,12 +378,68 @@ app.post('/posts/:postId/like', auth_user, async (req, res) => {
 // | =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=| ROTAS DELETE |-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= |
 
 // Ecerrar sessão do usuario = delete -> cookie
-app.delete('/logout', (req, res)=> {
+app.delete('/logout', auth_user, (req, res)=> {
     try {
         remove_session(req, res);
     } catch (error) {
         console.error('Erro ao encerrar sessão do user, Erro: ', error);
         res.status(500).json({ message: 'Erro interno ao encerrar sessão, entre em contato com o suporte'});
+    }
+});
+
+// Deletar um post do DB com base no id dele
+app.delete('/delete/post', auth_user, async (req, res) => {
+    let { idPost } = req.body; // Supondo que o ID do post seja enviado no corpo da requisição
+
+    idPost = parseInt(idPost, 10);
+
+    if (isNaN(idPost)) {
+        return res.status(400).json({ message: 'ID do post inválido.' });
+    }
+
+    try {
+        // Verifica se o post existe
+        const post = await prisma.post.findUnique({
+            where: {
+                id: idPost,
+            },
+        });
+
+        // Se o post não existir, retorna erro
+        if (!post) {
+            return res.status(404).json({ message: 'Post não encontrado.' });
+        }
+
+        // Verifica se o usuário é o autor do post ou um administrador
+        if (post.userId !== req.user.id && !req.user.isadmin) {
+            return res.status(403).json({ message: 'Você não tem permissão para deletar este post.' });
+        }
+
+        // Deleta comentários e likes associados ao post
+        await prisma.comment.deleteMany({
+            where: {
+                postId: idPost,
+            },
+        });
+
+        await prisma.like.deleteMany({
+            where: {
+                postId: idPost,
+            },
+        });
+
+        // Deleta o post
+        await prisma.post.delete({
+            where: {
+                id: idPost,
+            },
+        });
+
+        // Retorna sucesso
+        res.status(200).json({ message: 'Post deletado com sucesso.' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Erro ao deletar o post." });
     }
 });
 

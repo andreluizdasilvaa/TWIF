@@ -1,3 +1,6 @@
+/* Importação de variáveis */
+@import url(utilidades/variaveis.css);
+
 * {
  margin: 0;
  padding: 0;
@@ -244,16 +247,11 @@ ul.posts li.post >p{
     font-size: 14px;
 }
 
-ul.posts li.post div.actionBtnPost{
-    display: flex;
-    align-items: center;
-}
-
 div.actionBtnPost{
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
     gap: 30px;
-        
 }
 
 button.filesPost{
@@ -276,7 +274,7 @@ button.filesPost{
     padding: 64px;
     border-radius: 24px;
 
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -322,6 +320,23 @@ button.filesPost{
 #button_logout_cancelar:hover {
     background-color: #7ec543;
     color: #011214;
+}
+
+/* Modal excluir post */
+#modal_ex_post {
+    display: none;
+}
+
+#button_ex_post {
+    background-color: var(--vermelho);
+    color: white;
+    border: 1px solid var(--vermelho);
+    transition: .3s;
+}
+
+#button_ex_post:hover {
+    background-color: var(--bg-padrao);
+    color: var(--vermelho);
 }
 
 /* Overlay para fundo escuro c/event */
@@ -394,17 +409,6 @@ ul.posts li.post > p {
 }
 
 /* ===== Botões de Ação nos Posts ===== */
-ul.posts li.post div.actionBtnPost {
-    display: flex;
-    align-items: center;
-}
-
-div.actionBtnPost {
-    display: flex;
-    justify-content: flex-end;
-    gap: 24px;
-}
-
 div.content_metric {
     display: flex;
     gap: 2px;
@@ -524,4 +528,68 @@ button.filesPost {
 .user-profile-link {
     text-decoration: none;
     color: black;
+}
+
+.content_interations_post {
+    display: flex;
+    gap: 24px;
+    text-align: end;
+}
+
+.btn_delete_post {
+    display: block;
+    border: none;
+    background-color: var(--vermelho);
+    color: var(--bg-padrao);
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-weight: bold;
+    border: 1px solid var(--vermelho);
+    cursor: pointer;
+    transition: .3s;
+}
+
+.btn_delete_post:hover {
+    background-color: var(--bg-padrao);
+    color: var(--vermelho);
+}
+
+
+/* Animações de carregamento */
+#imgUserPost {
+    position: absolute;
+    z-index: 2;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: linear-gradient(to right top, gray, rgb(202, 202, 202));
+}
+
+#nameAndHour {  
+    width: 10vw;
+    height: 25px;
+    border-radius: 32px;
+    background: linear-gradient(to right top, gray, rgb(202, 202, 202));
+}
+
+@media screen and (max-width: 800px) {
+    #nameAndHour {
+        width: 20vw;
+    }
+    div.second-icon-header {
+        top: 10px;
+    }
+}
+
+.content_post_loading {
+    width: 80%;
+    height: 15px;
+    border-radius: 32px;
+    background: linear-gradient(to right top, gray, rgb(202, 202, 202));
+    margin: 10px 0px;
+}
+
+::selection {
+    background-color: var(--verde-padrao); 
+    color: var(--azul-escuro-A); 
 }

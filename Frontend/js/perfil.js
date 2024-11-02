@@ -12,6 +12,7 @@ addEventListener('DOMContentLoaded', () => {
     fetch(`http://localhost:3000/api/perfil/${usernick}`)
         .then((response) => {
             if (!response.ok) {
+                window.location.href = '/user404';
                 throw new Error('Usuário não encontrado');
             }
             return response.json();
@@ -23,7 +24,7 @@ addEventListener('DOMContentLoaded', () => {
         })
         .catch((error) => {
             console.error('Erro ao buscar informações do usuário:', error);
-            alert('Erro ao buscar informações do usuário');
+            // alert('Erro ao buscar informações do usuário');
         });
 
     // Exibir apenas o post do user que entrou no perfil
@@ -33,45 +34,103 @@ addEventListener('DOMContentLoaded', () => {
             const postsList = document.getElementById('posts');
             postsList.innerHTML = '';
 
-            // Verifica se `data.posts` existe antes de tentar ordená-lo
+            // verifica se existem postagens e, se sim, as ordena por data de criação, colocando as mais recentes primeiro.
             if (data.posts && Array.isArray(data.posts)) {
-                // Ordena os posts por data, do mais recente para o mais antigo
                 const sortedPosts = data.posts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
                 sortedPosts.forEach((post) => {
                     const postElement = document.createElement('li');
                     postElement.classList.add('post');
 
+                    // Renderiza o botão "Excluir Post" apenas se `isCurrentUser` for `true`
+                    let deleteButtonHtml = '';
+                    if (data.isCurrentUser) {
+                        deleteButtonHtml = `<button class="btn_delete_post" data-post-id="${post.id}">Deletar Post</button>`;
+                    } else {
+                        deleteButtonHtml = '';
+                    }
+
                     postElement.innerHTML = `
-                        <div class="infoUserPost">
-                            <div class="imgUserPost">
-                                <img src="../assets/profile-pictures/${data.profilePicture}" alt="">
-                            </div>
-                            <div class="nameAndHour">
-                                <strong>
-                                    <a href="/perfil/${data.usernick}" class="user-profile-link">
-                                        ${data.nome} <span id="userNick">@${data.usernick}</span>
-                                    </a>
-                                </strong>
-                                <p>${new Date(post.createdAt).toLocaleTimeString()}</p>
-                            </div>
+                <div class="infoUserPost">
+                    <div class="imgUserPost">
+                        <img src="../assets/profile-pictures/${data.profilePicture}" alt="">
+                    </div>
+                    <div class="nameAndHour">
+                        <strong>
+                            <a href="/perfil/${data.usernick}" class="user-profile-link">
+                                ${data.nome} <span id="userNick">@${data.usernick}</span>
+                            </a>
+                        </strong>
+                        <p>${new Date(post.createdAt).toLocaleTimeString()}</p>
+                    </div>
+                </div>
+                <p>${post.content}</p>
+                <div class="actionBtnPost">
+                    <div>
+                        ${deleteButtonHtml}
+                    </div>
+                    <div class="content_interations_post">
+                        <div class="content_metric">
+                            <p class="number_like">${post.likes ? post.likes.length : 0}</p>
+                            <button type="button" class="filesPost like" data-post-id="${post.id}">
+                                <i class="ph-bold ph-heart likeFalse"></i>
+                                <i style="display: none;" class="ph-fill ph-heart likeTrue"></i>
+                            </button>
                         </div>
-                        <p>${post.content}</p>
-                        <div class="actionBtnPost">
-                            <div class="content_metric">
-                                <p class="number_like">${post.likes ? post.likes.length : 0}</p>
-                                <button type="button" class="filesPost like" data-post-id="${post.id}">
-                                    <i class="ph-bold ph-heart likeFalse"></i>
-                                    <i style="display: none;" class="ph-fill ph-heart likeTrue"></i>
-                                </button>
-                            </div>
-                            <div class="content_metric">
-                                <p class="number_coments">${post.comments ? post.comments.length : 0}</p>
-                                <button type="button" class="filesPost comment"><i class="ph-bold ph-chat-circle"></i></button>
-                            </div>
+                        <div class="content_metric">
+                            <p class="number_coments">${post.comments ? post.comments.length : 0}</p>
+                            <button type="button" class="filesPost comment"><i class="ph-bold ph-chat-circle"></i></button>
                         </div>
-                    `;
+                    </div>
+                </div>
+            `;
+
                     postsList.appendChild(postElement);
+
+                    // excluir um post
+                    const btn_excluir = postElement.querySelector('.btn_delete_post');
+                    if (btn_excluir) {
+                        btn_excluir.addEventListener('click', () => {
+                            const container_modal_ex_post = document.getElementById('modal_ex_post');
+                            const overlay = document.getElementById('overlay');
+                            overlay.style.display = 'block';
+                            container_modal_ex_post.style.display = 'block';
+                            document.body.style.overflow = 'hidden';
+
+                            // Define o ID do post a ser deletado no modal
+                            const postId = btn_excluir.getAttribute('data-post-id');
+
+                            // Remover o ouvinte anterior, se houver
+                            const confirmButton = document.getElementById('button_ex_post');
+                            confirmButton.onclick = null; // Remover o antigo antes de adicionar um novo
+
+                            // pressionar o botão excluir
+                            confirmButton.addEventListener('click', () => {
+                                fetch('/delete/post', {
+                                    method: 'DELETE',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({ idPost: postId }),
+                                })
+                                    .then((res) => res.json())
+                                    .then((result) => {
+                                        if (result.message === 'Post deletado com sucesso.') {
+                                            window.location.reload();
+                                        } else {
+                                            alert(result.message);
+                                        }
+                                    })
+                                    .catch((error) => console.error('Erro ao deletar o post:', error));
+                            });
+
+                            document.getElementById('button_ex_post_cancelar').onclick = () => {
+                                container_modal_ex_post.style.display = 'none';
+                                overlay.style.display = 'none';
+                                document.body.style.overflow = 'auto';
+                            };
+                        });
+                    }
 
                     // Adiciona evento de clique no botão de curtir
                     const likeButton = postElement.querySelector('.like');
@@ -112,36 +171,39 @@ addEventListener('DOMContentLoaded', () => {
                     });
                 });
             } else {
-                console.error("Posts não encontrados no formato esperado.");
+                console.error('Posts não encontrados no formato esperado.');
             }
         })
         .catch((error) => console.error('Erro ao carregar posts:', error));
 
 
+    // Modal de excluir post
+
+
     // Modal de logout
-        const icone_logout = document.getElementById('icone-logout');
-        const modal_logout = document.getElementById('modal_logout');
-        const model_button_cancelar = document.getElementById('button_logout_cancelar');
-        const model_button_sair = document.getElementById('button_logout_sair');
-        const overlay = document.getElementById('overlay');
+    const icone_logout = document.getElementById('icone-logout');
+    const modal_logout = document.getElementById('modal_logout');
+    const model_button_cancelar = document.getElementById('button_logout_cancelar');
+    const model_button_sair = document.getElementById('button_logout_sair');
+    const overlay = document.getElementById('overlay');
 
-        icone_logout.addEventListener('click', () => {
-            modal_logout.style.display = 'flex';
-            overlay.style.display = 'block';
-        });
-        model_button_cancelar.addEventListener('click', () => {
-            modal_logout.style.display = 'none';
-            overlay.style.display = 'none';
-        });
+    icone_logout.addEventListener('click', () => {
+        modal_logout.style.display = 'flex';
+        overlay.style.display = 'block';
+    });
+    model_button_cancelar.addEventListener('click', () => {
+        modal_logout.style.display = 'none';
+        overlay.style.display = 'none';
+    });
 
-        model_button_sair.addEventListener('click', () => {
-            // toda logica para remover o cookie com token jwt
-        });
+    model_button_sair.addEventListener('click', () => {
+        // toda logica para remover o cookie com token jwt
+    });
 
     // Remover sessão
     document.getElementById('button_logout_sair').addEventListener('click', () => {
         fetch('http://localhost:3000/logout', {
-            method: "DELETE",
+            method: 'DELETE',
         })
             .then((resp) => {
                 if (resp.ok) {
@@ -160,12 +222,14 @@ addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         console.log('Formulário enviado');
 
-        const conteudo = document.getElementById('textarea').value;
+        let conteudo = document.getElementById('textarea').value;
 
         if (!conteudo) {
             alert('Tamanho mínimo de 1 caractere');
             return; // Não prossegue se não houver conteúdo
         }
+
+        const conteudovalido = DOMPurify.sanitize(conteudo);
 
         fetch('/feed', {
             method: 'POST',
@@ -173,7 +237,7 @@ addEventListener('DOMContentLoaded', () => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                conteudo: conteudo,
+                conteudo: conteudovalido,
             }),
         })
             .then((response) => {
@@ -187,4 +251,4 @@ addEventListener('DOMContentLoaded', () => {
                 console.error('Erro na requisição:', error);
             });
     });
-})
+});

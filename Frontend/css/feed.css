@@ -217,9 +217,11 @@ ul.posts li.post > p {
 ul.posts li.post div.actionBtnPost {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
+    gap: 24px;
 }
 
-div.actionBtnPost {
+div.actionBtnPost_like_comment {
     display: flex;
     justify-content: flex-end;
     gap: 24px;
@@ -345,6 +347,13 @@ button.filesPost {
     cursor: pointer;
     font-size: 18px;
     font-family: 'Lexend Deca';
+    border: 1px solid var(--vermelho);
+    transition: .3s;
+}
+
+.sair:hover {
+    background-color: white;
+    color: var(--vermelho);
 }
 
 
@@ -438,3 +447,38 @@ button.filesPost {
 .bold{
     color: var(--vermelho);
 }
+
+/* Animações de carregamento */
+#imgUserPost {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: linear-gradient(to right top, gray, rgb(202, 202, 202));
+}
+
+#nameAndHour {  
+    width: 20vw;
+    height: 25px;
+    border-radius: 32px;
+    background: linear-gradient(to right top, gray, rgb(202, 202, 202));
+}
+
+.content_post_loading {
+    width: 80%;
+    height: 15px;
+    border-radius: 32px;
+    background: linear-gradient(to right top, gray, rgb(202, 202, 202));
+    margin: 10px 0px;
+}
+
+@media screen and (max-width: 950px) {
+    .botao-flutuante {
+        display: none;
+    }
+}
+
+::selection {
+            background-color: var(--verde-padrao); /* Cor de fundo da seleção */
+            color: var(--azul-escuro-A); /* Cor do texto selecionado */
+        }

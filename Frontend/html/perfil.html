@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="../css/perfil.css"/>
     <link rel="shortcut icon" href="../assets/img/favicon.svg" type="image/x-icon">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- biblioteca DOMPurify | remove qualquer script ou tag HTML potencialmente perigosa, Cross-Site Scripting (XSS) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.0/purify.min.js"></script>
 </head>
 
 <body>
@@ -58,8 +61,8 @@
         </div>
 
         <div class="nome-user-perfil">
-            <h3 id="User_name">Menina da Silva</h3>
-            <p class="p-perfil">@meninai</p>
+            <h3 id="User_name">UserName</h3>
+            <p class="p-perfil">@Usernick</p>
         </div>
 
         <!-- Formulário de postagem -->
@@ -81,23 +84,26 @@
             <li class="post">
                 <div class="infoUserPost">
                     <div class="imgUserPost">
-                        <img src="../assets/profile-pictures/defaultphoto.png" alt="">
+                        <div id="imgUserPost"></div>
+                        <img src="" alt="">
                     </div>
             
-                    <div class="nameAndHour">
+                    <div class="nameAndHour" id="nameAndHour">
                         <!-- Nome do usuário e horário do post -->
-                        <strong>Name user (Post) <span id="userNick">@user_123</span></strong>
-                        <p>hours</p>
+                        <strong><span id="userNick"></span></strong>
+                        <p></p>
                     </div>
                 </div>
             
                 <!-- Conteúdo do post -->
-                <p>a</p>
+                <div class="content_post_loading"></div>
+                <div class="content_post_loading"></div>
+                <p></p>
             
                 <!-- Botões de ação do post (curtir, comentar) -->
                 <div class="actionBtnPost">
                     <div class="content_metric">
-                        <p id="number_like">0</p>
+                        <p id="number_like"></p>
                         <button type="button" class="filesPost like">
                             <!-- Ícone para curtir o post -->
                             <i class="ph-bold ph-heart"></i>
@@ -107,7 +113,89 @@
                     </div>
             
                     <div class="content_metric">
-                        <p id="number_coments">0</p>
+                        <p id="number_coments"></p>
+                        <button type="button" class="filesPost comment">
+                            <i class="ph-bold ph-chat-circle"></i>
+                        </button>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Estrutura de um post individual -->
+            <li class="post">
+                <div class="infoUserPost">
+                    <div class="imgUserPost">
+                        <div id="imgUserPost"></div>
+                        <img src="" alt="">
+                    </div>
+            
+                    <div class="nameAndHour" id="nameAndHour">
+                        <!-- Nome do usuário e horário do post -->
+                        <strong><span id="userNick"></span></strong>
+                        <p></p>
+                    </div>
+                </div>
+            
+                <!-- Conteúdo do post -->
+                <div class="content_post_loading"></div>
+                <div class="content_post_loading"></div>
+                <p></p>
+            
+                <!-- Botões de ação do post (curtir, comentar) -->
+                <div class="actionBtnPost">
+                    <div class="content_metric">
+                        <p id="number_like"></p>
+                        <button type="button" class="filesPost like">
+                            <!-- Ícone para curtir o post -->
+                            <i class="ph-bold ph-heart"></i>
+                            <!-- Ícone quando o post está curtido -->
+                            <i style="display: none;" class="ph-fill ph-heart"></i>
+                        </button>
+                    </div>
+            
+                    <div class="content_metric">
+                        <p id="number_coments"></p>
+                        <button type="button" class="filesPost comment">
+                            <i class="ph-bold ph-chat-circle"></i>
+                        </button>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Estrutura de um post individual -->
+            <li class="post">
+                <div class="infoUserPost">
+                    <div class="imgUserPost">
+                        <div id="imgUserPost"></div>
+                        <img src="" alt="">
+                    </div>
+            
+                    <div class="nameAndHour" id="nameAndHour">
+                        <!-- Nome do usuário e horário do post -->
+                        <strong><span id="userNick"></span></strong>
+                        <p></p>
+                    </div>
+                </div>
+            
+                <!-- Conteúdo do post -->
+                <div class="content_post_loading"></div>
+                <div class="content_post_loading"></div>
+                <p></p>
+            
+                <!-- Botões de ação do post (curtir, comentar) -->
+                <div class="actionBtnPost">
+                    <div class="content_metric">
+                        <p id="number_like"></p>
+                        <button type="button" class="filesPost like">
+                            <!-- Ícone para curtir o post -->
+                            <i class="ph-bold ph-heart"></i>
+                            <!-- Ícone quando o post está curtido -->
+                            <i style="display: none;" class="ph-fill ph-heart"></i>
+                        </button>
+                    </div>
+            
+                    <div class="content_metric">
+                        <p id="number_coments"></p>
                         <button type="button" class="filesPost comment">
                             <i class="ph-bold ph-chat-circle"></i>
                         </button>
@@ -135,6 +223,21 @@
         <div class="button_logout">
             <button class="btnSubmitForm" id="button_logout_cancelar">CANCELAR</button>
             <button class="btnSubmitForm" id="button_logout_sair">SAIR</button>
+        </div>
+    </div>
+
+    <!-- Modal Excluir Post -->
+    <div class="container_modal_logout" id="modal_ex_post">
+        <!-- Texto -->
+        <div class="text_logout">
+            <h2>Tem certeza<br>que quer<br>Excluir esse post<span>?</span></h2>
+            <svg xmlns="http://www.w3.org/2000/svg" width="128px" height="128px" viewBox="0 0 24 24"><path fill="#6b0000" d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zM9 17h2V8H9zm4 0h2V8h-2zM7 6v13z"/></svg>
+        </div>
+        <p>Todos os likes e comentarios serão apagados!</p>
+        <!-- Buttons -->
+        <div class="button_logout">
+            <button class="btnSubmitForm" id="button_ex_post_cancelar">CANCELAR</button>
+            <button class="btnSubmitForm" id="button_ex_post">Deletar</button>
         </div>
     </div>
 

@@ -2,7 +2,7 @@ const form = document.getElementById('formPost');
 
 // Cadastrar um post quando enviarem o form.
 form.addEventListener('submit', (event) => {
-    event.preventDefault(); 
+    event.preventDefault();
     console.log('Formulário enviado');
 
     const conteudo = document.getElementById('textarea').value;
@@ -12,21 +12,26 @@ form.addEventListener('submit', (event) => {
         return; // Não prossegue se não houver conteúdo
     }
 
+    // Sanitizando o conteúdo do post
+    const conteudoSanitizado = DOMPurify.sanitize(conteudo);
+
     fetch('/feed', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            conteudo: conteudo,
+            conteudo: conteudoSanitizado, // Usando o conteúdo sanitizado
         }),
-    }).then((response) => {
+    })
+        .then((response) => {
             if (response.ok) {
                 window.location.reload();
             } else {
                 console.error('Erro ao criar post:', response.statusText);
             }
-        }).catch((error) => {
+        })
+        .catch((error) => {
             console.error('Erro na requisição:', error);
         });
 });
@@ -155,7 +160,6 @@ addEventListener('DOMContentLoaded', () => {
     checkUrlAndAlertFeed();
 });
 
-
 // ===================== ===================== =====================
 // =====================   Modal Hamburguer   =====================
 // ===================== ===================== =====================
@@ -169,11 +173,11 @@ const sairBtn = document.getElementById('sairBtn');
 // Elementos do modal para atualizar com dados do usuário
 const profilePictureModal = document.getElementById('profilePictureModal');
 const userNameModal = document.getElementById('userNameModal');
-const userNickModal = document.getElementById('userNickModal')
+const userNickModal = document.getElementById('userNickModal');
 
 // Abre o modal quando o ícone é clicado
 hamburguerIcon.addEventListener('click', () => {
-  modal.style.display = 'block';
+    modal.style.display = 'block';
 });
 
 // Fecha o modal quando o botão "Sair" é clicado
@@ -182,33 +186,32 @@ hamburguerIcon.addEventListener('click', () => {
 
 // Exclui a sessão do usuario quando clica em 'sair'.
 sairBtn.addEventListener('click', () => {
-  fetch('/logout', {
-    method: 'DELETE',
-  })
-  .then((response) => {
-    if(response.ok) {
-        alert('Sessão encerrada!');
-        window.location.href = '/';
-    } else {
-        alert('Erro ao sair');
-        console.error(response.error);
-    }
-  })
+    fetch('/logout', {
+        method: 'DELETE',
+    }).then((response) => {
+        if (response.ok) {
+            alert('Sessão encerrada!');
+            window.location.href = '/';
+        } else {
+            alert('Erro ao sair');
+            console.error(response.error);
+        }
+    });
 });
 
 // Puxa dados do usuário e exibe no modal
 fetch('user/me')
-  .then((response) => response.json())
-  .then((data) => {
-    profilePictureModal.src = `../assets/profile-pictures/${data.profilePicture}`;
-    userNameModal.textContent = data.nome;
-    userNickModal.textContent = `@${data.usernick}`;
-  })
-  .catch(error => console.error('Erro ao carregar dados do usuário:', error));
+    .then((response) => response.json())
+    .then((data) => {
+        profilePictureModal.src = `../assets/profile-pictures/${data.profilePicture}`;
+        userNameModal.textContent = data.nome;
+        userNickModal.textContent = `@${data.usernick}`;
+    })
+    .catch((error) => console.error('Erro ao carregar dados do usuário:', error));
 
 // Fecha o modal ao clicar no botão de fechar
 closeModal.addEventListener('click', () => {
-  modal.style.display = 'none';
+    modal.style.display = 'none';
 });
 
 // Fecha o modal ao clicar fora do conteúdo
@@ -217,7 +220,6 @@ window.addEventListener('click', (event) => {
         modal.style.display = 'none';
     }
 });
-
 
 // ===================== ===================== =====================
 // =====================   Modal Novo Post   =====================
@@ -230,72 +232,74 @@ const fecharModal = document.getElementById('fecharModal');
 
 // Abrir modal ao clicar no botão flutuante
 btnNovoPost.addEventListener('click', () => {
-  modalNovoPost.style.display = 'flex';
+    modalNovoPost.style.display = 'flex';
 });
 
 // Fechar modal ao clicar no "X"
 fecharModal.addEventListener('click', () => {
-  modalNovoPost.style.display = 'none';
+    modalNovoPost.style.display = 'none';
 });
 
 // Fechar modal ao clicar fora da área de conteúdo
 window.addEventListener('click', (event) => {
-  if (event.target === modalNovoPost) {
-    modalNovoPost.style.display = 'none';
-  }
+    if (event.target === modalNovoPost) {
+        modalNovoPost.style.display = 'none';
+    }
 });
 
 // Função para publicar o post
 document.getElementById('formNovoPost').addEventListener('submit', async function (event) {
-  // Obter dados do formulário
-  const conteudo = document.getElementById('conteudoPost').value;
+    // Obter dados do formulário
+    let conteudo = document.getElementById('conteudoPost').value;
 
-  // Montar objeto com os dados do post
-  const novoPost = {
-    conteudo: conteudo
-  };
+    const conteudovalido = DOMPurify.sanitize(conteudo);
 
-  try {
-    // Fazer requisição para a rota existente
-    const resposta = await fetch('/feed', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(novoPost)
-    });
+    // Montar objeto com os dados do post
+    const novoPost = {
+        conteudo: conteudovalido,
+    };
 
-    if (resposta.ok) {
-      const postCriado = await resposta.json();
+    try {
+        // Fazer requisição para a rota existente
+        const resposta = await fetch('/feed', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(novoPost),
+        });
 
-      // Exibir o novo post no feed
-      adicionarPostAoFeed(postCriado);
+        if (resposta.ok) {
+            const postCriado = await resposta.json();
 
-      // Fechar o modal e limpar o formulário
-      modalNovoPost.style.display = 'none';
-      document.getElementById('formNovoPost').reset();
-    } else {
-      console.error('Erro ao criar o post');
+            // Exibir o novo post no feed
+            adicionarPostAoFeed(postCriado);
+
+            // Fechar o modal e limpar o formulário
+            modalNovoPost.style.display = 'none';
+            document.getElementById('formNovoPost').reset();
+        } else {
+            console.error('Erro ao criar o post');
+        }
+    } catch (erro) {
+        console.error('Erro na requisição:', erro);
     }
-  } catch (erro) {
-    console.error('Erro na requisição:', erro);
-  }
 });
 
 // Função para adicionar o post ao feed
 function adicionarPostAoFeed(post) {
-  const feed = document.getElementById('feed');
-  const postDiv = document.createElement('div');
-  postDiv.classList.add('post');
-  
-  const titulo = document.createElement('h3');
-  titulo.textContent = post.titulo;
-  
-  const conteudo = document.createElement('p');
-  conteudo.textContent = post.conteudo;
+    const feed = document.getElementById('feed');
+    const postDiv = document.createElement('div');
+    postDiv.classList.add('post');
 
-  postDiv.appendChild(titulo);
-  postDiv.appendChild(conteudo);
+    const titulo = document.createElement('h3');
+    titulo.textContent = post.titulo;
 
-  feed.appendChild(postDiv);
+    const conteudo = document.createElement('p');
+    conteudo.textContent = post.conteudo;
+
+    postDiv.appendChild(titulo);
+    postDiv.appendChild(conteudo);
+
+    feed.appendChild(postDiv);
 }
