@@ -348,7 +348,7 @@ button.filesPost{
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     display: none; 
-    z-index: 2; 
+    z-index: 3; 
 }
 
 
@@ -436,7 +436,6 @@ button.filesPost {
     height: 100vh;
     background-color: white;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
     border-radius: 20px 0 0 20px;
 }
 
@@ -450,6 +449,7 @@ button.filesPost {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    z-index: 4;
     height: 100%;
     gap: 20px;
 }
@@ -592,4 +592,137 @@ button.filesPost {
 ::selection {
     background-color: var(--verde-padrao); 
     color: var(--azul-escuro-A); 
+}
+
+/* Modal de troca de Perfil */
+.dark{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+
+}
+
+.modal {
+    display: none;
+    /* Esconde o modal por padrão */
+    position: fixed;
+    /* Mantém o modal fixo na tela */
+    z-index: 3;
+    /* Coloca o modal acima de outros conteúdos */
+    left: 0;
+    /* Alinha o modal à esquerda da tela */
+    top: 0;
+    width: 100%;
+    height: fit-content;
+
+    background-color: rgba(0, 0, 0, 0.733);
+}
+
+.modal-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid black;
+    background-color: #fefefe;
+    /* margin: 7% auto;  CONFIGURAÇÃO ORIGINAL*/ 
+    /* Margem superior de 15% e centraliza horizontalmente */
+    padding: 50px;
+    width: 700px;
+    height: fit-content;
+    /* Largura do conteúdo do modal ocupa 80% da largura do modal */
+    max-width: 700px;
+    /* Largura máxima do conteúdo do modal */
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.close {
+    color: #aaa;
+    font-size: 32px;
+    font-weight: 400;
+}
+
+.close:hover,
+.close:focus {
+    color: var(--azul-escuro-A);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Style for avatar selection */
+.avatar-selection {
+    text-align: left;
+    font-family: 'Lexend Deca';
+    font-size: 14px;
+    color: var(--verde-neutro);
+}
+
+.avatar-selection h2 {
+    font-size: 40px;
+    margin: 0%;
+    color: var(--azul-escuro-A);
+}
+
+.bold{
+    color: var(--vermelho);
+}
+
+
+#salvar-avatar {
+    margin-top: 20px;
+    ;
+    padding: 15px 20px;
+    background-color: var(--azul-escuro-A);
+    color: var(--verde-padrao);
+    border: none;
+    /* Remove a borda padrão do botão de salvar avatar */
+    border-radius: 5px;
+    /* Bordas arredondadas do botão de salvar avatar */
+    cursor: pointer;
+    font-family: Lexend Deca;
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    transition: all 0.3s;
+}
+
+#button-r {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#button-l {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#salvar-avatar:hover {
+    background-color: var(--verde-padrao);
+    color: var(--azul-escuro-A);
+    font-family: 700;
+}
+
+.avatar-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.avatar-button img {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    margin: 10px;
+}
+
+.avatar-button.selected img {
+    transform: scale(1.1);
+    border: 5px solid var(--azul-escuro-A);
 }

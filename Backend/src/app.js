@@ -443,6 +443,33 @@ app.delete('/delete/post', auth_user, async (req, res) => {
     }
 });
 
+// | =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=| ROTAS Patch |-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= |
+
+app.patch('/api/troca/avatar/:avatar', auth_user, async (req, res) => {
+    try {
+        const url_profile_picture = req.params.avatar;
+        const userId = req.user.id;
+
+        const user = await prisma.user.update({
+            where: {
+                id: userId
+            },
+            data: {
+                profilePicture: url_profile_picture
+            }
+        })
+
+        if(!user) {
+            res.json({ msg: "Erro ao atualizar profile picture" })
+        }
+
+        res.status(201).json({ msg: "Sucesso ao atualizar profile picture" })
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Erro ao atualizar foto de perfil." });
+    }
+});
+
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta http://localhost:${PORT}`);

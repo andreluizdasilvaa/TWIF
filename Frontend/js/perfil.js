@@ -27,6 +27,81 @@ addEventListener('DOMContentLoaded', () => {
             // alert('Erro ao buscar informações do usuário');
         });
 
+    // troca de foto de perfil( profile_picture )
+    document.getElementById('troca_perfil').addEventListener('click',  () => {
+        // Obtém o modal
+        var modal = document.getElementById('avatarModal');
+        modal.style.display = 'flex'
+        document.getElementById('overlay').style.display = 'block'
+        document.body.style.overflow = 'hidden';
+
+        // Obtém o elemento <span> que fecha o modal
+        var span = document.getElementsByClassName('close')[0];
+
+        // Quando o usuário clica em <span> (x), fecha o modal
+        span.onclick = function () {
+            modal.style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        };
+
+        // Quando o usuário clica em qualquer lugar fora do modal, fecha-o
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        };
+
+        // Obtém todos os botões de avatar
+        var avatarButtons = document.querySelectorAll('.avatar-button');
+
+        // Trata a seleção de avatar
+        avatarButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                // Obtém o src da imagem dentro do botão clicado
+                var avatarSrc = this.querySelector('img').src;
+
+                // Extrai apenas o nome do arquivo do avatar
+                var avatarFileName = avatarSrc.split('/').pop();
+
+                // Define o valor do campo escondido com o nome do arquivo do avatar escolhido
+                document.getElementById('avatar-escolhido').value = avatarFileName;
+
+                // Remove a classe 'selected' de todos os botões
+                avatarButtons.forEach((b) => b.classList.remove('selected'));
+
+                // Adiciona a classe 'selected' ao avatar escolhido
+                this.classList.add('selected');
+            });
+        });
+
+        document.getElementById('salvar-avatar').addEventListener('click', (event) => {
+            event.preventDefault();
+
+            const img_escolhida = document.getElementById('avatar-escolhido').value
+            
+            fetch(`/api/troca/avatar/${img_escolhida}`, {
+                method: "PATCH"
+            })
+            .then((resp) => {
+                if (resp.ok) {
+                    return resp.json().then((data) => {
+                        alert(data.msg);
+                        window.location.reload();
+                    });
+                } else {
+                    return resp.json().then((data) => {
+                        alert(data.message || "Erro ao atualizar a foto de perfil");
+                    });
+                }
+            })
+            .catch((error) => {
+                console.error("Erro na requisição:", error);
+                alert("Erro na requisição");
+            });
+        })
+    });
+
     // Exibir apenas o post do user que entrou no perfil
     fetch(`/api/perfil/${usernick}`)
         .then((response) => response.json())
@@ -42,12 +117,16 @@ addEventListener('DOMContentLoaded', () => {
                     const postElement = document.createElement('li');
                     postElement.classList.add('post');
 
-                    // Renderiza o botão "Excluir Post" apenas se `isCurrentUser` for `true`
+                    // Renderiza o botão "Excluir Post" e troca de avatar apenas se `isCurrentUser` for `true`
                     let deleteButtonHtml = '';
+                    // botão de troca de avatar
+                    const btn_troca_avatar = document.getElementById('troca_perfil');
                     if (data.isCurrentUser) {
                         deleteButtonHtml = `<button class="btn_delete_post" data-post-id="${post.id}">Deletar Post</button>`;
+                        btn_troca_avatar.style.display = 'flex';
                     } else {
                         deleteButtonHtml = '';
+                        btn_troca_avatar.style.display = 'none';
                     }
 
                     postElement.innerHTML = `
@@ -176,9 +255,7 @@ addEventListener('DOMContentLoaded', () => {
         })
         .catch((error) => console.error('Erro ao carregar posts:', error));
 
-
     // Modal de excluir post
-
 
     // Modal de logout
     const icone_logout = document.getElementById('icone-logout');
@@ -190,10 +267,12 @@ addEventListener('DOMContentLoaded', () => {
     icone_logout.addEventListener('click', () => {
         modal_logout.style.display = 'flex';
         overlay.style.display = 'block';
+        document.body.style.overflow = 'hidden';
     });
     model_button_cancelar.addEventListener('click', () => {
         modal_logout.style.display = 'none';
         overlay.style.display = 'none';
+        document.body.style.overflow = 'auto';
     });
 
     model_button_sair.addEventListener('click', () => {
