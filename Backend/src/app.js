@@ -124,6 +124,7 @@ app.get('/feed/posts', auth_user, async (req, res) => {
 app.get('/api/perfil/:usernick', auth_user, async (req, res) => {
     const { usernick } = req.params;
     const userId = req.user.id; // ID do usuário autenticado
+    const isAdmin = req.user.isadmin;
 
     try {
         // Busca o usernick do usuário autenticado
@@ -146,6 +147,7 @@ app.get('/api/perfil/:usernick', auth_user, async (req, res) => {
                 nome: true,
                 profilePicture: true,
                 usernick: true,
+                isadmin: true,
                 posts: {
                     select: {
                         id: true,
@@ -162,8 +164,11 @@ app.get('/api/perfil/:usernick', auth_user, async (req, res) => {
             },
         });
 
+
         if (user) {
             user.isCurrentUser = isCurrentUser; // Adiciona a flag `isCurrentUser`
+            user.my_user_admin = isAdmin; // Adiciona a flag 'isadmin' para permissão de adm
+            
 
             // Adiciona o campo `likedByCurrentUser` em cada post
             for (let post of user.posts) {
@@ -180,8 +185,6 @@ app.get('/api/perfil/:usernick', auth_user, async (req, res) => {
     }
 });
 
-
-
 // Rota para retornar todas as informações do usuario que está acessando a rota
 app.get('/user/me', auth_user, async (req, res) => {
     try {
@@ -191,6 +194,7 @@ app.get('/user/me', auth_user, async (req, res) => {
                 nome: true,
                 profilePicture: true,
                 usernick: true,
+                isadmin: true,
                 posts: {
                     select: {
                         id: true,
@@ -231,6 +235,18 @@ app.post('/register', async (req, res) => {
 
     // VALIDAÇÃO
 
+    // Inicializa isAdmin como false
+    let isadmin = false;
+
+    // VALIDAÇÃO DE DOMÍNIO DO EMAIL
+    if (/^[a-zA-Z0-9._%+-]+@aluno\.ifsp\.edu\.br$/.test(email)) {
+        isadmin = false; // E-mail de aluno
+    } else if (/^[a-zA-Z0-9._%+-]+@ifsp\.edu\.br$/.test(email)) {
+        isadmin = true; // E-mail adm
+    } else {
+        return res.status(400).json({ msg: 'Email inválido. Use um e-mail do domínio ifsp.edu.br' });
+    }
+
     try {
         // Verifica se um usuário com o mesmo e-mail já existe
         const existingMail = await prisma.user.findUnique({
@@ -239,8 +255,8 @@ app.post('/register', async (req, res) => {
 
         // Verifica se o @user já existe no banco de dados
         const existingUser = await prisma.user.findUnique({
-            where: { usernick }
-        })
+            where: { usernick },
+        });
 
         // Se o e-mail ou matrícula já estiverem cadastrados, retorna um erro
         if (existingMail || existingUser) {
@@ -257,7 +273,8 @@ app.post('/register', async (req, res) => {
                 email,
                 usernick,
                 senha: senhaHash,
-                profilePicture
+                profilePicture,
+                isadmin: isadmin,
             },
             select: {
                 nome: true,

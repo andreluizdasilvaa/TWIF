@@ -748,3 +748,19 @@ button.filesPost {
     transform: scale(1.1);
     border: 5px solid var(--azul-escuro-A);
 }
+
+#adm_icon {
+    display: none;
+    font-size: 12px;
+    background-color: var(--vermelho);
+    color: white;
+    padding: 4px 5px;
+    border-radius: 8px;
+}
+
+.txt_name_user {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 12px;
+}

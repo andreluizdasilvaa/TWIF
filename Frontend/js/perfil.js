@@ -109,6 +109,10 @@ addEventListener('DOMContentLoaded', () => {
             const postsList = document.getElementById('posts');
             postsList.innerHTML = '';
 
+            if (data.isadmin == true) {
+                document.getElementById('adm_icon').style.display = 'block';
+            }
+
             // verifica se existem postagens e, se sim, as ordena por data de criação, colocando as mais recentes primeiro.
             if (data.posts && Array.isArray(data.posts)) {
                 const sortedPosts = data.posts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
@@ -121,7 +125,7 @@ addEventListener('DOMContentLoaded', () => {
                     let deleteButtonHtml = '';
                     // botão de troca de avatar
                     const btn_troca_avatar = document.getElementById('troca_perfil');
-                    if (data.isCurrentUser) {
+                    if (data.isCurrentUser || data.my_user_admin) {
                         deleteButtonHtml = `<button class="btn_delete_post" data-post-id="${post.id}">Deletar Post</button>`;
                         btn_troca_avatar.style.display = 'flex';
                     } else {

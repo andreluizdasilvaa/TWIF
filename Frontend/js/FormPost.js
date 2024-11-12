@@ -53,6 +53,14 @@ addEventListener('DOMContentLoaded', () => {
             link_perfil_me.forEach((link) => {
                 link.href = `/perfil/${data.usernick}`;
             });
+
+            if(data.isadmin === true) {
+                const modal_adm = document.getElementById('modal_admin');
+                modal_adm.style.border = '1px solid black';
+
+                const txt_adm_on_modal = document.getElementById('text_adm_on');
+                txt_adm_on_modal.style.display = 'block';
+            }
         });
 
     // lista todos os posts

@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 const prisma = new PrismaClient();
 
 function generate_token_user(user, req, res, next) {
-    const token = jwt.sign({ id: user.id }, process.env.jwt_secret, { expiresIn: '1h' });
+    const token = jwt.sign({ id: user.id, isadmin: user.isadmin }, process.env.jwt_secret, { expiresIn: '1h' });
 
     // Envia o token como um cookie válido por uma hora, e só será acessado pelo servidor.
     res.cookie('your-session', token, { httpOnly: true, maxAge: 3600000 });

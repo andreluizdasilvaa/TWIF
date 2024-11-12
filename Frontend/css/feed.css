@@ -478,7 +478,28 @@ button.filesPost {
     }
 }
 
+.me_user_perfil {
+    text-decoration: none;
+}
+
+#modal_admin {
+    display: flex;
+    align-items: center;
+    border-radius: 12px;
+    padding: 3px;
+}
+
+#modal_admin h2 {
+    font-size: 16px;
+    padding: 12px;
+    color: var(--verde-padrao);
+}
+
+#text_adm_on {
+    display: none;
+}
+
 ::selection {
-            background-color: var(--verde-padrao); /* Cor de fundo da seleção */
-            color: var(--azul-escuro-A); /* Cor do texto selecionado */
-        }
+    background-color: var(--verde-padrao); /* Cor de fundo da seleção */
+    color: var(--azul-escuro-A); /* Cor do texto selecionado */
+}
