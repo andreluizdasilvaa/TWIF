@@ -48,13 +48,15 @@ model Post {
 }
 
 model Comment {
-  id            Int       @id @default(autoincrement())
-  content       String
-  createdAt     DateTime  @default(now())
-  userId        Int
-  postId        Int
-  user          User      @relation(fields: [userId], references: [id])
-  post          Post      @relation(fields: [postId], references: [id])
+  id        Int      @id @default(autoincrement()) // ID auto-incrementado
+  content   String   // Conteúdo do comentário
+  postId    Int      // Relacionamento com o Post
+  userId    Int      // Relacionamento com o Usuário
+  createdAt DateTime @default(now()) // Data de criação
+  updatedAt DateTime @updatedAt // Data de atualização
+
+  post      Post     @relation(fields: [postId], references: [id]) // Relacionamento com o Post
+  user      User     @relation(fields: [userId], references: [id]) // Relacionamento com o Usuário
 }
 
 model Like {

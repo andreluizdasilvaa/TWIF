@@ -311,3 +311,117 @@ function adicionarPostAoFeed(post) {
 
     feed.appendChild(postDiv);
 }
+
+
+
+    // Referências aos elementos principais
+    const posts = document.querySelectorAll(".post");
+    const mainFeed = document.querySelector(".main");
+    const commentsSection = document.createElement("div");
+    commentsSection.id = "commentsSection";
+    commentsSection.style.display = "none";
+    document.body.appendChild(commentsSection);
+
+    // Estrutura inicial da seção de comentários
+    commentsSection.innerHTML = `
+        <button id="backToFeed"><img src="../assets/img/voltar2.png"></button>
+        
+
+
+        <li class="post">
+        <div class="infoUserPost">
+            <div class="imgUserPost">
+                <div id="imgUserPost"></div>
+                <img src="" alt="">
+            </div>
+    
+            <div class="nameAndHour" id="nameAndHour">
+                <!-- Nome do usuário e horário do post -->
+                <strong><span id="userNick"></span></strong>
+                <p></p>
+            </div>
+        </div>
+    
+        <!-- Conteúdo do post -->
+        <div class="content_post_loading"></div>
+        <div class="content_post_loading"></div>
+        <p></p>
+    
+        <!-- Botões de ação do post (curtir, comentar) -->
+        <div class="actionBtnPost">
+            <div class="content_metric">
+                <p id="number_like"></p>
+                <button type="button" class="filesPost like">
+                    <!-- Ícone para curtir o post -->
+                    <i class="ph-bold ph-heart"></i>
+                    <!-- Ícone quando o post está curtido -->
+                    <i style="display: none;" class="ph-fill ph-heart"></i>
+                </button>
+            </div>
+    
+            <div class="content_metric">
+                <p id="number_coments"></p>
+                <button type="button" class="filesPost comment">
+                    <i class="ph-bold ph-chat-circle"></i>
+                </button>
+            </div>
+        </div>
+    </li>
+        <ul id="commentsList"></ul>
+        <form id="commentForm">
+            <textarea id="newComment" placeholder="Escreva um comentário..." required></textarea>
+            <button type="submit">Comentar</button>
+        </form>
+    `;
+
+    const backToFeedButton = document.getElementById("backToFeed");
+    const commentsList = document.getElementById("commentsList");
+    const commentForm = document.getElementById("commentForm");
+    const newComment = document.getElementById("newComment");
+
+    // Função para alternar entre feed e seção de comentários
+    const showComments = (postId) => {
+        mainFeed.style.display = "none";
+        commentsSection.style.display = "block";
+
+        // Simulando carregamento de comentários
+        commentsList.innerHTML = ""; // Limpa comentários antigos
+        const sampleComments = [
+            { text: "Adorei o post!", author: "Usuário1" },
+            { text: "Muito interessante.", author: "Usuário2" },
+        ];
+
+        sampleComments.forEach(comment => {
+            const li = document.createElement("li");
+            li.textContent = `${comment.author}: ${comment.text}`;
+            commentsList.appendChild(li);
+        });
+    };
+
+    const showFeed = () => {
+        mainFeed.style.display = "block";
+        commentsSection.style.display = "none";
+    };
+
+    // Associa eventos de clique nos posts
+    posts.forEach((post, index) => {
+        post.addEventListener("click", () => {
+            showComments(index); // Passa o ID ou índice do post
+        });
+    });
+
+    // Evento para voltar ao feed
+    backToFeedButton.addEventListener("click", showFeed);
+
+    // Adiciona novo comentário ao formulário
+    commentForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const commentText = newComment.value.trim();
+        if (commentText) {
+            const li = document.createElement("li");
+            li.textContent = `Você: ${commentText}`;
+            commentsList.appendChild(li);
+            newComment.value = "";
+        }
+    });
+

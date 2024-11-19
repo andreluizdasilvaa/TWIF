@@ -487,7 +487,81 @@ app.patch('/api/troca/avatar/:avatar', auth_user, async (req, res) => {
     }
 });
 
+
+// Rota POST para criar um comentário
+app.post('/feed/posts/:postId/comments', auth_user, async (req, res) => {
+    const { postId } = req.params;  // Obtém o ID do post
+    const { content } = req.body;   // Obtém o conteúdo do comentário
+    const userId = req.user.id;     // ID do usuário autenticado
+  
+    try {
+      const comment = await prisma.comment.create({
+        data: {
+          content,
+          postId: parseInt(postId),
+          userId,
+        },
+      });
+      res.status(201).json(comment);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ msg: 'Erro ao criar o comentário' });
+    }
+  });
+  
+  // Rota GET para listar os comentários
+  app.get('/feed/posts/:postId/comments', auth_user, async (req, res) => {
+    const { postId } = req.params;
+  
+    try {
+      const comments = await prisma.comment.findMany({
+        where: { postId: parseInt(postId) },
+        include: {
+          user: {
+            select: {
+              usernick: true,
+              profilePicture: true,
+            },
+          },
+        },
+        orderBy: {
+          createdAt: 'desc',
+        },
+      });
+      res.status(200).json(comments);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ msg: 'Erro ao listar os comentários' });
+    }
+  });
+  
+  // Rota DELETE para excluir um comentário
+  app.delete('/feed/posts/:postId/comments/:commentId', auth_user, async (req, res) => {
+    const { commentId } = req.params;
+    const userId = req.user.id;
+    const isAdmin = req.user.isadmin;
+  
+    try {
+      const comment = await prisma.comment.findUnique({ where: { id: parseInt(commentId) } });
+  
+      if (!comment) return res.status(404).json({ msg: 'Comentário não encontrado' });
+  
+      if (comment.userId !== userId && !isAdmin) {
+        return res.status(403).json({ msg: 'Você não tem permissão para excluir este comentário' });
+      }
+  
+      await prisma.comment.delete({ where: { id: parseInt(commentId) } });
+  
+      res.status(200).json({ msg: 'Comentário deletado com sucesso' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ msg: 'Erro ao excluir o comentário' });
+    }
+  });
+  
+
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta http://localhost:${PORT}`);
 });
+
