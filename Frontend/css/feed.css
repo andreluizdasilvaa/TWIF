@@ -503,3 +503,147 @@ button.filesPost {
     background-color: var(--verde-padrao); /* Cor de fundo da seleção */
     color: var(--azul-escuro-A); /* Cor do texto selecionado */
 }
+
+/* Seção de comentários */
+#commentsSection {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.post-citado{
+    border: solid 3px black;
+    border-radius: 30px;
+}
+
+#backToFeed {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+#commentsSection .post {
+    padding: 40px;
+    width: 770px;
+
+}
+
+.botao-post{
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.infoUserPost {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.imgUserPost img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.nameAndHour {
+    font-size: 14px;
+    color: #333;
+}
+
+.content_post_loading {
+    background-color: #eee;
+    border-radius: 5px;
+    height: 10px;
+    margin: 5px 0;
+}
+
+.actionBtnPost {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.actionBtnPost .content_metric {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Lista de comentários */
+#commentsList {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+#commentsList li {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: 10px;
+    background: white;
+    border-radius: 20px;
+    border: 2px solid #d9d9d9;
+}
+
+#commentsList li img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+#commentsList li strong {
+    display: block;
+    font-size: 14px;
+}
+
+#commentsList li p {
+    margin: 0;
+    font-size: 12px;
+}
+
+/* Formulário de novo comentário */
+#commentForm {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+#newComment {
+    flex: 1;
+    padding: 15px;
+    border-radius: 15px;
+    border: 3px solid black;
+    resize: none;
+    font-family: 'Lexend Deca';
+}
+
+#commentForm button {
+    background-color: #7ec543;
+    color: #011214;
+    font-weight: bold;
+    font-family: 'Lexend Deca';
+    text-transform: uppercase;
+    font-size: 14px;
+    padding: 8px 58px;
+    border-style: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 5px 5px 0px black;
+    transition: background 0.2s;
+}
+
+.resto{
+    width: 770px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+}

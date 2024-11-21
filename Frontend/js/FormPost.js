@@ -74,8 +74,8 @@ addEventListener('DOMContentLoaded', () => {
                 const postElement = document.createElement('li');
                 postElement.classList.add('post');
 
-                postElement.innerHTML = `
-            <div class="infoUserPost">
+                postElement.innerHTML = 
+            `<div class="infoUserPost">
                 <div class="imgUserPost">
                     <img src="../assets/profile-pictures/${post.user.profilePicture}" alt="">
                 </div>
@@ -103,8 +103,8 @@ addEventListener('DOMContentLoaded', () => {
                     <p class="number_coments">${post.comments.length}</p>
                     <button type="button" class="filesPost comment"><i class="ph-bold ph-chat-circle"></i></button>
                 </div>
-            </div>
-            `;
+            </div>`
+            ;
                 postsList.appendChild(postElement);
 
                 // Adiciona evento de clique no botão de curtir
@@ -314,114 +314,72 @@ function adicionarPostAoFeed(post) {
 
 
 
-    // Referências aos elementos principais
-    const posts = document.querySelectorAll(".post");
-    const mainFeed = document.querySelector(".main");
-    const commentsSection = document.createElement("div");
-    commentsSection.id = "commentsSection";
+ // Seleção de elementos
+const posts = document.querySelectorAll(".post");
+const mainFeed = document.querySelector(".main");
+const commentsSection = document.getElementById("commentsSection");
+const backToFeedButton = document.getElementById("backToFeed");
+const commentsList = document.getElementById("commentsList");
+const commentForm = document.getElementById("commentForm");
+const newComment = document.getElementById("newComment");
+
+// Função para exibir a seção de comentários
+const showComments = (postId) => {
+    mainFeed.style.display = "none";
+    
+
+    // Simulando carregamento de comentários
+    commentsList.innerHTML = ""; // Limpa comentários antigos
+    const sampleComments = [
+        { text: "Adorei o post!", author: "Menina da Silva", img: "user1.png" },
+        { text: "Muito interessante.", author: "Menino da Silva", img: "user2.png" },
+    ];
+
+    sampleComments.forEach((comment) => {
+        const li = document.createElement("li");
+
+        li.innerHTML = 
+            `<img src="${comment.img}" alt="User">
+            <div>
+                <strong>${comment.author}</strong>
+                <p>${comment.text}</p>
+            </div>
+        ;`
+        commentsList.appendChild(li);
+    });
+};
+
+// Função para voltar ao feed
+const showFeed = () => {
+    mainFeed.style.display = "block";
     commentsSection.style.display = "none";
-    document.body.appendChild(commentsSection);
+};
 
-    // Estrutura inicial da seção de comentários
-    commentsSection.innerHTML = `
-        <button id="backToFeed"><img src="../assets/img/voltar2.png"></button>
-        
-
-
-        <li class="post">
-        <div class="infoUserPost">
-            <div class="imgUserPost">
-                <div id="imgUserPost"></div>
-                <img src="" alt="">
-            </div>
-    
-            <div class="nameAndHour" id="nameAndHour">
-                <!-- Nome do usuário e horário do post -->
-                <strong><span id="userNick"></span></strong>
-                <p></p>
-            </div>
-        </div>
-    
-        <!-- Conteúdo do post -->
-        <div class="content_post_loading"></div>
-        <div class="content_post_loading"></div>
-        <p></p>
-    
-        <!-- Botões de ação do post (curtir, comentar) -->
-        <div class="actionBtnPost">
-            <div class="content_metric">
-                <p id="number_like"></p>
-                <button type="button" class="filesPost like">
-                    <!-- Ícone para curtir o post -->
-                    <i class="ph-bold ph-heart"></i>
-                    <!-- Ícone quando o post está curtido -->
-                    <i style="display: none;" class="ph-fill ph-heart"></i>
-                </button>
-            </div>
-    
-            <div class="content_metric">
-                <p id="number_coments"></p>
-                <button type="button" class="filesPost comment">
-                    <i class="ph-bold ph-chat-circle"></i>
-                </button>
-            </div>
-        </div>
-    </li>
-        <ul id="commentsList"></ul>
-        <form id="commentForm">
-            <textarea id="newComment" placeholder="Escreva um comentário..." required></textarea>
-            <button type="submit">Comentar</button>
-        </form>
-    `;
-
-    const backToFeedButton = document.getElementById("backToFeed");
-    const commentsList = document.getElementById("commentsList");
-    const commentForm = document.getElementById("commentForm");
-    const newComment = document.getElementById("newComment");
-
-    // Função para alternar entre feed e seção de comentários
-    const showComments = (postId) => {
-        mainFeed.style.display = "none";
-        commentsSection.style.display = "block";
-
-        // Simulando carregamento de comentários
-        commentsList.innerHTML = ""; // Limpa comentários antigos
-        const sampleComments = [
-            { text: "Adorei o post!", author: "Usuário1" },
-            { text: "Muito interessante.", author: "Usuário2" },
-        ];
-
-        sampleComments.forEach(comment => {
-            const li = document.createElement("li");
-            li.textContent = `${comment.author}: ${comment.text}`;
-            commentsList.appendChild(li);
-        });
-    };
-
-    const showFeed = () => {
-        mainFeed.style.display = "block";
-        commentsSection.style.display = "none";
-    };
-
-    // Associa eventos de clique nos posts
-    posts.forEach((post, index) => {
-        post.addEventListener("click", () => {
-            showComments(index); // Passa o ID ou índice do post
-        });
+// Associa eventos de clique nos posts
+posts.forEach((post, index) => {
+    post.addEventListener("click", () => {
+        showComments(index); // Passa o ID ou índice do post
     });
+});
 
-    // Evento para voltar ao feed
-    backToFeedButton.addEventListener("click", showFeed);
+// Evento para voltar ao feed
+backToFeedButton.addEventListener("click", showFeed);
 
-    // Adiciona novo comentário ao formulário
-    commentForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const commentText = newComment.value.trim();
-        if (commentText) {
-            const li = document.createElement("li");
-            li.textContent = `Você: ${commentText}`;
-            commentsList.appendChild(li);
-            newComment.value = "";
-        }
-    });
+// Adiciona novo comentário ao formulário
+commentForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const commentText = newComment.value.trim();
+    if (commentText) {
+        const li = document.createElement("li");
+        li.innerHTML = 
+            `<img src="your-profile-pic.png" alt="User">
+            <div>
+                <strong>Você</strong>
+                <p>${commentText}</p>
+            </div>`
+        ;
+        commentsList.appendChild(li);
+        newComment.value = "";
+    }
+});
 
