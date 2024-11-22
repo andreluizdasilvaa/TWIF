@@ -55,6 +55,11 @@ app.get('/feed', auth_user, (req, res) => {
     res.sendFile(path.join(__dirname, '..', '..', 'Frontend', 'html', 'feed.html'));
 });
 
+// Rota para carregar o feed
+app.get('/comments', auth_user, (req, res) => {
+    res.sendFile(path.join(__dirname, '..', '..', 'Frontend', 'html', 'comments.html'));
+});
+
 // Rota para carregar a pagina de perfil do user
 app.get('/perfil/:usernick', auth_user, (req, res) => {
     // ..

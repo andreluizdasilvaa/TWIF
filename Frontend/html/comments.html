@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comentários do Post</title>
+  <link rel="stylesheet" href="../css/comments.css">
+</head>
+<body>
+  <!-- Botão para voltar ao feed -->
+  <header>
+    <button id="backToFeed">Voltar ao Feed</button>
+  </header>
+
+  <!-- Conteúdo principal -->
+  <main>
+    <!-- Exibição do post original -->
+    <section id="postSection">
+      <h2>Post Original</h2>
+      <div id="postContent"></div>
+    </section>
+
+    <!-- Lista de comentários -->
+    <section id="commentsSection">
+      <h2>Comentários</h2>
+      <ul id="commentsList"></ul>
+
+      <!-- Formulário para adicionar novo comentário -->
+      <form id="commentForm">
+        <textarea id="newComment" placeholder="Escreva um comentário..." required></textarea>
+        <button type="submit">Comentar</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Script embutido -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Obter o postId da URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const postId = urlParams.get('postId');
+
+      if (!postId) {
+        alert('ID do post não encontrado!');
+        window.location.href = '/feed';
+        return;
+      }
+
+      // Elementos HTML
+      const postContent = document.getElementById('postContent');
+      const commentsList = document.getElementById('commentsList');
+      const commentForm = document.getElementById('commentForm');
+      const newCommentInput = document.getElementById('newComment');
+
+      // Função para buscar e exibir o post original
+      function fetchPost() {
+        fetch(`/posts/${postId}`)
+          .then(response => response.json())
+          .then(post => {
+            postContent.innerHTML = `
+              <div class="infoUserPost">
+                <img src="../assets/profile-pictures/${post.user.profilePicture}" alt="${post.user.nome}">
+                <strong>${post.user.nome} (@${post.user.usernick})</strong>
+                <p>${new Date(post.createdAt).toLocaleString()}</p>
+              </div>
+              <p>${post.content}</p>`;
+          })
+          .catch(error => console.error('Erro ao carregar o post:', error));
+      }
+
+      // Função para buscar e exibir os comentários
+      function fetchComments() {
+        fetch(`/posts/${postId}/comments`)
+          .then(response => response.json())
+          .then(comments => {
+            commentsList.innerHTML = ''; // Limpar lista de comentários
+            comments.forEach(comment => {
+              const commentItem = document.createElement('li');
+              commentItem.innerHTML = `
+                <div class="comment">
+                  <strong>${comment.user.nome} (@${comment.user.usernick})</strong>
+                  <p>${comment.content}</p>
+                  <small>${new Date(comment.createdAt).toLocaleString()}</small>
+                </div>`;
+              commentsList.appendChild(commentItem);
+            });
+          })
+          .catch(error => console.error('Erro ao carregar comentários:', error));
+      }
+
+      // Função para enviar um novo comentário
+      commentForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const newComment = newCommentInput.value.trim();
+
+        if (!newComment) {
+          alert('O comentário não pode estar vazio.');
+          return;
+        }
+
+        fetch(`/posts/${postId}/comments`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ content: newComment })
+        })
+          .then(response => response.json())
+          .then(() => {
+            newCommentInput.value = ''; // Limpar campo de texto
+            fetchComments(); // Atualizar lista de comentários
+          })
+          .catch(error => console.error('Erro ao enviar comentário:', error));
+      });
+
+      // Botão para voltar ao feed
+      document.getElementById('backToFeed').addEventListener('click', () => {
+        window.location.href = '/feed';
+      });
+
+      // Carregar post e comentários ao iniciar a página
+      fetchPost();
+      fetchComments();
+    });
+  </script>
+</body>
+</html>

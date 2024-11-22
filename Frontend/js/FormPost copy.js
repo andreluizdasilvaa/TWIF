@@ -72,7 +72,6 @@ addEventListener('DOMContentLoaded', () => {
 
             posts.forEach((post) => {
                 const postElement = document.createElement('li');
-                postElement.dataset.postId = post.id;
                 postElement.classList.add('post');
 
                 postElement.innerHTML = 
@@ -106,11 +105,6 @@ addEventListener('DOMContentLoaded', () => {
                 </div>
             </div>`
             ;
-                postElement.addEventListener('click', (event) => {
-                    const postId = event.target.closest('li.post').dataset.postId;
-                    window.location.href = `/comments?postId=${postId}`;
-                });
-
                 postsList.appendChild(postElement);
 
                 // Adiciona evento de clique no botão de curtir
@@ -318,4 +312,74 @@ function adicionarPostAoFeed(post) {
     feed.appendChild(postDiv);
 }
 
+
+
+ // Seleção de elementos
+const posts = document.querySelectorAll(".post");
+const mainFeed = document.querySelector(".main");
+const commentsSection = document.getElementById("commentsSection");
+const backToFeedButton = document.getElementById("backToFeed");
+const commentsList = document.getElementById("commentsList");
+const commentForm = document.getElementById("commentForm");
+const newComment = document.getElementById("newComment");
+
+// Função para exibir a seção de comentários
+const showComments = (postId) => {
+    mainFeed.style.display = "none";
+    
+
+    // Simulando carregamento de comentários
+    commentsList.innerHTML = ""; // Limpa comentários antigos
+    const sampleComments = [
+        { text: "Adorei o post!", author: "Menina da Silva", img: "user1.png" },
+        { text: "Muito interessante.", author: "Menino da Silva", img: "user2.png" },
+    ];
+
+    sampleComments.forEach((comment) => {
+        const li = document.createElement("li");
+
+        li.innerHTML = 
+            `<img src="${comment.img}" alt="User">
+            <div>
+                <strong>${comment.author}</strong>
+                <p>${comment.text}</p>
+            </div>
+        ;`
+        commentsList.appendChild(li);
+    });
+};
+
+// Função para voltar ao feed
+const showFeed = () => {
+    mainFeed.style.display = "block";
+    commentsSection.style.display = "none";
+};
+
+// Associa eventos de clique nos posts
+posts.forEach((post, index) => {
+    post.addEventListener("click", () => {
+        showComments(index); // Passa o ID ou índice do post
+    });
+});
+
+// Evento para voltar ao feed
+backToFeedButton.addEventListener("click", showFeed);
+
+// Adiciona novo comentário ao formulário
+commentForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const commentText = newComment.value.trim();
+    if (commentText) {
+        const li = document.createElement("li");
+        li.innerHTML = 
+            `<img src="your-profile-pic.png" alt="User">
+            <div>
+                <strong>Você</strong>
+                <p>${commentText}</p>
+            </div>`
+        ;
+        commentsList.appendChild(li);
+        newComment.value = "";
+    }
+});
 
