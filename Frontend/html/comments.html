@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Comentários do Post</title>
-  <link rel="stylesheet" href="../css/comments.css">
+  <link rel="stylesheet" href="/css/comments.css">
 </head>
 <body>
   <!-- Botão para voltar ao feed -->
@@ -33,10 +33,8 @@
     </section>
   </main>
 
-  <!-- Script embutido -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Obter o postId da URL
       const urlParams = new URLSearchParams(window.location.search);
       const postId = urlParams.get('postId');
 
@@ -46,50 +44,63 @@
         return;
       }
 
-      // Elementos HTML
       const postContent = document.getElementById('postContent');
       const commentsList = document.getElementById('commentsList');
       const commentForm = document.getElementById('commentForm');
       const newCommentInput = document.getElementById('newComment');
 
-      // Função para buscar e exibir o post original
-      function fetchPost() {
-        fetch(`/posts/${postId}`)
-          .then(response => response.json())
-          .then(post => {
-            postContent.innerHTML = `
-              <div class="infoUserPost">
-                <img src="../assets/profile-pictures/${post.user.profilePicture}" alt="${post.user.nome}">
-                <strong>${post.user.nome} (@${post.user.usernick})</strong>
-                <p>${new Date(post.createdAt).toLocaleString()}</p>
-              </div>
-              <p>${post.content}</p>`;
-          })
-          .catch(error => console.error('Erro ao carregar o post:', error));
+      // Função para criar e exibir um comentário
+      function displayComment(comment) {
+        const commentItem = document.createElement('li');
+        commentItem.innerHTML = `
+          <div class="comment">
+            <strong>${comment.user.usernick}</strong>
+            <p>${comment.content}</p>
+            <small>${new Date(comment.createdAt).toLocaleString()}</small>
+          </div>`;
+        commentsList.prepend(commentItem); // Adiciona o comentário no topo da lista
       }
 
+      // Função para buscar e exibir o post original
+      async function fetchPost() {
+    try {
+        const response = await fetch(`/posts/${postId}`);
+        if (!response.ok) {
+            throw new Error(`Erro ${response.status}: Não foi possível carregar o post.`);
+        }
+        const post = await response.json();
+
+        postContent.innerHTML = `
+            <div class="infoUserPost">
+              <img src="/assets/profile-pictures/${post.user.profilePicture}" alt="Foto de ${post.user.nome}">
+              <strong>${post.user.nome} (@${post.user.usernick})</strong>
+              <p>${new Date(post.createdAt).toLocaleString()}</p>
+            </div>
+            <p>${post.content}</p>`;
+    } catch (error) {
+        console.error('Erro ao carregar o post:', error);
+        alert('Erro ao carregar o post. Verifique os logs para mais informações.');
+    }
+}
+
+
       // Função para buscar e exibir os comentários
-      function fetchComments() {
-        fetch(`/posts/${postId}/comments`)
-          .then(response => response.json())
-          .then(comments => {
-            commentsList.innerHTML = ''; // Limpar lista de comentários
-            comments.forEach(comment => {
-              const commentItem = document.createElement('li');
-              commentItem.innerHTML = `
-                <div class="comment">
-                  <strong>${comment.user.nome} (@${comment.user.usernick})</strong>
-                  <p>${comment.content}</p>
-                  <small>${new Date(comment.createdAt).toLocaleString()}</small>
-                </div>`;
-              commentsList.appendChild(commentItem);
-            });
-          })
-          .catch(error => console.error('Erro ao carregar comentários:', error));
+      async function fetchComments() {
+        try {
+          const response = await fetch(`/posts/${postId}/comments`);
+          if (!response.ok) throw new Error('Erro ao buscar os comentários.');
+          const comments = await response.json();
+
+          commentsList.innerHTML = '';
+          comments.forEach(displayComment);
+        } catch (error) {
+          console.error('Erro ao carregar comentários:', error);
+          alert('Não foi possível carregar os comentários.');
+        }
       }
 
       // Função para enviar um novo comentário
-      commentForm.addEventListener('submit', (event) => {
+      commentForm.addEventListener('submit', async (event) => {
         event.preventDefault();
         const newComment = newCommentInput.value.trim();
 
@@ -98,20 +109,24 @@
           return;
         }
 
-        fetch(`/posts/${postId}/comments`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ content: newComment })
-        })
-          .then(response => response.json())
-          .then(() => {
-            newCommentInput.value = ''; // Limpar campo de texto
-            fetchComments(); // Atualizar lista de comentários
-          })
-          .catch(error => console.error('Erro ao enviar comentário:', error));
+        try {
+          const response = await fetch(`/posts/${postId}/comments`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ content: newComment })
+          });
+
+          if (!response.ok) throw new Error('Erro ao enviar o comentário.');
+
+          const createdComment = await response.json();
+          newCommentInput.value = ''; // Limpar campo de texto
+          displayComment(createdComment); // Adiciona o novo comentário ao topo da lista
+        } catch (error) {
+          console.error('Erro ao enviar comentário:', error);
+          alert('Não foi possível enviar o comentário.');
+        }
       });
 
-      // Botão para voltar ao feed
       document.getElementById('backToFeed').addEventListener('click', () => {
         window.location.href = '/feed';
       });

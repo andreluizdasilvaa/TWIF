@@ -494,51 +494,96 @@ app.patch('/api/troca/avatar/:avatar', auth_user, async (req, res) => {
 
 
 // Rota POST para criar um comentário
-app.post('/feed/posts/:postId/comments', auth_user, async (req, res) => {
-    const { postId } = req.params;  // Obtém o ID do post
-    const { content } = req.body;   // Obtém o conteúdo do comentário
-    const userId = req.user.id;     // ID do usuário autenticado
-  
+app.post('/posts/:postId/comments', auth_user, async (req, res) => {
+    const { postId } = req.params;
+    const { content } = req.body;
+
     try {
-      const comment = await prisma.comment.create({
-        data: {
-          content,
-          postId: parseInt(postId),
-          userId,
-        },
-      });
-      res.status(201).json(comment);
+        if (!content || content.trim() === '') {
+            return res.status(400).json({ msg: 'O comentário não pode estar vazio' });
+        }
+
+        const comment = await prisma.comment.create({
+            data: {
+                content,
+                postId: parseInt(postId),
+                userId: req.user.id,
+            },
+            include: {
+                user: {
+                    select: {
+                        nome: true,
+                        usernick: true,
+                        profilePicture: true,
+                    },
+                },
+            },
+        });
+
+        res.status(201).json(comment);
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ msg: 'Erro ao criar o comentário' });
+        console.error('Erro ao criar comentário:', error);
+        res.status(500).json({ msg: 'Erro ao criar o comentário' });
     }
-  });
+});
+
+
+app.get('/posts/:postId', auth_user, async (req, res) => {
+    const { postId } = req.params;
+
+    try {
+        const post = await prisma.post.findUnique({
+            where: { id: parseInt(postId) },
+            include: {
+                user: {
+                    select: {
+                        nome: true,
+                        usernick: true,
+                        profilePicture: true,
+                    },
+                },
+            },
+        });
+
+        if (!post) {
+            return res.status(404).json({ msg: 'Post não encontrado' });
+        }
+
+        res.status(200).json(post);
+    } catch (error) {
+        console.error('Erro ao buscar o post:', error);
+        res.status(500).json({ msg: 'Erro ao buscar o post' });
+    }
+});
+
+
   
   // Rota GET para listar os comentários
-  app.get('/feed/posts/:postId/comments', auth_user, async (req, res) => {
+  app.get('/posts/:postId/comments', auth_user, async (req, res) => {
     const { postId } = req.params;
-  
+
     try {
-      const comments = await prisma.comment.findMany({
-        where: { postId: parseInt(postId) },
-        include: {
-          user: {
-            select: {
-              usernick: true,
-              profilePicture: true,
+        const comments = await prisma.comment.findMany({
+            where: { postId: parseInt(postId) },
+            include: {
+                user: {
+                    select: {
+                        nome: true,
+                        usernick: true,
+                        profilePicture: true,
+                    },
+                },
             },
-          },
-        },
-        orderBy: {
-          createdAt: 'desc',
-        },
-      });
-      res.status(200).json(comments);
+            orderBy: { createdAt: 'desc' },
+        });
+
+        res.status(200).json(comments);
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ msg: 'Erro ao listar os comentários' });
+        console.error('Erro ao listar os comentários:', error);
+        res.status(500).json({ msg: 'Erro ao listar os comentários' });
     }
-  });
+});
+
   
   // Rota DELETE para excluir um comentário
   app.delete('/feed/posts/:postId/comments/:commentId', auth_user, async (req, res) => {
