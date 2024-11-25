@@ -83,8 +83,6 @@
                   <small>${new Date(comment.createdAt).toLocaleString()}</small>
                 </div>`;
               commentsList.appendChild(commentItem);
-            document.getElementById('backToFeed').addEventListener('click', () => {
-              window.location.href = '/feed';
             });
           })
           .catch(error => console.error('Erro ao carregar comentários:', error));
