@@ -1,0 +1,104 @@
+@import url(utilidades/fonts.css);
+@import url(utilidades/global.css);
+@import url(utilidades/utilidades.css);
+@import url(utilidades/variaveis.css);
+
+body {
+    background-color: var(--bg-padrao);
+    font-family: Lexend Deca;
+    font-size: 20px;
+}
+
+.comments{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#backToFeed{
+    background: transparent;
+    border: none;
+    transition: all 0.1s;
+}
+
+#backToFeed:hover{
+    transform: scale(1.05);
+}
+
+#postSection{
+    border: solid black 3px;
+    width: 600px;
+    height: 200px;
+    border-radius: 20px;
+    margin-bottom: 30px;
+}
+
+.botao-post{
+    display: flex;
+        align-items: flex-start;
+        margin-top: 100px;
+}
+
+.comment{
+    border: solid #e7e7e7;
+    border-radius: 20px;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    padding: 15px;
+}
+
+.userdata{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.hora{
+    font-size: 9px;
+    color: gray;
+    font-family: 'Lexend Deca';
+}
+
+.nick, .conteudo-post{
+    color: var(--azul-escuro-A);
+    font-family: 'Lexend Deca';
+    font-size: 16px;
+}
+
+#commentForm{
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+#newComment{
+    resize: none;
+    width: 450px;
+    border: solid var(--azul-escuro-A) 3px;
+    border-radius: 20px;
+    font-size: 16px;
+    padding: 10px;
+}
+
+.botao-comentar{
+    width: 150px;
+    background-color: #7ec543;
+    color: #011214;
+    font-weight: bold;
+    font-family: 'Lexend Deca';
+    text-transform: uppercase;
+    font-size: 14px;
+    border-style: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 5px 5px 0px black;
+    transition: background 0.2s;
+}
+
+.botao-comentar:hover{
+    background: #011214;
+    color: #7ec543;
+    box-shadow: 5px 5px 0px #7ec543;
+}

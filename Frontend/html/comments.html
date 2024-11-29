@@ -5,32 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Comentários do Post</title>
   <link rel="stylesheet" href="/css/comments.css">
+
+  <!-- Fontes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap" rel="stylesheet" />
 </head>
 <body>
   <!-- Botão para voltar ao feed -->
   <header>
-    <button id="backToFeed">Voltar ao Feed</button>
+   
   </header>
 
   <!-- Conteúdo principal -->
   <main>
     <!-- Exibição do post original -->
+    <div class="comments">
+
+      <div class="botao-post">
+      <button id="backToFeed"><img src="../assets/img/voltar2.png"></button>
+
     <section id="postSection">
-      <h2>Post Original</h2>
       <div id="postContent"></div>
     </section>
-
+    </div>
     <!-- Lista de comentários -->
     <section id="commentsSection">
-      <h2>Comentários</h2>
       <ul id="commentsList"></ul>
 
       <!-- Formulário para adicionar novo comentário -->
       <form id="commentForm">
         <textarea id="newComment" placeholder="Escreva um comentário..." required></textarea>
-        <button type="submit">Comentar</button>
+        <button type="submit" class="botao-comentar">Comentar</button>
       </form>
     </section>
+  </div>
   </main>
 
   <script>
@@ -54,9 +63,13 @@
         const commentItem = document.createElement('li');
         commentItem.innerHTML = `
           <div class="comment">
-            <strong>${comment.user.usernick}</strong>
-            <p>${comment.content}</p>
-            <small>${new Date(comment.createdAt).toLocaleString()}</small>
+            <div class="userdata">
+            <p class="nick">${comment.user.nome}</p>
+            <small class="hora">${new Date(comment.createdAt).toLocaleString()}</small>
+            </div>    
+
+            <p class="conteudo-post">${comment.content}</p>
+            
           </div>`;
         commentsList.prepend(commentItem); // Adiciona o comentário no topo da lista
       }
@@ -78,8 +91,8 @@
             </div>
             <p>${post.content}</p>`;
     } catch (error) {
-        console.error('Erro ao carregar o post:', error);
-        alert('Erro ao carregar o post. Verifique os logs para mais informações.');
+        // console.error('Erro ao carregar o post:', error);
+        // alert('Erro ao carregar o post. Verifique os logs para mais informações.');
     }
 }
 
@@ -88,14 +101,14 @@
       async function fetchComments() {
         try {
           const response = await fetch(`/posts/${postId}/comments`);
-          if (!response.ok) throw new Error('Erro ao buscar os comentários.');
+          // if (!response.ok) throw new Error('Erro ao buscar os comentários.');
           const comments = await response.json();
 
           commentsList.innerHTML = '';
           comments.forEach(displayComment);
         } catch (error) {
-          console.error('Erro ao carregar comentários:', error);
-          alert('Não foi possível carregar os comentários.');
+          // console.error('Erro ao carregar comentários:', error);
+          // alert('Não foi possível carregar os comentários.');
         }
       }
 
