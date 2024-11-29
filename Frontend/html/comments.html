@@ -19,6 +19,7 @@
 
   <!-- Conteúdo principal -->
   <main>
+
     <!-- Exibição do post original -->
     <div class="comments">
 
@@ -34,12 +35,14 @@
       <ul id="commentsList"></ul>
 
       <!-- Formulário para adicionar novo comentário -->
-      <form id="commentForm">
-        <textarea id="newComment" placeholder="Escreva um comentário..." required></textarea>
-        <button type="submit" class="botao-comentar">Comentar</button>
-      </form>
+      
     </section>
   </div>
+
+  <form id="commentForm">
+    <textarea id="newComment" placeholder="Escreva um comentário..." required></textarea>
+    <button type="submit" class="botao-comentar">Comentar</button>
+  </form>
   </main>
 
   <script>
@@ -62,15 +65,20 @@
       function displayComment(comment) {
         const commentItem = document.createElement('li');
         commentItem.innerHTML = `
-          <div class="comment">
-            <div class="userdata">
-            <p class="nick">${comment.user.nome}</p>
-            <small class="hora">${new Date(comment.createdAt).toLocaleString()}</small>
-            </div>    
+        <div class="comment">
+    <div class="userdata">
+      <div class="imgUserPost">
+        <div id="imgUserPost">
+          <!-- Aqui você pode ter a imagem de perfil, caso necessário, ou deixá-la como está -->
+        </div>
+        <img src="../assets/profile-pictures/${comment.user.profilePicture}" class="userfoto">
+      </div>
+      <p class="nick">${comment.user.nome}</p>
+      <small class="hora">${new Date(comment.createdAt).toLocaleString()}</small>
+    </div>
 
-            <p class="conteudo-post">${comment.content}</p>
-            
-          </div>`;
+    <p class="conteudo-post">${comment.content}</p>
+  </div>`;
         commentsList.prepend(commentItem); // Adiciona o comentário no topo da lista
       }
 
@@ -149,5 +157,6 @@
       fetchComments();
     });
   </script>
+
 </body>
 </html>

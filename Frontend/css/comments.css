@@ -3,6 +3,22 @@
 @import url(utilidades/utilidades.css);
 @import url(utilidades/variaveis.css);
 
+::-webkit-scrollbar {
+    width: 8px;
+  
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--verde-padrao); 
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--verde-neutro);
+    border-radius: 8px;
+}
+
+
 body {
     background-color: var(--bg-padrao);
     font-family: Lexend Deca;
@@ -13,6 +29,12 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    
+}
+
+#commentsSection{
+    overflow-y: scroll;
+    height: 400px;
 }
 
 #backToFeed{
@@ -47,6 +69,7 @@ body {
     flex-direction: column;
     margin-bottom: 20px;
     padding: 15px;
+    margin-right: 3px;
 }
 
 .userdata{
@@ -71,6 +94,8 @@ body {
     display: flex;
     justify-content: center;
     gap: 8px;
+    margin-left: 37px;
+    margin-top: 15px;
 }
 
 #newComment{
@@ -101,4 +126,8 @@ body {
     background: #011214;
     color: #7ec543;
     box-shadow: 5px 5px 0px #7ec543;
+}
+
+.userfoto{
+    width: 30px;
 }
