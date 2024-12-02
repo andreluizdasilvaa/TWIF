@@ -29,7 +29,6 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    
 }
 
 #commentsSection{
@@ -48,7 +47,11 @@ body {
 }
 
 .foto-post-comment {
-    width: 50px;
+    width: 45px;
+}
+
+.imgUserPost {
+    width: 30px ;
 }
 
 .theInfos {
