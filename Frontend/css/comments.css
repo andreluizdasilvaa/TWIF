@@ -48,12 +48,51 @@ body {
     transform: scale(1.05);
 }
 
+.foto-post-comment {
+    width: 50px;
+}
+
+.theInfos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.postInfo {
+    margin-left: 5px;
+    color: #011214;
+    font-size: larger;
+}
+
+.postInfoTwo {
+    margin-left: 5px;
+    color: #dadada;
+    font-size: medium;
+}
+
+.infoUserPost {
+    display: flex;
+    align-content: center;
+    color: #dadada;
+    font-size: medium;
+}
+
+.postInfoP {
+    margin-left: 8px;
+}
+
+.postInfoContent {
+    margin-top: 10px;
+}
+
 #postSection{
     border: solid black 3px;
     width: 600px;
     height: 200px;
     border-radius: 20px;
     margin-bottom: 30px;
+    padding-left: 20px;
+    padding-top: 20px;
 }
 
 .botao-post{

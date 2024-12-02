@@ -84,13 +84,19 @@
           }
           const post = await response.json();
 
-          postContent.innerHTML = `
-            <div class="infoUserPost">
-              <img src="/assets/profile-pictures/${post.user.profilePicture}" alt="${post.user.nome}" class="perfil-post">
+          postContent.innerHTML = `<div class="infoUserPost">
+              <img src="/assets/profile-pictures/${post.user.profilePicture}" alt="${post.user.nome}">
               <strong>${post.user.nome} (@${post.user.usernick})</strong>
               <p>${new Date(post.createdAt).toLocaleString()}</p>
+              <img class="foto-post-comment" src="/assets/profile-pictures/${post.user.profilePicture}" alt="${post.user.nome}">
+              <div class="theInfos">
+              <strong class="postInfo">${post.user.nome} </strong>
+              <strong class="postInfoTwo"> @${post.user.usernick} </strong>
+              <p class="postInfoP">${new Date(post.createdAt).toLocaleString()}</p>
             </div>
-            <p>${post.content}</p>`;
+            <p>${post.content}</p>;
+            </div>
+            <p class="postInfoContent">${post.content}</p>`;
         } catch (error) {
           console.error('Erro ao carregar o post:', error);
           alert('Erro ao carregar o post. Verifique os logs para mais informações.');
