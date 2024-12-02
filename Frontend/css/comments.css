@@ -32,7 +32,6 @@ body {
     
 }
 
-
 #commentsSection{
     overflow-y: scroll;
     height: 400px;
@@ -175,6 +174,3 @@ body {
     box-shadow: 5px 5px 0px #7ec543;
 }
 
-.userfoto{
-    width: 30px;
-}
