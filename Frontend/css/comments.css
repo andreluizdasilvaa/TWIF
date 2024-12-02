@@ -177,3 +177,14 @@ body {
     box-shadow: 5px 5px 0px #7ec543;
 }
 
+.delete-comment {
+        background: none; /* Remove o fundo do botão */
+        border: none; /* Remove a borda do botão */
+        cursor: pointer; /* Muda o cursor para indicar que é clicável */
+        margin-left: 306px;
+    }
+
+    .delete-icon {
+        width: 20px; /* Ajuste o tamanho do ícone conforme necessário */
+        height: 20px; /* Ajuste o tamanho do ícone conforme necessário */
+    }

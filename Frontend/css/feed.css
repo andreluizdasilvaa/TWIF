@@ -398,7 +398,6 @@ button.filesPost {
 }
 
 .modal-conteudo h2 {
-    font-family: 'Gilroy ExtraBold';
     font-size: px;
     color: #011214;
 }
@@ -416,7 +415,8 @@ button.filesPost {
 
 .modal-conteudo input, .modal-conteudo textarea {
     width: 100%;
-    resize: vertical;
+    resize: none;
+    height: 350px;
     padding: 10px;
     margin-top: 20px;
     margin-bottom: 20px;

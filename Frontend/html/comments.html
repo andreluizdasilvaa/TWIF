@@ -69,8 +69,14 @@
               </div>
               <p class="nick">${comment.user.nome}</p>
               <small class="hora">${new Date(comment.createdAt).toLocaleString()}</small>
+
+              
+              <button class="delete-comment" data-comment-id="${comment.id}">
+              <img src="../assets/img/trash-bold.svg" alt="Excluir" class="delete-icon">
+            </button>
             </div>
             <p class="conteudo-post">${comment.content}</p>
+            
           </div>`;
         commentsList.prepend(commentItem); // Adiciona o comentário no topo da lista
       }
@@ -149,6 +155,40 @@
           }
         }
       }
+
+      // Função para deletar um comentário
+      async function deleteComment(commentId) {
+        try {
+            const response = await fetch(`/feed/posts/${postId}/comments/${commentId}`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.msg);
+            }
+
+            // Remover o comentário da interface
+            const commentItem = document.querySelector(`button[data-comment-id="${commentId}"]`).closest('li');
+            commentsList.removeChild(commentItem);
+            
+            alert('Comentário deletado com sucesso');
+        } catch (error) {
+            console.error('Erro ao deletar comentário:', error);
+            alert('Não foi possível deletar o comentário.');
+        }
+    }
+
+    // Adicionar evento de clique aos botões de excluir comentários
+    commentsList.addEventListener('click', (event) => {
+        if (event.target.classList.contains('delete-icon')) { // Verifica se clicou na imagem da lixeira
+            const commentId = event.target.closest('.delete-comment').getAttribute('data-comment-id');
+            if (confirm('Você tem certeza que deseja excluir este comentário?')) {
+                deleteComment(commentId);
+            }
+        }
+    });
 
       // Função para enviar um novo comentário
       commentForm.addEventListener('submit', async (event) => {
