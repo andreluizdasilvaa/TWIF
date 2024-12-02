@@ -226,8 +226,64 @@ app.get('/user404', (req, res) => {
     res.status(404).sendFile(path.join(__dirname, '..', '..', 'Frontend', 'html', 'user_page_404.html'));
 })
 
+app.get('/posts/:postId', auth_user, async (req, res) => {
+    const { postId } = req.params;
+
+    try {
+        const post = await prisma.post.findUnique({
+            where: { id: parseInt(postId) },
+            include: {
+                user: {
+                    select: {
+                        nome: true,
+                        usernick: true,
+                        profilePicture: true,
+                    },
+                },
+            },
+        });
+
+        if (!post) {
+            return res.status(404).json({ msg: 'Post não encontrado' });
+        }
+
+        res.status(200).json(post);
+    } catch (error) {
+        console.error('Erro ao buscar o post:', error);
+        res.status(500).json({ msg: 'Erro ao buscar o post' });
+    }
+});
+
+  
+  // Rota GET para listar os comentários
+app.get('/posts/:postId/comments', auth_user, async (req, res) => {
+    const { postId } = req.params;
+
+    try {
+        const comments = await prisma.comment.findMany({
+            where: { postId: parseInt(postId) },
+            include: {
+                user: {
+                    select: {
+                        nome: true,
+                        usernick: true,
+                        profilePicture: true,
+                    },
+                },
+            },
+            orderBy: { createdAt: 'desc' },
+        });
+
+        res.status(200).json(comments);
+    } catch (error) {
+        console.error('Erro ao listar os comentários:', error);
+        res.status(500).json({ msg: 'Erro ao listar os comentários' });
+    }
+});
+
 // Rota para Erro 404 ( SEMPRE DEIXE ESSA ROTA POR ULTIMO, DE CIMA PARA BAIXO );
 app.get('*', (req, res) => {
+    console.log("erro")
     // Envia o arquivo Page_404.html quando uma rota não declarada e feita
     res.status(404).sendFile(path.join(__dirname, '..', '..', 'Frontend', 'html', 'Page_404.html'));
 });
@@ -527,62 +583,6 @@ app.post('/posts/:postId/comments', auth_user, async (req, res) => {
     }
 });
 
-
-app.get('/posts/:postId', auth_user, async (req, res) => {
-    const { postId } = req.params;
-
-    try {
-        const post = await prisma.post.findUnique({
-            where: { id: parseInt(postId) },
-            include: {
-                user: {
-                    select: {
-                        nome: true,
-                        usernick: true,
-                        profilePicture: true,
-                    },
-                },
-            },
-        });
-
-        if (!post) {
-            return res.status(404).json({ msg: 'Post não encontrado' });
-        }
-
-        res.status(200).json(post);
-    } catch (error) {
-        console.error('Erro ao buscar o post:', error);
-        res.status(500).json({ msg: 'Erro ao buscar o post' });
-    }
-});
-
-
-  
-  // Rota GET para listar os comentários
-  app.get('/posts/:postId/comments', auth_user, async (req, res) => {
-    const { postId } = req.params;
-
-    try {
-        const comments = await prisma.comment.findMany({
-            where: { postId: parseInt(postId) },
-            include: {
-                user: {
-                    select: {
-                        nome: true,
-                        usernick: true,
-                        profilePicture: true,
-                    },
-                },
-            },
-            orderBy: { createdAt: 'desc' },
-        });
-
-        res.status(200).json(comments);
-    } catch (error) {
-        console.error('Erro ao listar os comentários:', error);
-        res.status(500).json({ msg: 'Erro ao listar os comentários' });
-    }
-});
 
   
   // Rota DELETE para excluir um comentário
