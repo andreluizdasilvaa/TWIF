@@ -24,9 +24,9 @@
       <div class="botao-post">
         <button id="backToFeed"><img src="../assets/img/voltar2.png"></button>
   
-      <section id="postSection">
-        <div id="postContent"></div>
-      </section>
+        <section id="postSection">
+          <div id="postContent"></div>
+        </section>
       </div>
 
       <!-- Lista de comentários -->
@@ -86,7 +86,7 @@
 
           postContent.innerHTML = `
             <div class="infoUserPost">
-              <img src="/assets/profile-pictures/${post.user.profilePicture}" alt="${post.user.nome}">
+              <img src="/assets/profile-pictures/${post.user.profilePicture}" alt="${post.user.nome}" class="perfil-post">
               <strong>${post.user.nome} (@${post.user.usernick})</strong>
               <p>${new Date(post.createdAt).toLocaleString()}</p>
             </div>
@@ -115,8 +115,17 @@
           if (!response.ok) throw new Error('Erro ao buscar os comentários.');
           
           const comments = await response.json();
-          commentsList.innerHTML = '';
-          comments.forEach(displayComment);
+          commentsList.innerHTML = ''; // Limpa a lista de comentários
+          
+          if (comments.length === 0) {
+            // Se não houver comentários, exibe a mensagem
+            const noCommentsMessage = document.createElement('div');
+            noCommentsMessage.textContent = 'Esse post não possui comentários.';
+            noCommentsMessage.classList.add('no-comments-message'); // Adicione uma classe para estilização se necessário
+            commentsList.appendChild(noCommentsMessage);
+          } else {
+            comments.forEach(displayComment);
+          }
           
           // Salvar comentários no localStorage
           saveCommentsToLocal(comments);
@@ -125,11 +134,15 @@
           
           // Carregar comentários do localStorage se a API falhar
           const localComments = loadCommentsFromLocal();
+          commentsList.innerHTML = ''; // Limpa a lista de comentários
+          
           if (localComments.length > 0) {
-            commentsList.innerHTML = '';
             localComments.forEach(displayComment);
           } else {
-            alert('Não foi possível carregar os comentários.');
+            const noCommentsMessage = document.createElement('li');
+            noCommentsMessage.textContent = 'Esse post não possui comentários.';
+            noCommentsMessage.classList.add('no-comments-message'); // Adicione uma classe para estilização se necessário
+            commentsList.appendChild(noCommentsMessage);
           }
         }
       }
@@ -179,4 +192,4 @@
   </script>
 
 </body>
-</htm
+</html>

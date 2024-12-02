@@ -32,6 +32,7 @@ body {
     
 }
 
+
 #commentsSection{
     overflow-y: scroll;
     height: 400px;
@@ -96,6 +97,13 @@ body {
     gap: 8px;
     margin-left: 37px;
     margin-top: 15px;
+}
+
+.no-comments-message {
+    color: gray;
+    font-style: italic;
+    text-align: center;
+    margin: 130px;
 }
 
 #newComment{
