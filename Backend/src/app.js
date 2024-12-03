@@ -391,7 +391,7 @@ app.post('/', async (req, res) => {
 // Rota para criar um post
 app.post('/feed', auth_user, async (req, res) => {
     const { conteudo } = req.body;
-    // console.log(`Conteudo Recebido: ${conteudo}`);
+
     try {
         if (!conteudo) {
             res.redirect('/feed?error=1');
@@ -614,4 +614,3 @@ const PORT = process.env.PORT;
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta http://localhost:${PORT}`);
 });
-
