@@ -283,7 +283,6 @@ app.get('/posts/:postId/comments', auth_user, async (req, res) => {
 
 // Rota para Erro 404 ( SEMPRE DEIXE ESSA ROTA POR ULTIMO, DE CIMA PARA BAIXO );
 app.get('*', (req, res) => {
-    console.log("erro")
     // Envia o arquivo Page_404.html quando uma rota não declarada e feita
     res.status(404).sendFile(path.join(__dirname, '..', '..', 'Frontend', 'html', 'Page_404.html'));
 });
