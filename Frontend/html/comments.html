@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,10 +12,16 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap" rel="stylesheet" />
 </head>
+
 <body>
   <!-- Botão para voltar ao feed -->
   <header>
-    <!-- Você pode adicionar conteúdo ao cabeçalho aqui -->
+    <img src="../assets/img/logo-dark.svg" class="logo_header">
+
+    <a href="" class="me_user_perfil">
+      <img id="User_profile" src="../assets/profile-pictures/defaultphoto.png" alt="defaultphoto">
+    </a>
+
   </header>
 
   <!-- Conteúdo principal -->
@@ -23,7 +30,7 @@
     <div class="comments">
       <div class="botao-post">
         <button id="backToFeed"><img src="../assets/img/voltar2.png"></button>
-  
+
         <section id="postSection">
           <div id="postContent"></div>
         </section>
@@ -40,7 +47,24 @@
       <textarea id="newComment" placeholder="Escreva um comentário..." required></textarea>
       <button type="submit" class="botao-comentar">Comentar</button>
     </form>
+
+
+    <div id="deleteModal" class="modal">
+      <div class="modal-content">
+        <div class="textAndtext">
+          <h1>Você tem certeza que deseja excluir este comentário?</h1>
+          <h3>Essa ação é irreversível.</h3>
+        </div>
+
+
+        <div class="modal-actions">
+          <button id="confirmDelete">Sim</button>
+          <button id="cancelDelete">Não</button>
+        </div>
+      </div>
+    </div>
   </main>
+
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -57,6 +81,24 @@
       const commentsList = document.getElementById('commentsList');
       const commentForm = document.getElementById('commentForm');
       const newCommentInput = document.getElementById('newComment');
+      const link_perfil_me = document.querySelectorAll('.me_user_perfil');
+      const user_profile = document.getElementById('User_profile');
+      const deleteModal = document.getElementById('deleteModal');
+      const confirmDeleteButton = document.getElementById('confirmDelete');
+      const cancelDeleteButton = document.getElementById('cancelDelete');
+
+
+      fetch('user/me')
+        .then((response) => response.json())
+        .then((data) => {
+
+          link_perfil_me.forEach((link) => {
+            link.href = `/perfil/${data.usernick}`;
+          });
+
+          user_profile.src = `../assets/profile-pictures/${data.profilePicture}`;
+        });
+
 
       // Função para criar e exibir um comentário
       function displayComment(comment) {
@@ -65,7 +107,11 @@
           <div class="comment">
             <div class="userdata">
               <div class="imgUserPost">
-                <img src="../assets/profile-pictures/${comment.user.profilePicture}" class="userfoto">
+                
+                <a href="/perfil/${comment.user.usernick}" class="user-profile-link">
+                <img src="../assets/profile-pictures/${comment.user.profilePicture}" class="userfoto" alt="Foto de perfil">
+                </a>
+                
               </div>
               <p class="nick">${comment.user.nome}</p>
               <small class="hora">${new Date(comment.createdAt).toLocaleString()}</small>
@@ -79,6 +125,12 @@
             
           </div>
           `;
+
+        const nickElement = commentItem.querySelector('.nick');
+        if (comment.user.nome.length > 11) {
+          nickElement.style.fontSize = '12px';
+        }
+
         commentsList.prepend(commentItem); // Adiciona o comentário no topo da lista
       }
 
@@ -97,10 +149,12 @@
               <div class="theInfos">
               <strong class="postInfo">${post.user.nome} </strong>
               <strong class="postInfoTwo"> @${post.user.usernick} </strong>
-              <p class="postInfoP">${new Date(post.createdAt).toLocaleString()}</p>
             </div>
             </div>
-            <p class="postInfoContent">${post.content}</p>`;
+            <p class="postInfoContent">${post.content}</p>
+            <p class="postInfoP">${new Date(post.createdAt).toLocaleString()}</p>`
+            
+            ;
         } catch (error) {
           console.error('Erro ao carregar o post:', error);
           alert('Erro ao carregar o post. Verifique os logs para mais informações.');
@@ -123,10 +177,10 @@
         try {
           const response = await fetch(`/posts/${postId}/comments`);
           if (!response.ok) throw new Error('Erro ao buscar os comentários.');
-          
+
           const comments = await response.json();
           commentsList.innerHTML = ''; // Limpa a lista de comentários
-          
+
           if (comments.length === 0) {
             // Se não houver comentários, exibe a mensagem
             const noCommentsMessage = document.createElement('div');
@@ -136,16 +190,16 @@
           } else {
             comments.forEach(displayComment);
           }
-          
+
           // Salvar comentários no localStorage
           saveCommentsToLocal(comments);
         } catch (error) {
           console.error('Erro ao carregar comentários:', error);
-          
+
           // Carregar comentários do localStorage se a API falhar
           const localComments = loadCommentsFromLocal();
           commentsList.innerHTML = ''; // Limpa a lista de comentários
-          
+
           if (localComments.length > 0) {
             localComments.forEach(displayComment);
           } else {
@@ -160,36 +214,51 @@
       // Função para deletar um comentário
       async function deleteComment(commentId) {
         try {
-            const response = await fetch(`/feed/posts/${postId}/comments/${commentId}`, {
-                method: 'DELETE',
-                headers: { 'Content-Type': 'application/json' },
-            });
+          const response = await fetch(`/feed/posts/${postId}/comments/${commentId}`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+          });
 
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.msg);
-            }
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.msg);
+          }
 
-            // Remover o comentário da interface
-            const commentItem = document.querySelector(`button[data-comment-id="${commentId}"]`).closest('li');
-            commentsList.removeChild(commentItem);
-            
-            alert('Comentário deletado com sucesso');
+          // Remover o comentário da interface
+          const commentItem = document.querySelector(`button[data-comment-id="${commentId}"]`).closest('li');
+          commentsList.removeChild(commentItem);
+
+          alert('Comentário deletado com sucesso');
         } catch (error) {
-            console.error('Erro ao deletar comentário:', error);
-            alert('Não foi possível deletar o comentário.');
+          console.error('Erro ao deletar comentário:', error);
+          alert('Não foi possível deletar o comentário.');
         }
-    }
+      }
 
-    // Adicionar evento de clique aos botões de excluir comentários
-    commentsList.addEventListener('click', (event) => {
-        if (event.target.classList.contains('delete-icon')) { // Verifica se clicou na imagem da lixeira
-            const commentId = event.target.closest('.delete-comment').getAttribute('data-comment-id');
-            if (confirm('Você tem certeza que deseja excluir este comentário?')) {
-                deleteComment(commentId);
-            }
+
+
+      // Evento de clique nos ícones de excluir comentários
+      commentsList.addEventListener('click', (event) => {
+        if (event.target.classList.contains('delete-icon')) { // Verifica se clicou na lixeira
+          commentIdToDelete = event.target.closest('.delete-comment').getAttribute('data-comment-id');
+          deleteModal.style.display = 'flex'; // Exibe o modal
         }
-    });
+      });
+
+      // Botão "Sim" no modal
+      confirmDeleteButton.addEventListener('click', () => {
+        if (commentIdToDelete) {
+          deleteComment(commentIdToDelete); // Chama a função para deletar o comentário
+        }
+        deleteModal.style.display = 'none'; // Fecha o modal
+      });
+
+      // Botão "Não" no modal
+      cancelDeleteButton.addEventListener('click', () => {
+        commentIdToDelete = null; // Reseta o ID
+        deleteModal.style.display = 'none'; // Fecha o modal
+      });
+
 
       // Função para enviar um novo comentário
       commentForm.addEventListener('submit', async (event) => {
@@ -225,6 +294,7 @@
         }
       });
 
+
       document.getElementById('backToFeed').addEventListener('click', () => {
         window.location.href = '/feed';
       });
@@ -236,4 +306,5 @@
   </script>
 
 </body>
+
 </html>

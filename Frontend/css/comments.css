@@ -18,6 +18,22 @@
     border-radius: 8px;
 }
 
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 50px 0 50px;
+    
+}
+
+.logo_header{
+    max-width: 100px;
+    max-height: 100px;
+}
+
+#User_profile{
+    width: 45px;
+}
 
 body {
     background-color: var(--bg-padrao);
@@ -47,11 +63,12 @@ body {
 }
 
 .foto-post-comment {
-    width: 45px;
+    width: 40px;
 }
 
 .imgUserPost {
     width: 30px ;
+    cursor: pointer;
 }
 
 .theInfos {
@@ -63,14 +80,15 @@ body {
 .postInfo {
     margin-left: 5px;
     color: #011214;
-    font-size: larger;
+    font-size: medium;
 }
 
 .postInfoTwo {
     margin-left: 5px;
     margin-right: 10px;
     color: #b1b1b1;
-    font-size: medium;
+    font-weight: 500;
+    font-size: small;
 }
 
 .infoUserPost {
@@ -95,14 +113,13 @@ body {
     height: 200px;
     border-radius: 20px;
     margin-bottom: 30px;
-    padding-left: 20px;
-    padding-top: 20px;
+    padding: 20px;
 }
 
 .botao-post{
     display: flex;
-        align-items: flex-start;
-        margin-top: 100px;
+    align-items: flex-start;
+    /* margin-top: 100px; */
 }
 
 .comment {
@@ -195,3 +212,114 @@ body {
         width: 20px; /* Ajuste o tamanho do ícone conforme necessário */
         height: 20px; /* Ajuste o tamanho do ícone conforme necessário */
     }
+
+/* Estilização do modal */
+.modal {
+    display: none; /* Ocultar por padrão */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo escurecido */
+    z-index: 1000; /* Garantir que esteja acima de outros elementos */
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    width: 500px;
+    text-align: center;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .modal-actions button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  #confirmDelete {
+    width: 100px;
+    background-color: var(--vermelho);
+    color: #fff;
+    font-weight: bold;
+    font-family: 'Lexend Deca';
+    text-transform: uppercase;
+    font-size: 14px;
+    border-style: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 5px 5px 0px black;
+    transition: background 0.2s;
+  }
+  
+  #cancelDelete {
+    width: 100px;
+    background-color: rgb(184, 184, 184);
+    color: var(--azul-escuro-A);
+    font-weight: bold;
+    font-family: 'Lexend Deca';
+    text-transform: uppercase;
+    font-size: 14px;
+    border-style: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 5px 5px 0px black;
+    transition: background 0.2s;
+  }
+
+
+#confirmDelete:hover{
+    background: #011214;
+    color: #7ec543;
+    box-shadow: 5px 5px 0px #7ec543;
+}
+
+#cancelDelete:hover{
+    background: #011214;
+    color: #7ec543;
+    box-shadow: 5px 5px 0px #7ec543;
+}
+
+.textAndtext h1 {
+    font-size: 30px;
+    font-family: Lexend Deca;
+    margin-bottom: 15px;
+}
+
+.textAndtext h3 {
+    font-size: 15px;
+    font-family: Lexend Deca;
+    color: var(--verde-neutro);
+}
+
+.ignore{
+    color: transparent;
+    font-size: 10px;
+}
+
+.postInfoP{
+    color: #b1b1b1;
+    font-family: 'Lexend Deca';
+    font-size: 12px;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 60px;
+}
