@@ -76,34 +76,56 @@
             const confirmDeleteButton = document.getElementById('confirmDelete');
             const cancelDeleteButton = document.getElementById('cancelDelete');
 
+
+
             fetch('user/me')
                 .then((response) => response.json())
                 .then((data) => {
                     link_perfil_me.forEach((link) => {
-                        link.href = `/perfil/${data.usernick}`;
+                            link.href = `/perfil/${data.usernick}`;
+                            
                     });
                     user_profile.src = `../assets/profile-pictures/${data.profilePicture}`;
+                    user_profile.dataset.userId = data.id;  
                 });
 
-            // Função para criar e exibir um comentário
-            function displayComment(comment) {
-                const commentItem = document.createElement('li');
-                commentItem.innerHTML = `
-                    <div class="comment">
-                        <div class="userdata">
-                            <div class="imgUserPost">
-                                <a href="/perfil/${comment.user.usernick}" class="user-profile-link">
-                                    <img src="../assets/profile-pictures/${comment.user.profilePicture}" class="userfoto" alt="Foto de perfil">
-                                </a>
-                            </div>
-                            <p class="nick">${comment.user.nome}</p>
-                            <small class="hora">${new Date(comment.createdAt).toLocaleString()}</small>
-                            <button class="delete-comment" data-comment-id="${comment.id}">
-                                <img src="../assets/img/trash-bold.svg" alt="Excluir" class="delete-icon">
-                            </button>
-                        </div>
-                        <p class="conteudo-post">${comment.content}</p>
-                    </div>`;
+
+                function displayComment(comment) {
+    const commentItem = document.createElement('li');
+    const currentUserId = document.getElementById("User_profile").getAttribute("data-user-id");
+
+    // Compara se o ID do usuário que postou o comentário é igual ao ID do usuário logado
+    const canDeleteComment = currentUserId === comment.user.id.toString(); // Garantir que ambos sejam do mesmo tipo (string ou número)
+
+    commentItem.innerHTML = `
+        <div class="comment">
+            <div class="userdata">
+                <div class="user-info" style="display:flex;gap: 10px;">
+                    <!-- Foto de perfil -->
+                    <div class="imgUserPost">
+                        <a href="/perfil/${comment.user.usernick}" class="user-profile-link">
+                            <img src="../assets/profile-pictures/${comment.user.profilePicture}" class="userfoto" alt="Foto de perfil">
+                        </a>
+                    </div>
+                    
+                    <!-- Nome do usuário e hora -->
+                    <div class="user-details" style="display:flex;align-items: center;gap: 10px;">
+                        <p class="nick">${comment.user.nome}</p>
+                        <small class="hora">${new Date(comment.createdAt).toLocaleString()}</small>
+                    </div>
+                </div>
+
+                <!-- Botão de excluir (exibe apenas para o próprio usuário) -->
+                ${canDeleteComment ? 
+                    `<button class="delete-comment" data-comment-id="${comment.id}">
+                        <img src="../assets/img/trash-bold.svg" alt="Excluir" class="delete-icon">
+                    </button>` 
+                    : ''}
+            </div>
+
+            <!-- Conteúdo do comentário -->
+            <p class="conteudo-post">${comment.content}</p>
+        </div>`;    
                 
 
                 

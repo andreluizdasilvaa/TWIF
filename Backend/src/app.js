@@ -196,6 +196,7 @@ app.get('/user/me', auth_user, async (req, res) => {
         const user = await prisma.user.findUnique({
             where: { id: req.user.id }, // Usa o userId do token
             select: {
+                id: true,   
                 nome: true,
                 profilePicture: true,
                 usernick: true,
@@ -265,6 +266,7 @@ app.get('/posts/:postId/comments', auth_user, async (req, res) => {
             include: {
                 user: {
                     select: {
+                        id: true,   
                         nome: true,
                         usernick: true,
                         profilePicture: true,
