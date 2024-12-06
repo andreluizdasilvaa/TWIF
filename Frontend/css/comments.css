@@ -156,6 +156,10 @@ body {
     font-size: 16px;
 }
 
+.nick{
+    white-space: nowrap;
+}
+
 #commentForm {
     display: flex;
     justify-content: center;
@@ -205,7 +209,7 @@ body {
         background: none; /* Remove o fundo do botão */
         border: none; /* Remove a borda do botão */
         cursor: pointer; /* Muda o cursor para indicar que é clicável */
-        margin-left: 306px;
+        margin-left: 250px;
     }
 
     .delete-icon {
