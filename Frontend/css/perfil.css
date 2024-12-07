@@ -569,6 +569,7 @@ button.filesPost {
     border: 1px solid var(--vermelho);
     cursor: pointer;
     transition: .3s;
+    font-family: Lexend Deca;
 }
 
 .btn_delete_post:hover {
@@ -763,4 +764,83 @@ button.filesPost {
     justify-content: start;
     align-items: center;
     gap: 12px;
+}
+
+
+body.dark-mode{
+    background-color: #011214;
+}
+
+body.dark-mode .background{
+    background-color:#032F37;
+}
+
+body.dark-mode ul.posts li.post{
+    background-color: #032F37;
+    color: white;
+}
+
+body.dark-mode #User_name{
+    color: white;
+}
+
+body.dark-mode .p-perfil{
+  color: #b1b1b1;
+}
+
+body.dark-mode .newPost{
+    background-color: #032F37;
+    
+}
+
+body.dark-mode #textarea{
+    background-color: #032F37;
+    color: white;
+}
+
+body.dark-mode .user-profile-link{
+    color: white;
+}
+
+body.dark-mode::-webkit-scrollbar-thumb {
+    background-color: var(--verde-padrao);
+}
+
+body.dark-mode .btn_delete_post{
+    background-color: #011214;
+    border: none;
+}
+
+body.dark-mode .imgUserPost img{
+    border: dashed 3px #7ec543;
+}
+
+body.dark-mode #User_profile{
+    border: dashed 3px #7ec543;
+}
+
+body.dark-mode .modal-content{
+    background-color: #011214;
+ }
+
+body.dark-mode .avatar-selection h2{
+    color: white;
+}
+
+body.dark-mode .avatar-selection p{
+    color: #7EC543;
+}
+ 
+body.dark-mode .avatar-button.selected img {
+    border: 5px solid var(--verde-padrao);
+}
+
+body.dark-mode #salvar-avatar {
+    background-color: var(--verde-padrao);
+    color: var(--azul-escuro-A);
+}
+
+body.dark-mode #salvar-avatar:hover {
+    background-color: var(--verde-neutro);
+    color: var(--verde-padrao);
 }

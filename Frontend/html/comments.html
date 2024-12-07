@@ -3,7 +3,10 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Comentários do Post</title>
+        <title>Comentários</title>
+
+        <link rel="shortcut icon" href="assets/img/favicon.svg" type="image/x-icon" />
+
         <link rel="stylesheet" href="/css/comments.css" />
         <!-- Fontes -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -13,7 +16,7 @@
     <body>
         <!-- Botão para voltar ao feed -->
         <header>
-            <img src="../assets/img/logo-dark.svg" class="logo_header" />
+            <img src="../assets/img/logo-dark.svg" class="logo_header" id="logo_header"/>
             <a href="" class="me_user_perfil">
                 <img id="User_profile" src="../assets/profile-pictures/defaultphoto.png" alt="defaultphoto" />
             </a>
@@ -24,7 +27,7 @@
             <!-- Exibição do post original -->
             <div class="comments">
                 <div class="botao-post">
-                    <button id="backToFeed"><img src="../assets/img/voltar2.png" /></button>
+                    <button id="backToFeed"><img src="../assets/img/voltar2.png" class="backToFeed"/></button>
                     <section id="postSection">
                         <div id="postContent"></div>
                     </section>
@@ -332,6 +335,41 @@
                     window.location.href = '/feed';
                 });
             });
+
+
+
+
+// theme.js
+const body = document.body;
+const logoHeader = document.getElementById('logo_header');
+const darkModeToggle = document.getElementById('darkModeToggle');
+const darkModeKey = 'darkMode';
+
+// Função para alternar entre o modo claro e escuro
+function toggleDarkMode() {
+    const isDarkMode = body.classList.toggle('dark-mode');
+    logoHeader.src = isDarkMode ? '../assets/img/logo-white.svg' : '../assets/img/logo-dark.svg'; // Muda a logo
+    localStorage.setItem(darkModeKey, isDarkMode); // Armazena a preferência
+}
+
+// Função para aplicar o tema ao carregar a página
+function applyStoredTheme() {
+    const isDarkMode = localStorage.getItem(darkModeKey) === 'true';
+    if (isDarkMode) {
+        body.classList.add('dark-mode');
+        logoHeader.src = '../assets/img/logo-white.svg'; // Logo branca
+    } else {
+        logoHeader.src = '../assets/img/logo-dark.svg'; // Logo colorida como padrão
+    }
+}
+
+// Chama a função para aplicar o tema ao carregar a página
+applyStoredTheme();
+
+// Adiciona um event listener para alternar o modo
+if (darkModeToggle) {
+    darkModeToggle.addEventListener('click', toggleDarkMode);
+}
         </script>
     </body>
 </html>

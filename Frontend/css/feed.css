@@ -341,7 +341,7 @@ button.filesPost {
 .sair {
     background-color: var(--vermelho);
     color: white;
-    padding: 10px 20px;
+    padding: 10px 74px;
     border: none;
     border-radius: 10px;
     cursor: pointer;
@@ -646,4 +646,145 @@ button.filesPost {
     display: flex;
     flex-direction: column;
     margin-left: 50px;
+}
+
+
+/* --- Estilos para o Dark Mode --- */
+body.dark-mode {
+    background: #011214; /* Cor de fundo escura */
+    color: white;
+}
+
+
+body.dark-mode .hamburguer {
+    filter: invert(100%);
+}
+
+body.dark-mode textarea {
+    background-color: #011214;
+    color: white;
+}
+
+body.dark-mode #name_user {
+    color: white;
+}
+
+/* Estilos dos posts no modo escuro */
+body.dark-mode ul.posts li.post {
+    background-color: #032f37;
+    border-radius: 30px;
+    padding: 25px;
+}
+
+body.dark-mode ul.posts li.post:hover {
+    background-color: #025648;
+}
+
+body.dark-mode div.newPost {
+    background-color: #011214;
+    border: 3px #7ec543 solid;
+}
+
+body.dark-mode div.newPost div.infoUser div.imgUser img {
+    border: 2px solid #7ec543;
+}
+
+/* Estilo do texto e links */
+body.dark-mode p, body.dark-mode strong, body.dark-mode a {
+    color: #d1d1d1; /* Cor de texto clara */
+}
+
+/* Botões no modo escuro */
+body.dark-mode .btnSubmitForm {
+    background-color: #7ec543;
+    color: #011214;
+}
+
+body.dark-mode .btnSubmitForm:hover {
+    background-color: #025648;
+    color: #7ec543;
+    box-shadow: 5px 5px 0px #7ec543;
+}
+
+/* Dark Mode para o modal */
+body.dark-mode .modal-content {
+    background-color: #032f37;
+}
+
+body.dark-mode .sair {
+    background-color: var(--vermelho);
+    color: white;
+}
+
+body.dark-mode #userNameModal {
+   color: white;
+}
+
+body.dark-mode #profilePictureModal {
+border: 4px dashed #7ec543;
+}
+
+body.dark-mode .dois button{
+    background-color: #7ec543;
+    color: #011214;
+}
+
+body.dark-mode .dois button:hover {
+    background-color: #011214;
+    color: #7ec543;
+}
+
+/* Outros ajustes de estilo */
+body.dark-mode .botao-flutuante {
+    background-color: #7ec543;
+}
+
+body.dark-mode .botao-flutuante:hover {
+    background-color: #025648;
+}
+
+body.dark-mode .modal-conteudo {
+    background-color: #7ec543
+}
+
+body.dark-mode .modal-conteudo button{
+    background-color: #011214;
+    color: #7ec543;
+}
+
+body.dark-mode .modal-conteudo button:hover {
+    background-color: #032f37;
+}
+
+body.dark-mode .formPost textarea {
+   color: white;
+}
+
+/* Cor de fundo e texto do scrollbar */
+body.dark-mode ::-webkit-scrollbar-thumb {
+    background-color: #7ec543;
+}
+
+body.dark-mode ::-webkit-scrollbar-track {
+    background-color: #3e3e3e;
+}
+
+
+#lampIcon {
+    color: yellow; /* Cor da lâmpada no modo claro */
+    transition: color 0.3s ease; /* Transição suave */
+}
+
+body.dark-mode #lampIcon {
+    color: gray; /* Cor da lâmpada no modo escuro */
+}
+
+body.dark-mode #textarea{
+    color: rgb(240, 240, 240);
+}
+
+#darkModeToggle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

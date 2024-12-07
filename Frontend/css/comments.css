@@ -18,6 +18,16 @@
     border-radius: 8px;
 }
 
+/* Cursor personalizado */
+html {
+    cursor: url(http://www.rw-designer.com/cursor-extern.php?id=10190), auto;
+}
+
+::selection {
+    background-color: var(--verde-padrao); /* Cor de fundo da seleção */
+    color: var(--azul-escuro-A); /* Cor do texto selecionado */
+}
+
 header{
     display: flex;
     justify-content: space-between;
@@ -306,17 +316,13 @@ body {
     font-size: 30px;
     font-family: Lexend Deca;
     margin-bottom: 15px;
+    color: #011214;
 }
 
 .textAndtext h3 {
     font-size: 15px;
     font-family: Lexend Deca;
     color: var(--verde-neutro);
-}
-
-.ignore{
-    color: transparent;
-    font-size: 10px;
 }
 
 .postInfoP{
@@ -326,4 +332,48 @@ body {
     display: flex;
     justify-content: flex-end;
     margin-top: 60px;
+}
+
+body.dark-mode {
+    background-color: #011214;
+    color: white;
+}
+
+body.dark-mode #postSection {
+   border: solid 3px #7ec543;
+}
+
+body.dark-mode .postInfo {
+    color: white;
+}
+
+body.dark-mode .comment {
+    background-color: #032f37;
+    border: none;
+}
+
+body.dark-mode .conteudo-post {
+    color:white;
+}
+
+body.dark-mode .nick {
+    color:white;
+}
+
+body.dark-mode .userfoto{
+    border: dashed 3px #7ec543;
+    border-radius: 50%;
+}
+
+body.dark-mode .botao-comentar:hover{
+    background-color:#025648;
+    color: #7ec543;
+}
+
+body.dark-mode .delete-icon{
+    filter: invert(1);
+}
+
+body.dark-mode .backToFeed{
+    filter: invert(1);
 }
