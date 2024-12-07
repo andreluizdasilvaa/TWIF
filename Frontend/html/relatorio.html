@@ -6,13 +6,13 @@
     <title>Relatório</title>
        <link rel="stylesheet" href="../css/relatorio.css">
 
-       <script src="../js/relatorio.js"></script>
+       
        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <!-- Sidebar -->
     <aside class="sidebar">
-        <div class="logo"><img src="../assets/img/logo-dark.svg"></div>
+        <div class="logo"><img src="../assets/img/logo-dark.svg"  id="logo_header"></div>
         <div class="nav-links">
             <a href="/feed"><img src="../assets/img/home.png" width="25px">Feed</a>
             <a href="/perfil/${user.usernick}"><img src="../assets/img/smile.png" width="25px">Perfil do ADM</a>
@@ -70,6 +70,6 @@
         <canvas id="userChart" width="600" height="600"></canvas>
     </div>
 </section>
-    
+    <script src="../js/relatorio.js"></script>
 </body>
 </html>

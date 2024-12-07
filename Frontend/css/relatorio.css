@@ -107,3 +107,41 @@ header p{
 .dados{
     margin-top: 35px;
 }
+
+body.dark-mode {
+    background-color: #011214;
+    color: #fff;
+}
+
+body.dark-mode .sidebar {
+    background-color: #011214;
+    color: #fff;
+}
+
+body.dark-mode .nav-links a {
+    color: #fff;
+}
+
+body.dark-mode .card {
+    border-color: #7EC543;
+}
+
+body.dark-mode .info {
+    color: #fff;
+}
+
+body.dark-mode .info img{
+    filter: invert(1);
+}
+
+body.dark-mode header h1 {
+    color: white;
+}
+
+body.dark-mode header p {
+    color: #7EC543;
+}
+
+body.dark-mode .nav-links img {
+    filter: invert(1);
+}
