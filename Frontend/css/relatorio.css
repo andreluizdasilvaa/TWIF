@@ -4,17 +4,16 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: white;
-    color: #fff;
+body{
     display: flex;
-    min-height: 100vh;
+    height: 100%;
 }
+
 
 /* Sidebar */
 .sidebar {
     width: 250px;
+    height: 100%;
     background-color: white;
     padding: 20px;
     display: flex;
@@ -22,12 +21,6 @@ body {
     gap: 20px;
 }
 
-.sidebar .logo {
-    font-size: 1.5em;
-    font-weight: bold;
-    text-align: center;
-    color: #4caf50;
-}
 
 .nav-links {
     display: flex;
@@ -37,7 +30,8 @@ body {
 
 .nav-links a {
     text-decoration: none;
-    color: #ccc;
+    color: #011214;
+    font-family: Lexend Deca;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -47,155 +41,59 @@ body {
 }
 
 .nav-links a:hover {
-    background-color: #4caf50;
+    background-color: #7EC543;
     color: #fff;
 }
 
-.nav-links i {
-    font-size: 1.2em;
-}
-
-/* Main Content */
 .main-content {
-    flex: 1;
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
 }
 
-.top-bar {
+header h1{
+    font-family: Lexend Deca;
+    font-size: 40px;
+    color: #011214;
+    margin-bottom: 5px;
+    margin-top: 25px;
+}
+
+header p{
+    font-family: Lexend Deca;
+    font-size: 16px;
+    color: #025648;
+    margin-bottom: 20px;
+}
+
+.card{
+    border: solid 4px #011214;
+    border-radius: 20px;
+    width: 320px;
+    height: 275px;
+    padding: 20px;
+    
+}
+
+.info{
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
     color: #011214;
     font-family: Lexend Deca;
+    font-size: 12px;
 }
 
-.top-bar .search-bar {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background-color: #1f2440;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-.top-bar .search-bar input {
-    background: none;
-    border: none;
-    color: #fff;
-    outline: none;
-    width: 200px;
-}
-
-.dashboard-grid {
+.dashboard-grid{
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
 
-.card {
-    background-color: white;
-    border: solid 3px #011214;
-    padding: 20px;
-    border-radius: 15px;
-    color: #011214;
-}
-
-.card h3 {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-}
-
-.stats {
-    font-size: 2.5em;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-/* Circular Progress (for Discount Offers) */
-.progress-container {
+.stats{
     display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.progress-ring {
-    width: 70px;
-    height: 70px;
-    background: conic-gradient(#4caf50 0% 92%, #333 92% 100%);
-    border-radius: 50%;
-    position: relative;
-}
-
-.progress-ring span {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 1em;
-}
-
-/* Calendar */
-.calendar {
-    background-color: #181c32;
-    padding: 20px;
-    border-radius: 10px;
-}
-
-.calendar h3 {
-    margin-bottom: 10px;
-}
-
-.calendar table {
-    width: 100%;
-    text-align: center;
-    border-collapse: collapse;
-}
-
-.calendar th, .calendar td {
-    padding: 10px;
-    color: #ccc;
-}
-
-.calendar .active-day {
-    background-color: #4caf50;
-    color: #fff;
-    border-radius: 50%;
-}
-
-/* Transactions */
-.transactions {
-    background: #1f2440;
-    padding: 20px;
-    border-radius: 10px;
-}
-
-.transactions table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-}
-
-.transactions th, .transactions td {
-    text-align: left;
-    padding: 8px;
-    color: #ccc;
-}
-
-.transactions tr:nth-child(odd) {
-    background-color: #252a41;
-}
-
-.transactions tr:nth-child(even) {
-    background-color: #1f2440;
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    margin-top: 20px;
-    padding: 10px;
-    background: #1f2440;
-    border-radius: 10px;
-    color: #ccc;
+    justify-content: center;
+    font-size: 50px;
+    font-family: Lexend Deca;
+    padding-top: 25%;
+    font-weight: 600;
 }

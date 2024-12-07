@@ -13,71 +13,53 @@
     <aside class="sidebar">
         <div class="logo"><img src="../assets/img/logo-dark.svg"></div>
         <div class="nav-links">
-            <a href="/feed"><i>🏠</i>Feed</a>
-            <a href="/perfil"><i>📊</i>Perfil do ADM</a>
+            <a href="/feed"><img src="../assets/img/home.png" width="25px">Feed</a>
+            <a href="/perfil"><img src="../assets/img/smile.png" width="25px">Perfil do ADM</a>
         </div>
     </aside>
 
     <!-- Main Content -->
     <div class="main-content">
 
+        <header>
+            <h1>Olá, administrador Fulano!</h1>
+            <p>Estas são suas estatísticas.</p>
+        </header>
+
         <section class="dashboard-grid">
             <!-- Cards -->
             <div class="card">
-                <h3>Total de usuários</h3>
+                <div class="info">
+                    <h3>Total de usuários</h3>
+                        <img src="../assets/img/user.svg" width="20px">
+                    </div>
                 <p class="stats" id="quant_usuarios"></p>
             </div>
             <div class="card">
-                <h3>Novos posts hoje</h3>
+                <div class="info">
+                    <h3>Total de publicaões</h3>
+                        <img src="../assets/img/file-plus.svg" width="20px">
+                    </div>
                 <p class="stats" id="quant_posts"></p>
             </div>
+           
             <div class="card">
-                <h3>Discount Offers</h3>
-                <div class="progress-container">
-                    <div class="progress-ring">
-                        <span>92%</span>
-                    </div>
-                   
-                </div>
-            </div>
-            <div class="card">
+                <div class="info">
                 <h3>Média de Curtidas por Post</h3>
+                    <img src="../assets/img/heart.svg" width="20px">
+                </div>
+
                 <p class="stats" id="media_curtidas"></p>
             </div>
             <div class="card">
-                <h3>Média de Comentários por Post</h3>
+                <div class="info">
+                    <h3>Média de comentários por post</h3>
+                        <img src="../assets/img/Vector.svg" width="20px">
+                    </div>
                 <p class="stats" id="media_comentarios"></p>
             </div>
-
-            <div class="card calendar">
-                <h3 id="calendar-title"></h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Domingo</th>
-                            <th>Segunda</th>
-                            <th>Terça</th>
-                            <th>Quarta</th>
-                            <th>Quinta</th>
-                            <th>Sexta</th>
-                            <th>Sábado</th>
-                        </tr>
-                    </thead>
-                    <tbody id="calendar-body"></tbody>
-                </table>
-                <div class="calendar-navigation">
-                    <button id="prev-month">◀</button>
-                    <button id="next-month">▶</button>
-                </div>
-            </div>
-            
-            <!-- Transactions -->
-           
         </section>
 
-        <footer>
-            Relatório Twif © 2024
-        </footer>
     </div>
 </body>
 </html>
