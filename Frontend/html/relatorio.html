@@ -7,6 +7,7 @@
        <link rel="stylesheet" href="../css/relatorio.css">
 
        <script src="../js/relatorio.js"></script>
+       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <!-- Sidebar -->
@@ -14,7 +15,7 @@
         <div class="logo"><img src="../assets/img/logo-dark.svg"></div>
         <div class="nav-links">
             <a href="/feed"><img src="../assets/img/home.png" width="25px">Feed</a>
-            <a href="/perfil"><img src="../assets/img/smile.png" width="25px">Perfil do ADM</a>
+            <a href="/perfil/${user.usernick}"><img src="../assets/img/smile.png" width="25px">Perfil do ADM</a>
         </div>
     </aside>
 
@@ -22,9 +23,12 @@
     <div class="main-content">
 
         <header>
-            <h1>Olá, administrador Fulano!</h1>
+            <h1>Olá, administrador <span id="nome-usuario">Fulano</span>!</h1>
+
             <p>Estas são suas estatísticas.</p>
         </header>
+
+        <section class="dados">
 
         <section class="dashboard-grid">
             <!-- Cards -->
@@ -61,5 +65,11 @@
         </section>
 
     </div>
+
+    <div class="chart-container">
+        <canvas id="userChart" width="600" height="600"></canvas>
+    </div>
+</section>
+    
 </body>
 </html>

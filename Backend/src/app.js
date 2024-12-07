@@ -71,6 +71,23 @@ app.get('/perfil/:usernick', auth_user, (req, res) => {
     res.sendFile(path.join(__dirname, '..', '..', 'Frontend', 'html', 'perfil.html'));
 });
 
+app.get('/user/me', auth_user, async (req, res) => {
+    try {
+        const user = await prisma.user.findUnique({
+            where: { id: req.user.id }, // Usa o userId do token
+            select: { id: true, nome: true, profilePicture: true, usernick: true, isadmin: true },
+        });
+        if (user) {
+            res.json(user);
+        } else {
+            res.status(404).send('Usuário não encontrado');
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Erro ao buscar o usuário');
+    }
+});
+
 // Rota para retornar todos os posts do DB
 app.get('/feed/posts', auth_user, async (req, res) => {
     try {
@@ -259,7 +276,6 @@ app.get('/posts/:postId', auth_user, async (req, res) => {
     }
 });
 
-  
   // Rota GET para listar os comentários
 app.get('/posts/:postId/comments', auth_user, async (req, res) => {
     const { postId } = req.params;

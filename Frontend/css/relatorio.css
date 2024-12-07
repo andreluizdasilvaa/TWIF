@@ -97,3 +97,13 @@ header p{
     padding-top: 25%;
     font-weight: 600;
 }
+
+.chart-container{
+    display: flex;
+    align-items: center;
+    margin-top: 85px;
+}
+
+.dados{
+    margin-top: 35px;
+}
