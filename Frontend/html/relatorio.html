@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório</title>
+       <link rel="stylesheet" href="../css/relatorio.css">
+
+       <script src="../js/relatorio.js"></script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo"><img src="../assets/img/logo-dark.svg"></div>
+        <div class="nav-links">
+            <a href="/feed"><i>🏠</i>Feed</a>
+            <a href="/perfil"><i>📊</i>Perfil do ADM</a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+        <section class="dashboard-grid">
+            <!-- Cards -->
+            <div class="card">
+                <h3>Total de usuários</h3>
+                <p class="stats" id="quant_usuarios"></p>
+            </div>
+            <div class="card">
+                <h3>Novos posts hoje</h3>
+                <p class="stats" id="quant_posts"></p>
+            </div>
+            <div class="card">
+                <h3>Discount Offers</h3>
+                <div class="progress-container">
+                    <div class="progress-ring">
+                        <span>92%</span>
+                    </div>
+                   
+                </div>
+            </div>
+            <div class="card">
+                <h3>Média de Curtidas por Post</h3>
+                <p class="stats" id="media_curtidas"></p>
+            </div>
+            <div class="card">
+                <h3>Média de Comentários por Post</h3>
+                <p class="stats" id="media_comentarios"></p>
+            </div>
+
+            <div class="card calendar">
+                <h3 id="calendar-title"></h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Domingo</th>
+                            <th>Segunda</th>
+                            <th>Terça</th>
+                            <th>Quarta</th>
+                            <th>Quinta</th>
+                            <th>Sexta</th>
+                            <th>Sábado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="calendar-body"></tbody>
+                </table>
+                <div class="calendar-navigation">
+                    <button id="prev-month">◀</button>
+                    <button id="next-month">▶</button>
+                </div>
+            </div>
+            
+            <!-- Transactions -->
+           
+        </section>
+
+        <footer>
+            Relatório Twif © 2024
+        </footer>
+    </div>
+</body>
+</html>

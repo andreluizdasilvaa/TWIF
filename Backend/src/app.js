@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 // importação do middleware para verificar a autenticação do token
 const { auth_user, generate_token_user, remove_session } = require('./middlewares/auth');
+const relatorios = require('./relatorios')
 
 dotenv.config(); // mostra ao dotenv onde está o arq .env no
 const app = express();
@@ -32,6 +33,9 @@ app.get('/', (req, res) => {
     // Envia o arquivo index.html quando a rota raiz ("/") é acessada
     res.sendFile(path.join(__dirname, '..', '..', 'Frontend', 'html', 'index.html'));
 });
+
+// Rota para relatórios (apenas para Admins)
+app.use('/relatorios', relatorios)
 
 // Rota para carregar o formulário de cadastro
 app.get('/register', (req, res) => {
