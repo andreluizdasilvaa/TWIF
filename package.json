@@ -11,6 +11,9 @@
         "format": "prettier --write .",
         "start": "nodemon Backend/src/app.js"
     },
+    "prisma": {
+        "seed": "node ./Backend/src/prisma/seed.js"
+    },
     "author": "André, Isabela, Júlia, Geovana, Erick",
     "license": "ISC",
     "dependencies": {
@@ -23,6 +26,7 @@
         "mysql2": "^3.11.0"
     },
     "devDependencies": {
+        "@faker-js/faker": "^9.3.0",
         "nodemon": "^3.1.7",
         "prettier": "^3.3.3",
         "prisma": "^5.18.0"
