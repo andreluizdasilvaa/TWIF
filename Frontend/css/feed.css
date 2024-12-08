@@ -339,19 +339,29 @@ button.filesPost {
 
 /* ===== Botão de Sair ===== */
 .sair {
-    background-color: var(--vermelho);
-    color: white;
-    padding: 10px 74px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 18px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+
     font-family: 'Lexend Deca';
-    border: 1px solid var(--vermelho);
-    transition: .3s;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: white;
+    background-color: var(--vermelho);
+
+    border: none;
+    border-radius: 8px;
+
+    cursor: pointer;
+    transition: background 0.3s;
+    text-decoration: none;
 }
 
 .sair:hover {
+    border: solid 2px var(--vermelho);
     background-color: white;
     color: var(--vermelho);
 }
@@ -785,6 +795,72 @@ body.dark-mode #textarea{
 
 #darkModeToggle{
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
+    padding: 10px;
+
+    font-family: 'Lexend Deca';
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #7ec543;
+    background-color: #011214;
+
+    border: none;
+    border-radius: 8px;
+
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+}
+
+body.dark-mode #darkModeToggle{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+
+    font-family: 'Lexend Deca';
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #011214;
+    background-color: #7ec543;
+
+    border: none;
+    border-radius: 8px;
+
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+}
+
+
+.relatoriosLink{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 390px;
+
+    font-family: 'Lexend Deca';
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #011214;
+    background-color: #7ec543;
+
+    border: none;
+    border-radius: 8px;
+
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 5px 5px 0px black;
+    text-decoration: none;
+}
+
+a{
+    text-decoration: none;
 }
