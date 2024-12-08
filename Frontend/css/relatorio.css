@@ -9,6 +9,10 @@ body{
     height: 100%;
 }
 
+::selection {
+    background-color:#7EC543;
+    color:#011214;
+}
 
 /* Sidebar */
 .sidebar {

@@ -33,6 +33,11 @@ header nav ul li a:hover {
     transition: 0.3s;
 }
 
+::selection {
+    background-color: var(--verde-padrao);
+    color: var(--azul-escuro-A);
+}
+
 /* sec1 */
 .container_sec1 {
     padding: 5em;
