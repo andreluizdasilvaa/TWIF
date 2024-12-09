@@ -372,3 +372,37 @@ if (darkModeToggle) {
     darkModeToggle.addEventListener('click', toggleDarkMode);
 }
 
+async function verificarUsuario() {
+    try {
+        const response = await fetch('/user/me', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}` // Supondo que você armazena o token no localStorage
+            }
+        });
+
+        if (response.ok) {
+            const user = await response.json();
+            if (user.isadmin) {
+                // Se o usuário for admin, exibe o botão
+                document.getElementById('acessoRelatorios').style.display = 'block';
+            }
+        } else {
+            console.error('Erro ao buscar informações do usuário:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Erro ao verificar usuário:', error);
+    }
+}
+
+// Chama a função ao carregar a página
+window.onload = verificarUsuario;
+
+function auth_admin(req, res, next) {
+    // Verifica se o usuário está autenticado e se é um administrador
+    if (req.user && req.user.isadmin) {
+        next(); // O usuário é admin, continue para a próxima função
+    } else {
+        res.status(403).send('Acesso negado'); // Acesso negado
+    }
+}

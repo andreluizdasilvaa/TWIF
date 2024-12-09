@@ -19,6 +19,7 @@
 
     <!-- biblioteca DOMPurify | remove qualquer script ou tag HTML potencialmente perigosa, Cross-Site Scripting (XSS) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.0/purify.min.js"></script>
+    <script src="../js/feed.js"></script>
 
     <!-- Link para o arquivo CSS da página de feed -->
     <link rel="stylesheet" href="../css/feed.css" />
@@ -76,9 +77,8 @@
             (ESSE LINK SÓ DEVE APARECER PARA USUÁRIOS ADMINISTRADORES) -->
             <a href="#">
                 <button  class="relatoriosLink">
-                    Relatórios
-                    <img src="../assets/img/chart-line-up-bold.svg">
-                </button>
+            <a href="/relatorios" id="acessoRelatorios" style="display:none;"> 
+                <button class="relatoriosLink"> Relatórios <img src="../assets/img/chart-line-up-bold.svg"> </button> 
             </a>
                 
          

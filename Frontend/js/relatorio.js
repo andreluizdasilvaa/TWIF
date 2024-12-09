@@ -1,92 +1,82 @@
+// Função que é chamada quando o DOM é totalmente carregado
 addEventListener('DOMContentLoaded', async () => {
-    document.getElementById('quant_posts').innerText = await getTotalPosts()
-    document.getElementById('quant_usuarios').innerText = await getTotalUsuarios()
-    document.getElementById('media_curtidas').innerText = await mediaCurtidasPorPost()
-    document.getElementById('media_comentarios').innerText = await mediaCurtidasPorPost()
-})
+    document.getElementById('quant_posts').innerText = await getTotalPosts();
+    document.getElementById('quant_usuarios').innerText = await getTotalUsuarios();
+    document.getElementById('media_curtidas').innerText = await mediaCurtidasPorPost();
+    document.getElementById('media_comentarios').innerText = await mediaComentarioPorPost();
 
-//Pegando total de comentarios
+    await renderUserChart();
+});
+
+// Função para pegar o total de comentários
 async function getTotalComentarios() {
-    let result = await fetch('/relatorios/comentarios')
-    .then(response => response.json())
-    .then(data => {
-        return data.quantidade
-    })
-    .then(r => {
-        return r
-    })
-    .catch(r => {
-        return 0
-    })
-    return result
+    try {
+        const response = await fetch('/relatorios/comentarios');
+        const data = await response.json();
+        return data.quantidade;
+    } catch (error) {
+        console.error('Erro ao obter total de comentários:', error);
+        return 0;
+    }
 }
 
-//Pegando total de curtidas
+// Função para pegar o total de curtidas
 async function getTotalCurtidas() {
-    let result = await fetch('/relatorios/curtidas')
-    .then(response => response.json())
-    .then(data => {
-        document.getElementById('').innerText = data.quantidade
-        return data.quantidade
-    })
-    .then(r => {
-        return r
-    })
-    .catch(r => {
-        return 0
-    })
-    return result
+    try {
+        const response = await fetch('/relatorios/curtidas');
+        const data = await response.json();
+        return data.quantidade;
+    } catch (error) {
+        console.error('Erro ao obter total de curtidas:', error);
+        return 0;
+    }
 }
 
-//Pegando total de usuarios
+// Função para pegar o total de usuários
 async function getTotalUsuarios() {
-    let result = await fetch('/relatorios/usuarios')
-    .then(response => response.json())
-    .then(data => {
-        document.getElementById('quant_usuarios').innerText = data.quantidade
-        return data.quantidade
-    })
-    .then(r => {
-        return r
-    })
-    .catch(r => {
-        return 0
-    })
-    return result
-}  
+    try {
+        const response = await fetch('/relatorios/usuarios');
+        const data = await response.json();
+        return data.quantidade;
+    } catch (error) {
+        console.error('Erro ao obter total de usuários:', error);
+        return 0;
+    }
+}
 
-//Pegando total de posts
+// Função para pegar o total de posts
 async function getTotalPosts() {
-    let result = await fetch('/relatorios/posts')
-    .then(response => response.json())
-    .then(data => {
-        return data.quantidade
-    })
-    .then(r => {
-        return r
-    })
-    .catch(r => {
-        return 0
-    })
-    return result
+    try {
+        const response = await fetch('/relatorios/posts');
+        const data = await response.json();
+        return data.quantidade;
+    } catch (error) {
+        console.error('Erro ao obter total de posts:', error);
+        return 0;
+    }
 }
 
-//Media de comentarios por Post
+// Função para calcular a média de comentários por post
 const mediaComentarioPorPost = async () => {
-    let resultPost = await getTotalPosts()
-    let resultComentarios =  await getTotalComentarios()
-    let resultado =  Math.floor(!Number.isNaN(resultComentarios / resultPost) ? (resultComentarios / resultPost) : 0)
-    return resultado
+    let resultPost = await getTotalPosts();
+    let resultComentarios = await getTotalComentarios();
+    let resultado = !Number.isNaN(resultComentarios / resultPost) ? (resultComentarios / resultPost) : 0;
+
+    // Formatar para mostrar apenas os dois primeiros dígitos
+    return resultado.toFixed(2).slice(0, 4); // Exibe 2 dígitos decimais
 }
 
-//Media de comentarios por Post
+// Função para calcular a média de curtidas por post
 const mediaCurtidasPorPost = async () => {
-    let resultPost = await getTotalPosts()
-    let resultCurtidas =  await getTotalCurtidas()
-    let resultado =  Math.floor(!Number.isNaN(resultCurtidas / resultPost) ? (resultCurtidas / resultPost) : 0)
-    return resultado
+    let resultPost = await getTotalPosts();
+    let resultCurtidas = await getTotalCurtidas();
+    let resultado = !Number.isNaN(resultCurtidas / resultPost) ? (resultCurtidas / resultPost) : 0;
+
+    // Formatar para mostrar apenas os dois primeiros dígitos
+    return resultado.toFixed(2).slice(0, 4); // Exibe 2 dígitos decimais
 }
 
+// Função para buscar e definir o nome do usuário
 async function buscarNomeUsuario() {
     try {
         const resposta = await fetch('/user/me', {
@@ -106,14 +96,8 @@ async function buscarNomeUsuario() {
     }
 }
 
+// Chama a função para buscar o nome do usuário ao carregar a página
 buscarNomeUsuario();
-
-
-
-document.addEventListener('DOMContentLoaded', async () => {
-    // Chama a função para renderizar o gráfico de usuários
-    await renderUserChart();
-});
 
 // Função para buscar e renderizar o gráfico de usuários
 async function renderUserChart() {
@@ -159,16 +143,14 @@ async function renderUserChart() {
 
 // Função para obter a quantidade de administradores
 async function getTotalAdmins() {
-    let result = await fetch('/relatorios/usuarios/admins') // Endpoint que você precisa implementar
-        .then(response => response.json())
-        .then(data => {
-            return data.quantidade;
-        })
-        .catch(error => {
-            console.error('Erro ao obter total de administradores:', error);
-            return 0;
-        });
-    return result;
+    try {
+        const response = await fetch('/relatorios/usuarios/admins'); // Endpoint que você precisa implementar
+        const data = await response.json();
+        return data.quantidade;
+    } catch (error) {
+        console.error('Erro ao obter total de administradores:', error);
+        return 0;
+    }
 }
 
 // theme.js
