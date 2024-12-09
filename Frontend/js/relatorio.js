@@ -8,6 +8,8 @@ addEventListener('DOMContentLoaded', async () => {
     await renderUserChart();
 });
 
+//F
+
 // Função para pegar o total de comentários
 async function getTotalComentarios() {
     try {
@@ -81,15 +83,16 @@ async function buscarNomeUsuario() {
     try {
         const resposta = await fetch('/user/me', {
             method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}` // Inclua o token se necessário
-            }
+            // headers: {
+            //     'Authorization': `Bearer ${localStorage.getItem('token')}` // Inclua o token se necessário
+            // }
         });
         const data = await resposta.json();
 
         if (data.nome) {
             localStorage.setItem('nomeUsuario', data.nome);
             document.getElementById('nome-usuario').textContent = data.nome;
+            document.getElementById('link_pf_user_adm').href = `/perfil/${data.usernick}`;
         }
     } catch (error) {
         console.error('Erro ao buscar nome do usuário:', error);
