@@ -1,3 +1,5 @@
+@import url(utilidades/fonts.css);
+
 * {
     margin: 0;
     padding: 0;
@@ -35,7 +37,7 @@ body{
 .nav-links a {
     text-decoration: none;
     color: #011214;
-    font-family: Lexend Deca;
+    font-family: 'Lexend Deca';
     display: flex;
     align-items: center;
     gap: 10px;
