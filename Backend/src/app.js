@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 // importação do middleware para verificar a autenticação do token
 const { auth_user, generate_token_user, remove_session } = require('./middlewares/auth');
-const relatorios = require('./relatorios')
+const relatorios = require('./relatorios');
 
 dotenv.config(); // mostra ao dotenv onde está o arq .env no
 const app = express();
@@ -344,6 +344,10 @@ app.get('/posts/:postId/comments', auth_user, async (req, res) => {
         res.status(500).json({ msg: 'Erro ao listar os comentários' });
     }
 });
+
+app.get('/notaccess', auth_user, (req, res) => {
+    res.sendFile(path.join(__dirname, '..', '..', 'Frontend', 'html', 'Page_acesso_negado.html'));
+})
 
 // Rota para Erro 404 ( SEMPRE DEIXE ESSA ROTA POR ULTIMO, DE CIMA PARA BAIXO );
 app.get('*', (req, res) => {

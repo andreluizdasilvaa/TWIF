@@ -1,7 +1,10 @@
 const { PrismaClient } = require('@prisma/client');
+const express = require('express');
+const path = require('path');
 const jwt = require('jsonwebtoken');
 var cookieParser = require('cookie-parser');
 
+const app = express();
 const prisma = new PrismaClient();
 
 function generate_token_user(user, req, res, next) {
@@ -47,6 +50,20 @@ async function auth_user(req, res, next) {
     });
 }
 
+// Middleware para verificação de administrador
+async function auth_admin(req, res, next) {
+
+    if (!req.user) {
+        return res.redirect('/?error=4'); 
+    }
+
+    if (!req.user.isadmin) {
+        return res.redirect('/notaccess');
+    }
+
+    next();
+}
+
 // Função para encerrar a sessão
 function remove_session(req, res) {
     try {
@@ -58,4 +75,4 @@ function remove_session(req, res) {
     }
 }
 
-module.exports = { auth_user, generate_token_user, remove_session };
+module.exports = { auth_user, generate_token_user, remove_session, auth_admin };
