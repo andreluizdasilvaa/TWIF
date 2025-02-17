@@ -12,6 +12,7 @@ const relatorios = require('./relatorios');
 dotenv.config(); // mostra ao dotenv onde está o arq .env no
 const app = express(); 
 const prisma = new PrismaClient(); 
+exports.prisma = prisma;
 
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true })); // Permite que o Express entenda dados de formulários HTML ( url ex: /html/tal.html)
@@ -191,11 +192,9 @@ app.get('/api/perfil/:usernick', auth_user, async (req, res) => {
             },
         });
 
-
         if (user) {
             user.isCurrentUser = isCurrentUser; // Adiciona a flag `isCurrentUser`
             user.my_user_admin = isAdmin; // Adiciona a flag 'isadmin' para permissão de adm
-            
 
             // Adiciona o campo `likedByCurrentUser` em cada post
             for (let post of user.posts) {

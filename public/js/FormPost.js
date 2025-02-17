@@ -219,14 +219,20 @@ sairBtn.addEventListener('click', () => {
 });
 
 // Puxa dados do usuário e exibe no modal
-fetch('user/me')
-    .then((response) => response.json())
+fetch('/user/me')
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error(`Erro ${response.status}: ${response.statusText}`);
+        }
+        return response.json();
+    })
     .then((data) => {
         profilePictureModal.src = `../assets/profile-pictures/${data.profilePicture}`;
         userNameModal.textContent = data.nome;
         userNickModal.textContent = `@${data.usernick}`;
     })
     .catch((error) => console.error('Erro ao carregar dados do usuário:', error));
+
 
 // Fecha o modal ao clicar no botão de fechar
 closeModal.addEventListener('click', () => {

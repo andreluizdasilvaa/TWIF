@@ -1,4 +1,3 @@
-const exp = require('constants');
 const prisma = require('../models/prisma');
 var cookieParser = require('cookie-parser');
 
@@ -25,6 +24,10 @@ exports.feed = (req, res) => {
 
 exports.notfound = (req, res) => {
     res.sendFile(path.join(__dirname,'..', 'public', 'html', 'page_404.html'));
+}
+
+exports.userPage404 = (req, res) => {
+    res.sendFile(path.join(__dirname,'..', 'public', 'html', 'user_page_404.html'));
 }
 
 exports.support = (req, res) => {

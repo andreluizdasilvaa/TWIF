@@ -1,19 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
-const express = require('express');
-const path = require('path');
 const jwt = require('jsonwebtoken');
-var cookieParser = require('cookie-parser');
 
-const app = express();
 const prisma = new PrismaClient();
-
-function generate_token_user(user, req, res, next) {
-    const token = jwt.sign({ id: user.id, isadmin: user.isadmin }, process.env.jwt_secret, { expiresIn: '1h' });
-
-    // Envia o token como um cookie válido por uma hora, e só será acessado pelo servidor.
-    res.cookie('your-session', token, { httpOnly: true, maxAge: 3600000 });
-    next();
-}
 
 async function auth_user(req, res, next) {
     const token = req.cookies['your-session'];
@@ -28,17 +16,12 @@ async function auth_user(req, res, next) {
             return res.redirect('/?error=4');
         }
 
-        // Verifica se o ID do usuário decodificado existe no banco de dados
         try {
             const user = await prisma.user.findUnique({
-                 where: {
-                     id: decoded.id 
-                    } 
-                }); 
+                where: { id: decoded.id }
+            });
 
             if (!user) {
-                // Usuário não encontrado, token inválido
-                // 'clearCookie' limpa o cookie your-session, de todas as rotas '/', e retorna o '/?erro=4'.
                 return res.clearCookie('your-session', { path: '/' }).redirect('/?error=4');
             }
 
@@ -46,33 +29,9 @@ async function auth_user(req, res, next) {
             next();
         } catch (dbError) {
             console.error('Erro ao verificar usuário no banco de dados:', dbError);
+            return res.status(500).send('Erro interno');
         }
     });
 }
 
-// Middleware para verificação de administrador
-async function auth_admin(req, res, next) {
-
-    if (!req.user) {
-        return res.redirect('/?error=4'); 
-    }
-
-    if (!req.user.isadmin) {
-        return res.redirect('/notaccess');
-    }
-
-    next();
-}
-
-// Função para encerrar a sessão
-function remove_session(req, res) {
-    try {
-        res.clearCookie('your-session', { path: '/' });
-        res.status(200).json({ message: 'Sessão encerrada!' });
-    } catch (error) {
-        console.error('Erro ao encerrar sessão do user, Erro: ', error);
-        res.status(500).json({ message: 'Erro interno ao encerrar sessão, entre em contato com o suporte' });
-    }
-}
-
-module.exports = { auth_user, generate_token_user, remove_session, auth_admin };
+module.exports = { auth_user };
