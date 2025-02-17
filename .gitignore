@@ -1,5 +1,3 @@
-# Mantenha as variáveis ​​de ambiente fora do controle de versão
-
 # Ignora a pasta node_modules
 node_modules
 
