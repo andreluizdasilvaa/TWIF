@@ -8,6 +8,7 @@ const cors = require('cors');
 // Importando rotas
 const pagesRoutes = require('./routes/pagesRoutes');
 const feedRoutes = require('./routes/feedRoutes');
+const commentRoutes = require('./routes/commentRoutes')
 const authRoutes = require('./routes/authRoutes');
 const perfilRoutes = require('./routes/perfilRoutes');
 
@@ -34,7 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Usando as rotas
 
 // Paginas estaticas
-app.use('/', authRoutes, perfilRoutes, feedRoutes, pagesRoutes);
+app.use('/', authRoutes, perfilRoutes, commentRoutes, feedRoutes, pagesRoutes);
 
 // app.use('/feed', feedRoutes);  // Rotas do feed
 // app.use('/perfil', perfilRoutes);  // Rotas de perfil

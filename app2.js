@@ -252,43 +252,44 @@ app.get('/users/:userId/posts/:postId/comments', auth_user, async (req, res) => 
     }
 });
 
-// Rota para retornar todas as informações do usuario que está acessando a rota
-app.get('/user/me', auth_user, async (req, res) => {
-    try {
-        const user = await prisma.user.findUnique({
-            where: { id: req.user.id }, // Usa o userId do token
-            select: {
-                id: true,   
-                nome: true,
-                profilePicture: true,
-                usernick: true,
-                isadmin: true,
-                posts: {
-                    select: {
-                        id: true,
-                        content: true,
-                        createdAt: true
-                    }
-                },
-            },
-        });
+// // Rota para retornar todas as informações do usuario que está acessando a rota
+// app.get('/user/me', auth_user, async (req, res) => {
+//     try {
+//         const user = await prisma.user.findUnique({
+//             where: { id: req.user.id }, // Usa o userId do token
+//             select: {
+//                 id: true,   
+//                 nome: true,
+//                 profilePicture: true,
+//                 usernick: true,
+//                 isadmin: true,
+//                 posts: {
+//                     select: {
+//                         id: true,
+//                         content: true,
+//                         createdAt: true
+//                     }
+//                 },
+//             },
+//         });
 
-        if (user) {
-            res.json(user);
-        } else {
-            res.status(404).send('Usuário não encontrado');
-        }
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Erro ao buscar o usuário');
-    }
-});
+//         if (user) {
+//             res.json(user);
+//         } else {
+//             res.status(404).send('Usuário não encontrado');
+//         }
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).send('Erro ao buscar o usuário');
+//     }
+// });
 
 // Rota para se o usuario não for encontrado
 app.get('/user404', (req, res) => {
     res.status(404).sendFile(path.join(__dirname, '..', '..', 'Frontend', 'html', 'user_page_404.html'));
 })
 
+// Retorna um post com base no id do post( postId )
 app.get('/posts/:postId', auth_user, async (req, res) => {
     const { postId } = req.params;
 
@@ -318,7 +319,7 @@ app.get('/posts/:postId', auth_user, async (req, res) => {
 });
 
 
-  // Rota GET para listar os comentários
+// Rota GET para listar os comentários
 app.get('/posts/:postId/comments', auth_user, async (req, res) => {
     const { postId } = req.params;
 

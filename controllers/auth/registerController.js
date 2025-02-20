@@ -1,48 +1,9 @@
 const bcrypt = require('bcrypt');
-const prisma = require('../models/prisma');
-const { generate_token_user } = require('../middlewares/index');
 
-var cookieParser = require('cookie-parser');
-
-// Rota de processamento do login
-exports.login = async (req, res) => {
-    const { email, senha } = req.body;
-    try {
-        let user;
-
-        user = await prisma.user.findUnique({
-            where: {
-                email: email
-            }
-        })
-
-        // verifica se o usuario existe
-        if (!user) {
-            return res.redirect('/?error=1');
-        }
-
-        // compara a senha fornecida com a senha que está armazenada no DB( Criptografada ), e se for a mesma retorna um true
-        const IspasswordValid = await bcrypt.compare(senha, user.senha);
-
-        // Verifica se a senha é valida
-        if (!IspasswordValid) {
-            return res.redirect('/?error=1');
-        }
-
-        // Gere o token e configure o cookie
-        generate_token_user(user, req, res, () => {
-            res.status(201).redirect('/feed');
-        });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({
-            msg: 'Erro interno ao Fazer login, entre em contato com o suporte',
-        });
-    }
-}
+const prisma = require('../../models/prisma');
 
 // Rota de processamento do cadastro
-exports.register = async (req, res) => {
+const register = async (req, res) => {
     const { email, senha, usernick, nome, profilePicture } = req.body;
 
     // VALIDAÇÃO
@@ -101,3 +62,5 @@ exports.register = async (req, res) => {
         res.status(500).json({ msg: 'Erro interno ao cadastrar usuario, entre em contato com o suporte' });
     }
 }
+
+module.exports = register;

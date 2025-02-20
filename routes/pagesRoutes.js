@@ -12,7 +12,7 @@ router.get('/sobrenos', pagesController.about_us);
 router.get('/feed', auth_user, pagesController.feed);
 router.get('/perfil/:usernick', auth_user, pagesController.userProfile);
 router.get('/comments', auth_user, pagesController.comments);
-router.get('/relatorios', auth_admin, pagesController.relatorios);
+router.get('/relatorios', auth_user, auth_admin, pagesController.relatorios);
 
 router.get('/user404', pagesController.userPage404);
 router.get('/notaccess', pagesController.semAcesso);
