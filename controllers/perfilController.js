@@ -62,8 +62,7 @@ exports.userByNick = async (req, res) => {
                 },
             },
         });
-
-
+        
         if (user) {
             user.isCurrentUser = isCurrentUser; // Adiciona a flag `isCurrentUser`
             user.my_user_admin = isAdmin; // Adiciona a flag 'isadmin' para permissão de adm
@@ -82,15 +81,6 @@ exports.userByNick = async (req, res) => {
         res.status(500).json({ message: 'Erro ao buscar o usuário' });
     };
 };
-
-exports.removeSession = (req, res) => {
-    try {
-        remove_session(req, res);
-    } catch (error) {
-        console.error('Erro ao encerrar sessão do user, Erro: ', error);
-        res.status(500).json({ message: 'Erro interno ao encerrar sessão, entre em contato com o suporte'});
-    }
-}
 
 exports.replaceAvatar = async (req, res) => {
     try {

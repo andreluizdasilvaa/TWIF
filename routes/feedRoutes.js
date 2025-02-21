@@ -18,6 +18,6 @@ router.post('/feed', auth_user, feedController.createPost);
 router.post('/posts/:postId/like', auth_user, feedController.likedPostOrNot);
 
 // Deletar um post do DB com base no id dele
-router.delete('/delete/post', auth_user, feedController.deletePostId)
+router.delete('/delete/post', auth_user, feedController.deletePostId);
 
 module.exports = router;

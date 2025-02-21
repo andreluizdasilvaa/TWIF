@@ -38,6 +38,6 @@ const login = async (req, res) => {
             msg: 'Erro interno ao Fazer login, entre em contato com o suporte',
         });
     }
-}
+};
 
 module.exports = login;

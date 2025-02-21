@@ -106,7 +106,6 @@ addEventListener('DOMContentLoaded', () => {
                 </div>
             </div>`
             ;
-                
 
                 postsList.appendChild(postElement);
 
@@ -247,7 +246,7 @@ window.addEventListener('click', (event) => {
 });
 
 // ===================== ===================== =====================
-// =====================   Modal Novo Post   =====================
+// =====================   Modal Novo Post   =======================
 // ===================== ===================== =====================
 
 // Abrir e fechar modal

@@ -36,7 +36,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Paginas estaticas
 app.use('/', authRoutes, perfilRoutes, commentRoutes, feedRoutes, pagesRoutes);
-
 // app.use('/feed', feedRoutes);  // Rotas do feed
 // app.use('/perfil', perfilRoutes);  // Rotas de perfil
 
