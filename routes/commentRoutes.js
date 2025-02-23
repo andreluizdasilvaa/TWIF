@@ -1,19 +1,23 @@
 const express = require('express');
-const commentController = require('../controllers/commentController');
-const { auth_user } = require('../middlewares/index');
-
 const router = express.Router();
 
+const { auth_user } = require('../middlewares/index');
+
+const listComment = require('../controllers/comment/listCommentController')
+const listUserComment = require('../controllers/comment/listUserCommentController')
+const createComment = require('../controllers/comment/createCommentController')
+const deleteComment = require('../controllers/comment/deleteCommentController')
+
 // Rota GET para listar os comentários
-router.get('/posts/:postId/comments', auth_user, commentController.listComment);
+router.get('/posts/:postId/comments', auth_user, listComment);
 
 // Rota GET para listar os comentários de um post específico a partir do perfil do usuário
-router.get('/users/:userId/posts/:postId/comments', auth_user, commentController.listUserComment);
+router.get('/users/:userId/posts/:postId/comments', auth_user, listUserComment);
 
 // Rota POST para criar um comentário
-router.post('/posts/:postId/comments', auth_user, commentController.createComment);
+router.post('/posts/:postId/comments', auth_user, createComment);
 
 // Rota DELETE para excluir um comentário
-router.delete('/feed/posts/:postId/comments/:commentId', auth_user, commentController.deleteComment);
+router.delete('/feed/posts/:postId/comments/:commentId', auth_user, deleteComment);
 
 module.exports = router;

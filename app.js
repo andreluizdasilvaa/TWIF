@@ -11,6 +11,7 @@ const feedRoutes = require('./routes/feedRoutes');
 const commentRoutes = require('./routes/commentRoutes')
 const authRoutes = require('./routes/authRoutes');
 const perfilRoutes = require('./routes/perfilRoutes');
+const relatorioRoutes = require('./routes/relatorioRoutes')
 
 // Configuração do dotenv
 dotenv.config();
@@ -35,6 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Usando as rotas
 
 // Paginas estaticas
+app.use('/relatorios', relatorioRoutes)
 app.use('/', authRoutes, perfilRoutes, commentRoutes, feedRoutes, pagesRoutes);
 // app.use('/feed', feedRoutes);  // Rotas do feed
 // app.use('/perfil', perfilRoutes);  // Rotas de perfil

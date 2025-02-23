@@ -1,26 +1,9 @@
-const prisma = require('../models/prisma');
+const prisma = require('../../models/prisma');
 var cookieParser = require('cookie-parser');
 // importação do middleware para verificar a autenticação do token
-const { remove_session } = require('../middlewares/index');
+const { remove_session } = require('../../middlewares/index');
 
-exports.userMe = async (req, res) => {
-    try {
-        const user = await prisma.user.findUnique({
-            where: { id: req.user.id }, // Usa o userId do token
-            select: { id: true, nome: true, profilePicture: true, usernick: true, isadmin: true },
-        });
-        if (user) {
-            res.json(user);
-        } else {
-            res.status(404).send('Usuário não encontrado');
-        }
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Erro ao buscar o usuário');
-    };
-};
-
-exports.userByNick = async (req, res) => {
+const userByNick = async (req, res) => {
     const { usernick } = req.params;
     const userId = req.user.id; // ID do usuário autenticado
     const isAdmin = req.user.isadmin;
@@ -80,29 +63,6 @@ exports.userByNick = async (req, res) => {
         console.error(error);
         res.status(500).json({ message: 'Erro ao buscar o usuário' });
     };
-};
-
-exports.replaceAvatar = async (req, res) => {
-    try {
-        const url_profile_picture = req.params.avatar;
-        const userId = req.user.id;
-
-        const user = await prisma.user.update({
-            where: {
-                id: userId
-            },
-            data: {
-                profilePicture: url_profile_picture
-            }
-        })
-
-        if(!user) {
-            res.json({ msg: "Erro ao atualizar profile picture" })
-        }
-
-        res.status(201).json({ msg: "Sucesso ao atualizar profile picture" })
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Erro ao atualizar foto de perfil." });
-    }
 }
+
+module.exports = userByNick;

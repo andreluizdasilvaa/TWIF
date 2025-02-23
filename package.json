@@ -6,6 +6,9 @@
     "start": "node app.js",
     "dev": "nodemon app.js"
   },
+  "prisma": {
+    "seed": "node ./models/seed.js"
+  },
   "keywords": [],
   "author": "André, Isabela, Júlia, Geovana, Erick",
   "license": "ISC",
