@@ -8,8 +8,8 @@
 // DATABASE_URL="mysql://username:password@localhost:3306/mydatabase"
 
 // comando para executar as modificações em tabelas, colunas etc.
-// npx prisma migrate dev --name init --schema ./Backend/src/prisma/schema.prisma
 // npx prisma generate --schema=./models/schema.prisma
+// npx prisma db push --schema=./models/schema.prisma
 
 generator client {
   provider = "prisma-client-js"

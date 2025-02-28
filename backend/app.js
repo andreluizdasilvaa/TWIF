@@ -6,7 +6,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 
 // Importando rotas
-const pagesRoutes = require('./routes/pagesRoutes');
+// const pagesRoutes = require('./routes/pagesRoutes');
 const feedRoutes = require('./routes/feedRoutes');
 const commentRoutes = require('./routes/commentRoutes')
 const authRoutes = require('./routes/authRoutes');
@@ -37,7 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Paginas estaticas
 app.use('/relatorios', relatorioRoutes)
-app.use('/', authRoutes, perfilRoutes, commentRoutes, feedRoutes, pagesRoutes);
+app.use('/', authRoutes, perfilRoutes, commentRoutes, feedRoutes);
 // app.use('/feed', feedRoutes);  // Rotas do feed
 // app.use('/perfil', perfilRoutes);  // Rotas de perfil
 
