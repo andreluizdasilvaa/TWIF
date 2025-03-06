@@ -16,6 +16,8 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap" rel="stylesheet" />
 
+        <!-- JS -->
+        
         <title>TWIF</title>
     </head>
     <body>
@@ -45,13 +47,13 @@
 
                 <div class="effect_form_l">
                     <div class="sec1_form">
-                        <form class="login" method="post">
+                        <form class="login" id="formLogin">
                             <h2 id="about_form">Login<span>.</span></h2>
                             <label for="email">E-MAIL</label>
-                            <input type="text" placeholder="Email" name="email" required maxlength="191" minlength="7" />
+                            <input type="text" placeholder="Email" name="email" id="email" required maxlength="191" minlength="7" />
     
                             <label for="password">SENHA</label>
-                            <input type="password" placeholder="*******" required minlength="8" maxlength="191" id="none_bottom-magim" name="senha" />
+                            <input type="password" placeholder="*******" required minlength="8" maxlength="191" class="none_bottom-magim" id="password" name="senha" />
     
                             <button type="submit">Entrar</button>
                         </form>
@@ -173,6 +175,6 @@
                 <p id="copy">Twif S.A 4002-8922/0000000 - Todos os direitos reservados &copy;</p>
             </div>
         </footer>
-        <script src="../js/script_index.js"></script>
+        <script type="module" src="../js/index.js"></script>
     </body>
 </html>

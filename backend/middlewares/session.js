@@ -1,9 +1,15 @@
 const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser');
 
 function generate_token_user(user, req, res, next) {
     const token = jwt.sign({ id: user.id, isadmin: user.isadmin }, process.env.jwt_secret, { expiresIn: '1h' });
 
-    res.cookie('your-session', token, { httpOnly: true, maxAge: 3600000 });
+    res.cookie('your-session', token, {
+        httpOnly: false,
+        maxAge: 3600000,         // 1 hora
+
+        path: '/'                // Disponível em todo o domínio
+    });
     next();
 }
 

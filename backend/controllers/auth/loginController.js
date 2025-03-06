@@ -7,36 +7,29 @@ const prisma = require('../../models/prisma');
 const login = async (req, res) => {
     const { email, senha } = req.body;
     try {
-        let user;
+        if (!email || !senha) {
+            return res.status(400).json({ Erro: "Email ou senha não enviados" });
+        }
 
-        user = await prisma.user.findUnique({
-            where: {
-                email: email
-            }
-        })
+        const user = await prisma.user.findUnique({
+            where: { email }
+        });
 
-        // verifica se o usuario existe
         if (!user) {
-            return res.redirect('/?error=1');
+            return res.status(401).json({ Erro: "Credenciais inválidas" });
         }
 
-        // compara a senha fornecida com a senha que está armazenada no DB( Criptografada ), e se for a mesma retorna um true
-        const IspasswordValid = await bcrypt.compare(senha, user.senha);
-
-        // Verifica se a senha é valida
-        if (!IspasswordValid) {
-            return res.redirect('/?error=1');
+        const isPasswordValid = await bcrypt.compare(senha, user.senha);
+        if (!isPasswordValid) {
+            return res.status(401).json({ Erro: "Credenciais inválidas" });
         }
 
-        // Gere o token e configure o cookie
         generate_token_user(user, req, res, () => {
-            res.status(201).redirect('/feed');
+            return res.status(200).json({ message: "Login bem-sucedido" });
         });
     } catch (err) {
         console.error(err);
-        res.status(500).json({
-            msg: 'Erro interno ao Fazer login, entre em contato com o suporte',
-        });
+        res.status(500).json({ Erro: "Erro interno ao fazer login" });
     }
 };
 
