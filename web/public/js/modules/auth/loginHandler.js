@@ -1,4 +1,3 @@
-// loginHandler.js
 import CONFIG from '../config.js';
 
 export default function loginForm() {
@@ -16,16 +15,12 @@ export default function loginForm() {
             credentials: 'include'
         })
         .then(response => {
+            if (response.statusText === 'Unauthorized') alert('Credenciais inválidas');
             if (!response.ok) throw new Error('Erro no login');
             return response.json();
         })
-        .then(data => {
-            console.log('Sucesso:', data);
-            // window.location.reload();
+        .then((data) => {
+            data.redirect ? window.location.href = data.redirect : null
         })
-        .catch(error => {
-            console.error('Erro:', error);
-            alert('Falha no login');
-        });
     });
 }

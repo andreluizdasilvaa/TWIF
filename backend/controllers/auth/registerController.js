@@ -1,12 +1,10 @@
 const bcrypt = require('bcrypt');
-
+const { generate_token_user } = require('../../middlewares/index');
 const prisma = require('../../models/prisma');
 
 // Rota de processamento do cadastro
 const register = async (req, res) => {
     const { email, senha, usernick, nome, profilePicture } = req.body;
-
-    // VALIDAÇÃO
 
     // Inicializa isAdmin como false
     let isadmin = false;
@@ -48,14 +46,13 @@ const register = async (req, res) => {
                 senha: senhaHash,
                 profilePicture,
                 isadmin: isadmin,
-            },
-            select: {
-                nome: true,
-                email: true,
-            },
+            }
         });
-        console.log(user);
-        return res.redirect('/?success=true'); // Redireciona o usuário para a página inicial com um parâmetro de sucesso
+        console.log(user); // remover isso dps
+        // Gera a sessão
+        generate_token_user(user, req, res, () => {
+            return res.status(201).json({ redirect: "/feed" });
+        })
     } catch (error) {
         // Se ocorrer um erro inesperado, retorna um erro 500 (Internal Server Error)
         console.error(error);

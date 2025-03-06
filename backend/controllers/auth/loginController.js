@@ -1,6 +1,5 @@
 const bcrypt = require('bcrypt');
 const { generate_token_user } = require('../../middlewares/index');
-
 const prisma = require('../../models/prisma');
 
 // Rota de processamento do login
@@ -25,7 +24,7 @@ const login = async (req, res) => {
         }
 
         generate_token_user(user, req, res, () => {
-            return res.status(200).json({ message: "Login bem-sucedido" });
+            return res.status(200).json({ redirect: "/feed" });
         });
     } catch (err) {
         console.error(err);

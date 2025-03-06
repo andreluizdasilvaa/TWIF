@@ -29,8 +29,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Paginas estaticas
-app.use('/auth', authRoutes)
-app.use('/relatorios', relatorioRoutes)
+app.use('/auth', authRoutes);
+app.use('/relatorios', relatorioRoutes);
 app.use('/', perfilRoutes, commentRoutes, feedRoutes);
 // app.use('/feed', feedRoutes);  // Rotas do feed
 // app.use('/perfil', perfilRoutes);  // Rotas de perfil
