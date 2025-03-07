@@ -15,10 +15,12 @@ export default function toggleModalBurguer(data) {
     hamburguerIcon.addEventListener('click', () => {
         modal.style.display = 'block';
     });
+
     if(data) {
         profilePictureModal.src = `../assets/profile-pictures/${data.profilePicture}`;
         userNameModal.textContent = data.nome;
         userNickModal.textContent = `@${data.usernick}`;
+        data.isadmin ? document.getElementById('acessoRelatorios').style.display = 'block' : null
     };
 
     // Fecha o modal ao clicar no botão de fechar
