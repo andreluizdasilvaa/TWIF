@@ -60,7 +60,10 @@
             </div>
         </main>
 
-        <script>
+        <script type="module" src="../js/comment.js"></script>
+        <script type="module">
+            import CONFIG from '../js/modules/config.js';
+
             document.addEventListener('DOMContentLoaded', () => {
                 const urlParams = new URLSearchParams(window.location.search);
                 const postId = urlParams.get('postId');
@@ -87,7 +90,9 @@
                 fetchComments();
 
                 function fetchUserProfile() {
-                    fetch('user/me')
+                    fetch(`${CONFIG.URL_API}/user/me`, {
+                            credentials: 'include'
+                        })
                         .then((response) => response.json())
                         .then((data) => {
                             // Atualiza a foto de perfil
@@ -105,7 +110,7 @@
                 }
 
                 function fetchPost() {
-                    fetch('post')
+                    fetch(`${CONFIG.URL_API}/post`)
                         .then((response) => response.json())
                         .then((data) => {
                             // Atualiza o conteúdo do post
@@ -117,7 +122,9 @@
                 }
 
                 function fetchComments() {
-                    fetch('comments')
+                    fetch(`${CONFIG.URL_API}/comments`, {
+                            credentials: 'include'
+                        })
                         .then((response) => response.json())
                         .then((data) => {
                             // Exibe os comentários na lista
@@ -144,8 +151,9 @@
                 });
 
                 function deleteComment(commentId) {
-                    fetch(`comments/${commentId}`, {
+                    fetch(`${CONFIG.URL_API}/comments/${commentId}`, {
                         method: 'DELETE',
+                        credentials: 'include'
                     })
                         .then((response) => {
                             if (response.ok) {
@@ -200,7 +208,7 @@
 
                 async function fetchPost() {
                     try {
-                        const response = await fetch(`/posts/${postId}`);
+                        const response = await fetch(`${CONFIG.URL_API}/posts/${postId}`);
                         if (!response.ok) throw new Error(`Erro ${response.status}: Não foi possível carregar o post.`);
 
                         const post = await response.json();
@@ -222,7 +230,9 @@
 
                 async function fetchComments() {
                     try {
-                        const response = await fetch(`/posts/${postId}/comments`);
+                        const response = await fetch(`${CONFIG.URL_API}/posts/${postId}/comments`, {
+                            credentials: 'include'
+                        });
                         if (!response.ok) throw new Error('Erro ao buscar os comentários.');
 
                         const comments = await response.json();
@@ -259,7 +269,10 @@
 
                 async function deleteComment(commentId) {
                     try {
-                        const response = await fetch(`/feed/posts/${postId}/comments/${commentId}`, { method: 'DELETE' });
+                        const response = await fetch(`${CONFIG.URL_API}/feed/posts/${postId}/comments/${commentId}`, { 
+                            method: 'DELETE',
+                            credentials: 'include'
+                         });
 
                         if (!response.ok) throw new Error('Erro ao deletar comentário.');
 
@@ -313,9 +326,10 @@
                     }
 
                     try {
-                        const response = await fetch(`/posts/${postId}/comments`, {
+                        const response = await fetch(`${CONFIG.URL_API}/posts/${postId}/comments`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
+                            credentials: 'include',
                             body: JSON.stringify({ content: newComment }),
                         });
 
@@ -335,40 +349,6 @@
                 });
             });
 
-
-
-
-// theme.js
-const body = document.body;
-const logoHeader = document.getElementById('logo_header');
-const darkModeToggle = document.getElementById('darkModeToggle');
-const darkModeKey = 'darkMode';
-
-// Função para alternar entre o modo claro e escuro
-function toggleDarkMode() {
-    const isDarkMode = body.classList.toggle('dark-mode');
-    logoHeader.src = isDarkMode ? '../assets/img/logo-white.svg' : '../assets/img/logo-dark.svg'; // Muda a logo
-    localStorage.setItem(darkModeKey, isDarkMode); // Armazena a preferência
-}
-
-// Função para aplicar o tema ao carregar a página
-function applyStoredTheme() {
-    const isDarkMode = localStorage.getItem(darkModeKey) === 'true';
-    if (isDarkMode) {
-        body.classList.add('dark-mode');
-        logoHeader.src = '../assets/img/logo-white.svg'; // Logo branca
-    } else {
-        logoHeader.src = '../assets/img/logo-dark.svg'; // Logo colorida como padrão
-    }
-}
-
-// Chama a função para aplicar o tema ao carregar a página
-applyStoredTheme();
-
-// Adiciona um event listener para alternar o modo
-if (darkModeToggle) {
-    darkModeToggle.addEventListener('click', toggleDarkMode);
-}
         </script>
     </body>
 </html>

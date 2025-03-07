@@ -66,6 +66,7 @@ body {
     background: transparent;
     border: none;
     transition: all 0.1s;
+    cursor: pointer;
 }
 
 #backToFeed:hover{

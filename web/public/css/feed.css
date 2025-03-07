@@ -354,6 +354,7 @@ button.filesPost {
 
     border: none;
     border-radius: 8px;
+    border: solid 2px transparent;
 
     cursor: pointer;
     transition: background 0.3s;

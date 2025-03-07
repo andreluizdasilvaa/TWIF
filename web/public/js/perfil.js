@@ -1,6 +1,5 @@
 import infoPerfil from "./modules/perfil/infoPerfil.js";
 import loaduserPosts from "./modules/perfil/LoaduserPosts.js";
-import deletePost from "./modules/perfil/deletePost.js";
 import replaceProfilePicture from "./modules/perfil/replaceProfilePicture.js";
 import modalLogout from "./modules/perfil/modalLogout.js";
 import submitPost from "./modules/feed/submitPost.js";
