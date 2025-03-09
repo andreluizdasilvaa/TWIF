@@ -1,4 +1,5 @@
 import CONFIG from "../config.js";
+import verifyErrorsApi from "../utils/verifyErrorsApi.js";
 
 export default function allFunctionRelatorio() {
     // Função que é chamada quando o DOM é totalmente carregado
@@ -19,6 +20,11 @@ export default function allFunctionRelatorio() {
             const response = await fetch(`${CONFIG.URL_API}/relatorios/comentarios`, {
                 credentials: 'include'
             });
+            if(!response.ok) {
+                verifyErrorsApi(response);
+                console.error('Erro na requisição', response);
+                return;
+            }
             const data = await response.json();
             return data.quantidade;
         } catch (error) {
@@ -33,6 +39,11 @@ export default function allFunctionRelatorio() {
             const response = await fetch(`${CONFIG.URL_API}/relatorios/curtidas`, {
                 credentials: 'include'
             });
+            if(!response.ok) {
+                verifyErrorsApi(response);
+                console.error('Erro na requisição', response);
+                return;
+            }
             const data = await response.json();
             return data.quantidade;
         } catch (error) {
@@ -47,6 +58,11 @@ export default function allFunctionRelatorio() {
             const response = await fetch(`${CONFIG.URL_API}/relatorios/usuarios`, {
                 credentials: 'include'
             });
+            if(!response.ok) {
+                verifyErrorsApi(response);
+                console.error('Erro na requisição', response);
+                return;
+            }
             const data = await response.json();
             return data.quantidade;
         } catch (error) {
@@ -61,6 +77,11 @@ export default function allFunctionRelatorio() {
             const response = await fetch(`${CONFIG.URL_API}/relatorios/posts`, {
                 credentials: 'include'
             });
+            if(!response.ok) {
+                verifyErrorsApi(response);
+                console.error('Erro na requisição', response);
+                return;
+            }
             const data = await response.json();
             return data.quantidade;
         } catch (error) {

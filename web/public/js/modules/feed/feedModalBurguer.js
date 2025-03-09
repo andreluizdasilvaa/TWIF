@@ -38,7 +38,6 @@ export default function toggleModalBurguer(data) {
                 alert('Sessão encerrada!');
                 window.location.href = '/';
             } else {
-                alert('Erro ao sair');
                 console.error(response.error);
             };
         });

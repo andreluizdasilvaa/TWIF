@@ -1,4 +1,5 @@
 import CONFIG from "../config.js";
+import verifyErrorsApi from "../utils/verifyErrorsApi.js";
 
 export default async function submitPost() {
     const form = document.getElementById('formPost');
@@ -32,6 +33,7 @@ export default async function submitPost() {
                 if (response.ok) {
                     window.location.reload();
                 } else {
+                    verifyErrorsApi(response)
                     console.error('Erro ao criar post:', response.statusText);
                 }
             })

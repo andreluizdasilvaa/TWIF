@@ -1,4 +1,5 @@
 import CONFIG from "../config.js";
+import verifyErrorsApi from "../utils/verifyErrorsApi.js";
 
 export default function submitPostInNewModal() {
     // Abrir e fechar modal
@@ -54,6 +55,7 @@ export default function submitPostInNewModal() {
                 document.getElementById('formNovoPost').reset();
                 window.location.reload();
             } else {
+                verifyErrorsApi(resposta);
                 console.error('Erro ao criar o post');
             };
         } catch (erro) {

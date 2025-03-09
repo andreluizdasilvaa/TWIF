@@ -178,6 +178,10 @@ ul.posts li.post div.infoUserPost div.imgUserPost img {
     border-radius: 50%;
 }
 
+ul.posts li.post div.infoUserPost div.imgUserPost {
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
 ul.posts li.post div.infoUserPost {
     width: fit-content;
     display: flex;
@@ -481,6 +485,7 @@ button.filesPost {
     border-radius: 32px;
     background: linear-gradient(to right top, gray, rgb(202, 202, 202));
     margin: 10px 0px;
+    animation: pulse 1.5s infinite ease-in-out;
 }
 
 @media screen and (max-width: 950px) {
@@ -566,6 +571,7 @@ button.filesPost {
 .nameAndHour {
     font-size: 14px;
     color: #333;
+    animation: pulse 1.5s infinite ease-in-out;
 }
 
 .content_post_loading {
@@ -864,4 +870,15 @@ body.dark-mode #darkModeToggle{
 
 a{
     text-decoration: none;
+}
+@keyframes pulse {
+    0% {
+        opacity: 1;    /* Totalmente visível */
+    }
+    50% {
+        opacity: 0.5;  /* Ponto médio menos extremo */
+    }
+    100% {
+        opacity: 1;    /* Volta ao inicial */
+    }
 }

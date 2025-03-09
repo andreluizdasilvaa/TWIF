@@ -1,5 +1,6 @@
 import CONFIG from '../config.js'
 import toggleModalBurguer from './feedModalBurguer.js';
+import verifyErrorsApi from "../utils/verifyErrorsApi.js";
 
 export default function myUserInfo() {
     const nome = document.getElementById('name_user');
@@ -10,7 +11,15 @@ export default function myUserInfo() {
     fetch(`${CONFIG.URL_API}/user/me`, {
         credentials: 'include'
     })
-        .then((response) => response.json())
+        .then((response) => {
+            if(!response.ok) {
+                verifyErrorsApi(response);
+                console.error('Erro na requisição', data);
+                return;
+            } else {
+                return response.json()
+            }
+        })
         .then((data) => {
             nome.textContent = data.nome;
             imgUser.src = `../assets/profile-pictures/${data.profilePicture}`;

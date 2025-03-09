@@ -1,4 +1,5 @@
 import CONFIG from "../config.js";
+import verifyErrorsApi from "../utils/verifyErrorsApi.js";
 
 export default function infoPerfil() {
     // Adiciona as informações do usuário na página
@@ -16,7 +17,7 @@ export default function infoPerfil() {
     })
         .then((response) => {
             if (!response.ok) {
-                console.log(response)
+                verifyErrorsApi(response);
                 // window.location.href = '/user404';
                 throw new Error('Usuário não encontrado');
             }

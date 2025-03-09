@@ -63,6 +63,7 @@
         <script type="module" src="../js/comment.js"></script>
         <script type="module">
             import CONFIG from '../js/modules/config.js';
+            import verifyErrorsApi from '../js/modules/utils/verifyErrorsApi.js'
 
             document.addEventListener('DOMContentLoaded', () => {
                 const urlParams = new URLSearchParams(window.location.search);
@@ -233,7 +234,10 @@
                         const response = await fetch(`${CONFIG.URL_API}/posts/${postId}/comments`, {
                             credentials: 'include'
                         });
-                        if (!response.ok) throw new Error('Erro ao buscar os comentários.');
+                        if (!response.ok) {
+                            verifyErrorsApi(response);
+                            throw new Error('Erro ao buscar os comentários.');
+                        }
 
                         const comments = await response.json();
                         commentsList.innerHTML = ''; // Limpa a lista de comentários
