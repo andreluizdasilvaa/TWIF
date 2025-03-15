@@ -1,5 +1,4 @@
 const prisma = require('../../models/prisma');
-
 var cookieParser = require('cookie-parser');
 
 const deletePostId = async (req, res) => {
@@ -17,6 +16,10 @@ const deletePostId = async (req, res) => {
             where: {
                 id: idPost,
             },
+            include: {
+                likes: true,  // Certifique-se de incluir os likes e comentários
+                comments: true,
+            }
         });
 
         // Se o post não existir, retorna erro
@@ -29,7 +32,32 @@ const deletePostId = async (req, res) => {
             return res.status(403).json({ message: 'Você não tem permissão para deletar este post.' });
         }
 
-        // Deleta comentários e likes associados ao post
+        // Verifica se 'likes' e 'comments' existem e são arrays antes de usar o map()
+        const likes = post.likes || [];  // Fallback para um array vazio se não houver likes
+        const comments = post.comments || [];  // Fallback para um array vazio se não houver comentários
+
+        // Cria o post na tabela 'PostDeleted'
+        await prisma.postDeleted.create({
+            data: {
+                content: post.content,
+                userId: post.userId,
+                createdAt: post.createdAt,
+                likes: {
+                    create: likes.map(like => ({
+                        userId: like.userId,
+                    })),
+                },
+                comments: {
+                    create: comments.map(comment => ({
+                        content: comment.content,
+                        userId: comment.userId,
+                        createdAt: comment.createdAt,
+                    })),
+                },
+            },
+        });
+
+        // Deleta comentários e likes associados ao post original
         await prisma.comment.deleteMany({
             where: {
                 postId: idPost,
@@ -42,18 +70,17 @@ const deletePostId = async (req, res) => {
             },
         });
 
-        // Deleta o post
+        // Remove o post da tabela 'Post'
         await prisma.post.delete({
             where: {
                 id: idPost,
             },
         });
 
-        // Retorna sucesso
         res.status(200).json({ message: 'Post deletado com sucesso.' });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: "Erro ao deletar o post." });
+        res.status(500).json({ message: "Erro ao mover o post para a tabela de deletados." });
     }
 }
 

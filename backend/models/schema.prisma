@@ -30,10 +30,11 @@ model User {
   profilePicture String   @default("defaultphoto.png")
   createdAt     DateTime  @default(now())
 
-  // Relacionamento com Postagens e Comentários
+  // Relacionamento com Postagens, Comentários e Curtidas
   posts         Post[]    // Um usuário pode ter várias postagens
   comments      Comment[] // Um usuário pode ter vários comentários
   likes         Like[]    // Um usuário pode curtir várias postagens
+  postsDeleted  PostDeleted[] // Um usuário pode ter várias postagens deletadas
 }
 
 model Post {
@@ -48,16 +49,30 @@ model Post {
   comments      Comment[] // Um post pode ter vários comentários
 }
 
-model Comment {
-  id        Int      @id @default(autoincrement()) // ID auto-incrementado
-  content   String   // Conteúdo do comentário
-  postId    Int      // Relacionamento com o Post
-  userId    Int      // Relacionamento com o Usuário
-  createdAt DateTime @default(now()) // Data de criação
-  updatedAt DateTime @updatedAt // Data de atualização
+model PostDeleted {
+  id            Int       @id @default(autoincrement())
+  content       String
+  createdAt     DateTime  @default(now())
+  userId        Int
+  user          User      @relation(fields: [userId], references: [id])
 
-  post      Post     @relation(fields: [postId], references: [id]) // Relacionamento com o Post
-  user      User     @relation(fields: [userId], references: [id]) // Relacionamento com o Usuário
+  // Relacionamento com Curtidas e Comentários
+  likes         Like[]    // Um post deletado pode ter várias curtidas
+  comments      Comment[] // Um post deletado pode ter vários comentários
+}
+
+model Comment {
+  id            Int       @id @default(autoincrement()) // ID auto-incrementado
+  content       String    // Conteúdo do comentário
+  postId        Int      // Relacionamento com o Post ou PostDeleted
+  userId        Int      // Relacionamento com o Usuário
+  createdAt     DateTime @default(now()) // Data de criação
+  updatedAt     DateTime @updatedAt // Data de atualização
+
+  post          Post     @relation(fields: [postId], references: [id], map: "Comment_PostId_FK") // Relacionamento com o Post
+  postDeleted   PostDeleted? @relation(fields: [postId], references: [id], map: "Comment_PostDeleted_FK") // Relacionamento com o PostDeleted (opcional)
+
+  user          User     @relation(fields: [userId], references: [id]) // Relacionamento com o Usuário
 }
 
 model Like {
@@ -65,7 +80,10 @@ model Like {
   userId        Int
   postId        Int
   user          User      @relation(fields: [userId], references: [id])
-  post          Post      @relation(fields: [postId], references: [id])
+  post          Post      @relation(fields: [postId], references: [id], map: "Like_PostId_FK") // Relacionamento com o Post
+
+  // Relacionamento com PostDeleted
+  postDeleted   PostDeleted? @relation(fields: [postId], references: [id], map: "Like_PostDeleted_FK") // Relacionamento com o PostDeleted (opcional)
 
   @@unique([userId, postId]) // Um usuário só pode curtir uma vez cada post
 }

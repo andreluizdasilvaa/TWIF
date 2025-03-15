@@ -29,7 +29,7 @@ export default function deletePost(postElement) {
                 })
                     .then((res) => res.json())
                     .then((result) => {
-                        if (result.message === 'Post deletado com sucesso.') {
+                        if (result.message === 'Post deletado com sucesso.' || result.ok) {
                             window.location.reload();
                         } else {
                             alert(result.message);
