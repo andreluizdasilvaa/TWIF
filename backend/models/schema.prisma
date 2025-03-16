@@ -35,6 +35,10 @@ model User {
   comments      Comment[] // Um usuário pode ter vários comentários
   likes         Like[]    // Um usuário pode curtir várias postagens
   postsDeleted  PostDeleted[] // Um usuário pode ter várias postagens deletadas
+  
+  // Relacionamento com Notificações
+  notificationsReceived Notification[] @relation("NotificationRecipient") // Notificações recebidas
+  notificationsTriggered Notification[] @relation("NotificationTrigger") // Notificações acionadas
 }
 
 model Post {
@@ -47,6 +51,7 @@ model Post {
   // Relacionamento com Curtidas e Comentários
   likes         Like[]    // Um post pode ter várias curtidas
   comments      Comment[] // Um post pode ter vários comentários
+  notifications Notification[] // Um post pode ter várias notificações associadas
 }
 
 model PostDeleted {
@@ -56,6 +61,27 @@ model PostDeleted {
   createdAt     DateTime  @default(now())
   userId        Int
   user          User      @relation(fields: [userId], references: [id])
+
+  // Relacionamento inverso com Notification
+  notifications Notification[] @relation("PostDeletedNotifications") // Relacionamento inverso
+}
+
+model Notification {
+  id            Int       @id @default(autoincrement())
+  userId        Int       // Usuário que receberá a notificação
+  triggeredById Int       // Usuário que acionou a notificação (fez a ação)
+  postId        Int?      // Post relacionado à notificação (se ainda existir)
+  postDeletedId Int?      // Post deletado relacionado à notificação
+  action        String    // Tipo de ação: 'like', 'comment', 'postDeleteByAdm'
+  isViewed      Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+
+  user          User         @relation("NotificationRecipient", fields: [userId], references: [id]) 
+  triggeredBy   User         @relation("NotificationTrigger", fields: [triggeredById], references: [id])
+  post          Post?        @relation(fields: [postId], references: [id]) // Agora opcional
+  postDeleted   PostDeleted? @relation("PostDeletedNotifications", fields: [postDeletedId], references: [id]) // Relacionamento com post deletado
+
+  @@index([userId, isViewed])
 }
 
 model Comment {

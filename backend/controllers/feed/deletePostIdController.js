@@ -24,18 +24,8 @@ const deletePostId = async (req, res) => {
             return res.status(403).json({ message: 'Você não tem permissão para deletar este post.' });
         }
 
-        // Remove os likes associados ao post
-        await prisma.like.deleteMany({
-            where: { postId: idPost }
-        });
-
-        // Remove os comentários associados ao post
-        await prisma.comment.deleteMany({
-            where: { postId: idPost }
-        });
-
         // Move o post para a tabela 'PostDeleted'
-        await prisma.postDeleted.create({
+        const postDeleted = await prisma.postDeleted.create({
             data: {
                 postId: post.id,
                 content: post.content,
@@ -44,15 +34,39 @@ const deletePostId = async (req, res) => {
             },
         });
 
-        // Deleta o post da tabela 'Post'
+        // Se um Administrador deletar o post de OUTRO usuário, cria a notificação
+        if (req.user.isadmin && post.userId !== req.user.id) {
+            await prisma.notification.create({
+                data: {
+                    userId: post.userId, // Dono do post que será notificado
+                    triggeredById: req.user.id, // Administrador que deletou o post
+                    postDeletedId: postDeleted.id, // Referência ao post deletado
+                    action: "postDeleteByAdm",
+                    createdAt: new Date()
+                }
+            });
+        }
+
+        await prisma.notification.deleteMany({
+            where: { postId: idPost }
+        });
+
+        await prisma.comment.deleteMany({
+            where: { postId: idPost }
+        });
+
+        await prisma.like.deleteMany({
+            where: { postId: idPost }
+        });
+
         await prisma.post.delete({
             where: { id: idPost }
         });
 
-        res.status(200).json({ message: 'Post deletado com sucesso.' });
+        res.status(200).json({ message: "Post deletado com sucesso." });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Erro ao mover o post para a tabela de deletados." });
+        console.error('Erro ao deletar o post:', error);
+        res.status(500).json({ message: "Erro interno ao deletar o post, entre em contato com o suporte." });
     }
 };
 
