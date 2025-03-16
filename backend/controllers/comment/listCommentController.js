@@ -10,7 +10,7 @@ const listComment = async (req, res) => {
             include: {
                 user: {
                     select: {
-                        id: true,   
+                        id: true,
                         nome: true,
                         usernick: true,
                         profilePicture: true,

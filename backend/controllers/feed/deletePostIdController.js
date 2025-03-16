@@ -1,8 +1,7 @@
 const prisma = require('../../models/prisma');
-var cookieParser = require('cookie-parser');
 
 const deletePostId = async (req, res) => {
-    let { idPost } = req.body; // Supondo que o ID do post seja enviado no corpo da requisição
+    let { idPost } = req.body;
 
     idPost = parseInt(idPost, 10);
 
@@ -13,68 +12,41 @@ const deletePostId = async (req, res) => {
     try {
         // Verifica se o post existe
         const post = await prisma.post.findUnique({
-            where: {
-                id: idPost,
-            },
-            include: {
-                likes: true,  // Certifique-se de incluir os likes e comentários
-                comments: true,
-            }
+            where: { id: idPost }
         });
 
-        // Se o post não existir, retorna erro
         if (!post) {
             return res.status(404).json({ message: 'Post não encontrado.' });
         }
 
-        // Verifica se o usuário é o autor do post ou um administrador
+        // Verifica permissão do usuário
         if (post.userId !== req.user.id && !req.user.isadmin) {
             return res.status(403).json({ message: 'Você não tem permissão para deletar este post.' });
         }
 
-        // Verifica se 'likes' e 'comments' existem e são arrays antes de usar o map()
-        const likes = post.likes || [];  // Fallback para um array vazio se não houver likes
-        const comments = post.comments || [];  // Fallback para um array vazio se não houver comentários
+        // Remove os likes associados ao post
+        await prisma.like.deleteMany({
+            where: { postId: idPost }
+        });
 
-        // Cria o post na tabela 'PostDeleted'
+        // Remove os comentários associados ao post
+        await prisma.comment.deleteMany({
+            where: { postId: idPost }
+        });
+
+        // Move o post para a tabela 'PostDeleted'
         await prisma.postDeleted.create({
             data: {
+                postId: post.id,
                 content: post.content,
                 userId: post.userId,
-                createdAt: post.createdAt,
-                likes: {
-                    create: likes.map(like => ({
-                        userId: like.userId,
-                    })),
-                },
-                comments: {
-                    create: comments.map(comment => ({
-                        content: comment.content,
-                        userId: comment.userId,
-                        createdAt: comment.createdAt,
-                    })),
-                },
+                createdAt: post.createdAt
             },
         });
 
-        // Deleta comentários e likes associados ao post original
-        await prisma.comment.deleteMany({
-            where: {
-                postId: idPost,
-            },
-        });
-
-        await prisma.like.deleteMany({
-            where: {
-                postId: idPost,
-            },
-        });
-
-        // Remove o post da tabela 'Post'
+        // Deleta o post da tabela 'Post'
         await prisma.post.delete({
-            where: {
-                id: idPost,
-            },
+            where: { id: idPost }
         });
 
         res.status(200).json({ message: 'Post deletado com sucesso.' });
@@ -82,6 +54,6 @@ const deletePostId = async (req, res) => {
         console.error(error);
         res.status(500).json({ message: "Erro ao mover o post para a tabela de deletados." });
     }
-}
+};
 
 module.exports = deletePostId;

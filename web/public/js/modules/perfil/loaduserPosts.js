@@ -26,6 +26,7 @@ export default function loaduserPosts() {
 
                 sortedPosts.forEach((post) => {
                     const postElement = document.createElement('li');
+                    postElement.dataset.postId = post.id;
                     postElement.classList.add('post');
 
                     // Renderiza o botão "Excluir Post" e troca de avatar apenas se `isCurrentUser` for `true`

@@ -19,6 +19,7 @@ export default function deletePost(postElement) {
 
             // pressionar o botão excluir
             confirmButton.addEventListener('click', () => {
+                console.log(postId);
                 fetch(`${CONFIG.URL_API}/delete/post`, {
                     method: 'DELETE',
                     headers: {

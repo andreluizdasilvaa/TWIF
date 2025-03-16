@@ -51,14 +51,11 @@ model Post {
 
 model PostDeleted {
   id            Int       @id @default(autoincrement())
+  postId        Int       @unique // Mantém o ID do post original para referência
   content       String
   createdAt     DateTime  @default(now())
   userId        Int
   user          User      @relation(fields: [userId], references: [id])
-
-  // Relacionamento com Curtidas e Comentários
-  likes         Like[]    // Um post deletado pode ter várias curtidas
-  comments      Comment[] // Um post deletado pode ter vários comentários
 }
 
 model Comment {
@@ -70,8 +67,6 @@ model Comment {
   updatedAt     DateTime @updatedAt // Data de atualização
 
   post          Post     @relation(fields: [postId], references: [id], map: "Comment_PostId_FK") // Relacionamento com o Post
-  postDeleted   PostDeleted? @relation(fields: [postId], references: [id], map: "Comment_PostDeleted_FK") // Relacionamento com o PostDeleted (opcional)
-
   user          User     @relation(fields: [userId], references: [id]) // Relacionamento com o Usuário
 }
 
@@ -81,9 +76,6 @@ model Like {
   postId        Int
   user          User      @relation(fields: [userId], references: [id])
   post          Post      @relation(fields: [postId], references: [id], map: "Like_PostId_FK") // Relacionamento com o Post
-
-  // Relacionamento com PostDeleted
-  postDeleted   PostDeleted? @relation(fields: [postId], references: [id], map: "Like_PostDeleted_FK") // Relacionamento com o PostDeleted (opcional)
 
   @@unique([userId, postId]) // Um usuário só pode curtir uma vez cada post
 }
