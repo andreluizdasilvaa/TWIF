@@ -36,19 +36,21 @@ const createComment = async (req, res) => {
 
         if (post) {
             const authorId = post.userId;
-
-            // Cria a notificação para o autor do post
-            await prisma.notification.create({
-                data: {
-                    userId: authorId, // Autor do post
-                    triggeredById: req.user.id, // Usuário que fez o comentário
-                    postId: parseInt(postId),
-                    action: 'comment', // Tipo de ação: 'comment'
-                },
-            });
-        }
-
-        res.status(201).json(comment);
+            if(authorId !== req.user.id) {
+                // Cria a notificação para o autor do post
+                await prisma.notification.create({
+                    data: {
+                        userId: authorId, // Autor do post
+                        triggeredById: req.user.id, // Usuário que fez o comentário
+                        postId: parseInt(postId),
+                        action: 'comment', // Tipo de ação: 'comment'
+                    },
+                });
+                res.status(201).json(comment);
+            } else {
+                res.status(201).json(comment);
+            }
+        }      
     } catch (error) {
         console.error('Erro ao criar comentário:', error);
         res.status(500).json({ msg: 'Erro ao criar o comentário' });

@@ -7,9 +7,10 @@
 // crie um arquivo .env na raiz do projeto e insira as informações nele.
 // DATABASE_URL="mysql://username:password@localhost:3306/mydatabase"
 
-// comando para executar as modificações em tabelas, colunas etc.
-// npx prisma generate --schema=./models/schema.prisma
-// npx prisma db push --schema=./models/schema.prisma
+// comando para executar as modificações em tabelas, colunas etc. 
+// npx prisma generate --schema=./models/schema.prisma // -> comando 1 | 
+// npx prisma db push --schema=./models/schema.prisma  // -> comando 2 | 
+// npx prisma migrate reset --schema=./models/schema.prisma // Apaga as tabelas do banco de dados, dps é necessario rodar o comando 1 e 2
 
 generator client {
   provider = "prisma-client-js"
