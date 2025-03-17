@@ -53,8 +53,18 @@ export default function replaceProfilePicture() {
 
             const img_escolhida = document.getElementById('avatar-escolhido').value
             
+            // Obtém o usernick da URL
+            const pathSegments = window.location.pathname.split('/');
+            const usernick = pathSegments[pathSegments.length - 1];
+            
             fetch(`${CONFIG.URL_API}/api/troca/avatar/${img_escolhida}`, {
                 method: "PATCH",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                     usernick
+                }),
                 credentials: 'include'
             })
             .then((resp) => {
