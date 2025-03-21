@@ -864,3 +864,30 @@ body.dark-mode #darkModeToggle{
 a{
     text-decoration: none;
 }
+
+.butão {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+#loadMoreButton{
+    background-color: #7ec543;
+    color: #011214;
+    font-weight: bold;
+    font-family: 'Lexend Deca';
+    text-transform: uppercase;
+    font-size: 12px;
+    padding: 3px 60px;
+    border-style: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 5px 5px 0px black;
+    transition: background 0.2s;
+}
+
+#loadMoreButton:hover {
+    background: #011214;
+    color: #7ec543;
+    box-shadow: 5px 5px 0px #7ec543;
+}

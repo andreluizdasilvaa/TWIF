@@ -3,16 +3,14 @@ const form = document.getElementById('formPost');
 // Cadastrar um post quando enviarem o form.
 form.addEventListener('submit', (event) => {
     event.preventDefault();
-    console.log('Formulário enviado');
 
     const conteudo = document.getElementById('textarea').value;
 
     if (!conteudo) {
         alert('Tamanho mínimo de 1 caractere');
-        return; // Não prossegue se não houver conteúdo
+        return;
     }
 
-    // Sanitizando o conteúdo do post
     const conteudoSanitizado = DOMPurify.sanitize(conteudo);
 
     fetch('/feed', {
@@ -20,9 +18,7 @@ form.addEventListener('submit', (event) => {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-            conteudo: conteudoSanitizado, // Usando o conteúdo sanitizado
-        }),
+        body: JSON.stringify({ conteudo: conteudoSanitizado }),
     })
         .then((response) => {
             if (response.ok) {
@@ -31,12 +27,9 @@ form.addEventListener('submit', (event) => {
                 console.error('Erro ao criar post:', response.statusText);
             }
         })
-        .catch((error) => {
-            console.error('Erro na requisição:', error);
-        });
+        .catch((error) => console.error('Erro na requisição:', error));
 });
 
-// quando o DOM carregar..
 addEventListener('DOMContentLoaded', () => {
     const nome = document.getElementById('name_user');
     const imgUser = document.querySelector('.imgUser img');
@@ -49,12 +42,11 @@ addEventListener('DOMContentLoaded', () => {
             nome.textContent = data.nome;
             imgUser.src = `../assets/profile-pictures/${data.profilePicture}`;
             user_profile.src = `../assets/profile-pictures/${data.profilePicture}`;
-            // Adiciona em todos os links com a classe tal
             link_perfil_me.forEach((link) => {
                 link.href = `/perfil/${data.usernick}`;
             });
 
-            if(data.isadmin === true) {
+            if (data.isadmin === true) {
                 const modal_adm = document.getElementById('modal_admin');
                 modal_adm.style.border = '1px solid black';
 
@@ -63,20 +55,26 @@ addEventListener('DOMContentLoaded', () => {
             }
         });
 
-    // lista todos os posts
-    fetch('/feed/posts')
-        .then((response) => response.json())
-        .then((posts) => {
-            const postsList = document.getElementById('posts');
-            postsList.innerHTML = '';
+    let currentPage = 1;
+    const postsPerPage = 10; // Exibir 10 posts por página
+    let allPosts = [];
 
-            posts.forEach((post) => {
-                const postElement = document.createElement('li');
-                postElement.dataset.postId = post.id;
-                postElement.classList.add('post');
+    const postsList = document.getElementById('posts');
+    const loadMoreButton = document.getElementById('loadMoreButton');
 
-                postElement.innerHTML = 
-            `<div class="infoUserPost">
+    function formatDateTime(dateString) {
+        const date = new Date(dateString);
+        const timeOptions = { hour: '2-digit', minute: '2-digit' };
+        return date.toLocaleTimeString(undefined, timeOptions);
+    }
+
+    function createPostElement(post) {
+        const postElement = document.createElement('li');
+        postElement.dataset.postId = post.id;
+        postElement.classList.add('post');
+
+        postElement.innerHTML = `
+            <div class="infoUserPost">
                 <div class="imgUserPost">
                     <img src="../assets/profile-pictures/${post.user.profilePicture}" alt="">
                 </div>
@@ -86,7 +84,7 @@ addEventListener('DOMContentLoaded', () => {
                             ${post.user.nome} <span id="userNick">@${post.user.usernick}</span>
                         </a>
                     </strong>
-                    <p>${new Date(post.createdAt).toLocaleTimeString()}</p>
+                    <p>${formatDateTime(post.createdAt)}</p>
                 </div>
             </div>
             <p>${post.content}</p>
@@ -94,9 +92,7 @@ addEventListener('DOMContentLoaded', () => {
                 <div class="content_metric">
                     <p class="number_like">${post.likes.length}</p>
                     <button type="button" class="filesPost like" data-post-id="${post.id}">
-                        <!-- Icon Não curtido -->
                         <i class="ph-bold ph-heart likeFalse"></i>
-                        <!-- Icon curtido -->
                         <i style="display: none;" class="ph-fill ph-heart likeTrue"></i>
                     </button>
                 </div>
@@ -104,75 +100,105 @@ addEventListener('DOMContentLoaded', () => {
                     <p class="number_coments">${post.comments.length}</p>
                     <button type="button" class="filesPost comment"><i class="ph-bold ph-chat-circle"></i></button>
                 </div>
-            </div>`
-            ;
+            </div>
+        `;
 
-                postsList.appendChild(postElement);
+        const likeButton = postElement.querySelector('.like');
+        const likeCountElement = postElement.querySelector('.number_like');
+        const commentBtn = postElement.querySelector('.comment');
+        const likeTrue = likeButton.querySelector('.likeTrue');
+        const likeFalse = likeButton.querySelector('.likeFalse');
 
-                // Adiciona evento de clique no botão de curtir
-                const likeButton = postElement.querySelector('.like');
-                const likeCountElement = postElement.querySelector('.number_like');
+        commentBtn.addEventListener('click', (event) => {
+            const postId = event.target.closest('li.post').dataset.postId;
+            window.location.href = `/comments?postId=${postId}`;
+        });
 
-                // Adiciona evento de clique no botão de comentario
-                const comeentBtn = postElement.querySelector('.comment')
+        if (post.likedByCurrentUser) {
+            likeTrue.style.display = 'block';
+            likeFalse.style.display = 'none';
+        }
 
-                comeentBtn.addEventListener('click', (event) => {
-                    const postId = event.target.closest('li.post').dataset.postId;
-                    window.location.href = `/comments?postId=${postId}`;
-                });
+        likeButton.addEventListener('click', () => {
+            const postId = likeButton.getAttribute('data-post-id');
 
-                // Icons de coração para se alterarem
-                const likeTrue = likeButton.querySelector('.ph-fill.ph-heart.likeTrue');
-                const likeFalse = likeButton.querySelector('.ph-bold.ph-heart.likeFalse');
+            fetch(`/posts/${postId}/like`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.message === 'Post curtido') {
+                        likeCountElement.textContent = parseInt(likeCountElement.textContent) + 1;
+                        likeFalse.style.display = 'none';
+                        likeTrue.style.display = 'block';
+                    } else if (data.message === 'Curtida removida') {
+                        likeCountElement.textContent = parseInt(likeCountElement.textContent) - 1;
+                        likeTrue.style.display = 'none';
+                        likeFalse.style.display = 'block';
+                    }
+                })
+                .catch((error) => console.error('Erro ao curtir/descurtir:', error));
+        });
 
-                // Verifica se o usuário já curtiu o post
-                if (post.likedByCurrentUser) {
-                    likeTrue.style.display = 'block';
-                    likeFalse.style.display = 'none';
-                }
+        return postElement;
+    }
 
-                likeButton.addEventListener('click', () => {
-                    const postId = likeButton.getAttribute('data-post-id');
+    function displayPosts(posts) {
+        posts.forEach(post => {
+            const postElement = createPostElement(post);
+            postsList.appendChild(postElement);
+        });
+    }
 
-                    fetch(`/posts/${postId}/like`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                    })
-                        .then((response) => response.json())
-                        .then((data) => {
-                            if (data.message === 'Post curtido') {
-                                likeCountElement.textContent = parseInt(likeCountElement.textContent) + 1;
-                                likeFalse.style.display = 'none';
-                                likeTrue.style.display = 'block';
-                            } else if (data.message === 'Curtida removida') {
-                                likeCountElement.textContent = parseInt(likeCountElement.textContent) - 1;
-                                likeTrue.style.display = 'none';
-                                likeFalse.style.display = 'block';
-                            }
-                        })
-                        .catch((error) => console.error('Erro ao curtir/descurtir:', error));
-                });
-            });
-        })
-        .catch((err) => console.error('Erro ao carregar posts:', err));
+    async function fetchPosts(page) {
+        try {
+            const response = await fetch(`/feed/posts`); // Busca todos os posts do servidor
+            if (!response.ok) {
+                throw new Error(`Erro ao carregar posts: ${response.status}`);
+            }
+            const data = await response.json();
+            allPosts = data;
 
-    // se algum problema de usuario acontecer..
+            // Calcula os índices de início e fim para a paginação
+            const startIndex = (page - 1) * postsPerPage;
+            const endIndex = startIndex + postsPerPage;
+
+            // Seleciona os posts para a página atual
+            const postsForPage = allPosts.slice(startIndex, endIndex);
+
+            // Exibe os posts da página atual
+            displayPosts(postsForPage);
+
+            // Mostra ou oculta o botão "Ver Mais"
+            if (endIndex >= allPosts.length) {
+                loadMoreButton.style.display = 'none';
+            } else {
+                loadMoreButton.style.display = 'block';
+            }
+        } catch (err) {
+            console.error('Erro ao carregar posts:', err);
+        }
+    }
+
+    // Carrega a primeira página de posts
+    fetchPosts(currentPage);
+
+    // Adiciona um event listener para o botão "Ver Mais"
+    loadMoreButton.addEventListener('click', () => {
+        currentPage++;
+        fetchPosts(currentPage);
+    });
+
     function checkUrlAndAlertFeed() {
         const urlParams = new URLSearchParams(window.location.search);
-
-        const success = urlParams.get('success');
         const error = urlParams.get('error');
 
-        switch (true) {
-            case error === '1':
-                alert('Escreva alguma coisa antes!');
-                window.location.href = '/';
-                break;
-
-            default:
-                break;
+        if (error === '1') {
+            alert('Escreva alguma coisa antes!');
+            window.location.href = '/';
         }
     }
     checkUrlAndAlertFeed();
@@ -197,10 +223,6 @@ const userNickModal = document.getElementById('userNickModal');
 hamburguerIcon.addEventListener('click', () => {
     modal.style.display = 'block';
 });
-
-// Fecha o modal quando o botão "Sair" é clicado
-
-// ?
 
 // Exclui a sessão do usuario quando clica em 'sair'.
 sairBtn.addEventListener('click', () => {
@@ -231,7 +253,6 @@ fetch('/user/me')
         userNickModal.textContent = `@${data.usernick}`;
     })
     .catch((error) => console.error('Erro ao carregar dados do usuário:', error));
-
 
 // Fecha o modal ao clicar no botão de fechar
 closeModal.addEventListener('click', () => {
