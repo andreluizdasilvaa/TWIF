@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
     },
     containerInputForm: {
       width: '100%',
-      maxWidth: 300,
       marginBottom: 24
     },
     forgotPassword: {
@@ -35,7 +34,7 @@ const styles = StyleSheet.create({
       color: '#025648',
       fontWeight: '600',
     },
-    forgotPasswordHook: {
+    linkHook: {
       textDecorationLine: 'underline'
     },
     containerInputSubmit: {

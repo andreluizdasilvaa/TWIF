@@ -34,7 +34,7 @@ export default function Login({ navigation }) {
             <Text style={[styles.forgotPassword, {textAlign: 'center' }]}>
                 Ainda não possui uma conta?
                 <Pressable onPress={() => navigation.navigate('Register')}>
-                    <Text style={ styles.forgotPasswordHook}>
+                    <Text style={styles.linkHook}>
                        Cadastre-se! 
                     </Text>
                 </Pressable>

@@ -7,7 +7,6 @@ const style = StyleSheet.create({
     },
     input: {
         width: '100%',
-        maxWidth: 300,
         maxHeight: 50,
         backgroundColor: 'trasparent',
         borderWidth: 2,

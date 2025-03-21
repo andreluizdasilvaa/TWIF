@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
         height: 45,
         backgroundColor: '#7EC543',
         borderRadius: 10,
-        maxWidth: 300,
     },
     textBtn: {
         fontWeight: 'bold',
