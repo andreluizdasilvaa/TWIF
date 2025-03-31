@@ -36,4 +36,12 @@
     body {
         font-size: 15px;
     }
+
+    .sec1_text{
+        text-align: center;
+    }
+
+    .Button-padrão-Az-escuro{
+        max-width: 396px;
+    }
 }

@@ -16,15 +16,10 @@ const relatorioRoutes = require('./routes/relatorioRoutes')
 dotenv.config();
 const app = express();
 
-// Cors - config
-const corsOptions = {
-  origin: process.env.CLIENT_ORIGIN_URL, // Define um domínio específico
-  credentials: true, // Permite envio de cookies e autenticação
-  allowedHeaders: ["Content-Type", "Authorization"], // Permite cabeçalhos específicos
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"], // Permite apenas esses métodos HTTP
-};
-
-app.use(cors(corsOptions));
+app.use(cors({
+  origin: 'http://localhost:8000', // Replace with the specific origin
+  credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+}));
 
 // Middleware para JSON e URL encoded
 app.use(express.json());

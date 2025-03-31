@@ -365,3 +365,13 @@ body.dark-mode #botao-cadastrar:hover {
     transform: translateX(30px);
   }
   
+@media screen and (max-width: 800px){
+    body .modal-content {
+        width: 580px !important;
+    }
+
+    body .avatar-button img {
+        width: 90px !important;
+        height: 90px !important;
+    }
+}
