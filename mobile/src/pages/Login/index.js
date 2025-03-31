@@ -1,10 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
-import { Text, View, Pressable } from 'react-native';
-import styles from './styles';
+import { StatusBar } from 'expo-status-bar'
+import { Text, View, Pressable } from 'react-native'
+import styles from './styles'
 
-import InputText from '../../components/Input_text';
-import Logo from '../../components/Logo';
-import StandardButton from '../../components/buttonSubmit';
+import InputText from '../../components/Input_text'
+import Logo from '../../components/Logo'
+import StandardButton from '../../components/buttonSubmit'
 
 export default function Login({ navigation }) {
   return (
@@ -44,5 +44,5 @@ export default function Login({ navigation }) {
       </View>
       <StatusBar style="auto" />
     </View>
-  );
-};
+  )
+}

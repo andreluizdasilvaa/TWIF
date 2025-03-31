@@ -1,9 +1,9 @@
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { View, Text, StyleSheet, Pressable } from 'react-native'
 
-import Logo from '../../components/Logo';
-import InputTextIcon from '../../components/Input_with-icon';
-import InputDatePicker from '../../components/inputDate';
-import StandardButton from '../../components/buttonSubmit';
+import Logo from '../../components/Logo'
+import InputTextIcon from '../../components/Input_with-icon'
+import InputDatePicker from '../../components/inputDate'
+import StandardButton from '../../components/buttonSubmit'
 
 export default function Register({ navigation }) {
     return (
@@ -32,7 +32,7 @@ export default function Register({ navigation }) {
                 </View>
             </View>
         </View> 
-    );
+    )
 }
 
 const styles = StyleSheet.create({
