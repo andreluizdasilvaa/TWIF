@@ -50,6 +50,11 @@ ul {
     font-size: 20px;
 }
 
+#curso {
+    width: 427px;
+    height: 45px;
+  }
+
 .icon {
     font-size: larger;
     color: var(--azul-escuro-A);
@@ -70,6 +75,14 @@ ul {
 
 #i-senha {
     margin-top: 44px;
+}
+
+#i-nascimento {
+    margin-top: 45px;
+}
+
+#i-curso {
+    margin-top: 45px;
 }
 
 #botao-cadastrar {
