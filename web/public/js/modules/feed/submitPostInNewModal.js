@@ -2,14 +2,40 @@ import CONFIG from "../config.js";
 import verifyErrorsApi from "../utils/verifyErrorsApi.js";
 
 export default function submitPostInNewModal() {
-    // Abrir e fechar modal
     const modalNovoPost = document.getElementById('modalNovoPost');
     const btnNovoPost = document.getElementById('btnNovoPost');
     const fecharModal = document.getElementById('fecharModal');
+    const formNovoPost = document.getElementById('formNovoPost');
+    const conteudoPost = document.getElementById('conteudoPost');
+    
+    // Criar contador de caracteres
+    const contador = document.createElement('p');
+    contador.id = "contadorCaracteres";
+    contador.style.fontSize = "12px";
+    contador.style.color = "#666";
+    conteudoPost.parentNode.appendChild(contador);
+
+    const maxCaracteres = 184;
+
+    // Atualizar contador de caracteres em tempo real
+    function atualizarContador() {
+        const caracteresDigitados = conteudoPost.value.length;
+        contador.textContent = `${caracteresDigitados}/${maxCaracteres}`;
+
+        // Impede que o usuário digite mais que o limite
+        if (caracteresDigitados >= maxCaracteres) {
+            conteudoPost.value = conteudoPost.value.substring(0, maxCaracteres);
+            contador.textContent = `${maxCaracteres}/${maxCaracteres}`;
+        }
+    }
+
+    // Chama a função ao digitar no campo
+    conteudoPost.addEventListener("input", atualizarContador);
 
     // Abrir modal ao clicar no botão flutuante
     btnNovoPost.addEventListener('click', () => {
         modalNovoPost.style.display = 'flex';
+        atualizarContador(); // Atualizar o contador ao abrir o modal
     });
 
     // Fechar modal ao clicar no "X"
@@ -25,19 +51,21 @@ export default function submitPostInNewModal() {
     });
 
     // Função para publicar o post
-    document.getElementById('formNovoPost').addEventListener('submit', async function (event) {
-        // Obter dados do formulário
-        let conteudo = document.getElementById('conteudoPost').value;
+    formNovoPost.addEventListener('submit', async function (event) {
+        event.preventDefault();
 
+        let conteudo = conteudoPost.value.trim();
         const conteudovalido = DOMPurify.sanitize(conteudo);
 
-        // Montar objeto com os dados do post
+        if (conteudovalido.length > maxCaracteres) {
+            return;
+        }
+
         const novoPost = {
             conteudo: conteudovalido,
         };
 
         try {
-            // Fazer requisição para a rota existente
             const resposta = await fetch(`${CONFIG.URL_API}/feed`, {
                 method: 'POST',
                 headers: {
@@ -48,16 +76,13 @@ export default function submitPostInNewModal() {
             });
 
             if (resposta.ok) {
-                const postCriado = await resposta.json();
-
-                // Fechar o modal e limpar o formulário
                 modalNovoPost.style.display = 'none';
-                document.getElementById('formNovoPost').reset();
+                formNovoPost.reset();
                 window.location.reload();
             } else {
                 verifyErrorsApi(resposta);
                 console.error('Erro ao criar o post');
-            };
+            }
         } catch (erro) {
             console.error('Erro na requisição:', erro);
         }
