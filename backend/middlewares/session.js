@@ -6,8 +6,10 @@ function generate_token_user(user, req, res, next) {
 
     res.cookie('your-session', token, {
         httpOnly: true,
-        maxAge: 3600000,   
-        path: '/'
+        maxAge: 3600000,
+        path: '/',
+        sameSite: "None",
+        secure: true
     });
     next();
 }
@@ -20,6 +22,6 @@ function remove_session(req, res) {
         console.error('Erro ao encerrar sessão do usuário:', error);
         res.status(500).json({ message: 'Erro interno ao encerrar sessão, entre em contato com o suporte' });
     }
-}
+};
 
 module.exports = { generate_token_user, remove_session };

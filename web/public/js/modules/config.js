@@ -1,5 +1,6 @@
 const CONFIG = {
-    "URL_API": "http://localhost:4000"
+    // sem "/" no final da URL
+    "URL_API": "http://localhost:3000"
 };
 
 export default CONFIG;

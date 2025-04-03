@@ -1,7 +1,5 @@
 const prisma = require('../../models/prisma');
 var cookieParser = require('cookie-parser');
-// importação do middleware para verificar a autenticação do token
-const { remove_session } = require('../../middlewares/index');
 
 const userByNick = async (req, res) => {
     const { usernick } = req.params;

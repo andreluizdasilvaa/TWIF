@@ -18,10 +18,9 @@ const app = express();
 
 // Cors - config
 const corsOptions = {
-  origin: process.env.CLIENT_ORIGIN_URL, // Define um domínio específico
-  credentials: true, // Permite envio de cookies e autenticação
-  allowedHeaders: ["Content-Type", "Authorization"], // Permite cabeçalhos específicos
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"], // Permite apenas esses métodos HTTP
+  origin: process.env.CLIENT_ORIGIN_URL,
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  credentials: true
 };
 
 app.use(cors(corsOptions));
