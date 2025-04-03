@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "node --watch app.js",
+    "dev": "node --watch ./bin/www",
     "seed": "node ./models/seed.js"
   },
   "keywords": [],
