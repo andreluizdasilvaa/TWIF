@@ -1,5 +1,5 @@
 const prisma = require('../../models/prisma');
-var cookieParser = require('cookie-parser');
+const replaceAvatarModel = require('../../models/perfil/replaceAvatarModel');
 
 const replaceAvatar = async (req, res) => {
     try {

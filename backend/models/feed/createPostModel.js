@@ -1,8 +1,9 @@
 const prisma = require('../prisma');
+const createHttpError = require('http-errors');
 
 const createPostModel = async (conteudo, userId) => {
     if (!conteudo || !userId) {
-        throw new Error('Conteúdo e ID do usuário são obrigatórios.');
+        throw createHttpError(400, 'Conteúdo e ID do usuário são obrigatórios.');
     }
 
     const post = await prisma.post.create({

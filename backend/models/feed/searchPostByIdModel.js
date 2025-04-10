@@ -1,4 +1,5 @@
 const prisma = require('../../models/prisma');
+const createHttpError = require('http-errors');
 
 const searchPostByIdModel = async (postId) => {
     const post = await prisma.post.findUnique({
@@ -15,8 +16,10 @@ const searchPostByIdModel = async (postId) => {
     });
 
     if (!post) {
-        return res.status(404).json({ msg: 'Post não encontrado' });
+        throw createHttpError(404, 'Post não encontrado');
     }
+
+    return post;
 }
 
 module.exports = searchPostByIdModel;
