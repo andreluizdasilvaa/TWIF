@@ -3,7 +3,7 @@ const router = express.Router();
 
 const { auth_user } = require('../middlewares/index');
 
-const posts = require('../controllers/feed/postsController')
+const posts = require('../controllers/feed/listPostsController')
 const searchPostId = require('../controllers/feed/searchPostIdController')
 const createPost = require('../controllers/feed/createPostController')
 const likedPostOrNot = require('../controllers/feed/likedPostOrNotController')

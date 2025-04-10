@@ -1,14 +1,10 @@
-const errorMiddleware = (err, req, res, next) => {
-    console.error('Erro capturado pelo "errorMiddleware":', {
-        message: err.message,
-        stack: err.stack,
-        additionalInfo: err.additionalInfo || null,
-    });
+const errorHandler = (err, req, res, next) => {
+	console.error(err);
 
-    // Envia uma resposta generica 
-    res.status(err.status || 500).json({
-        message: err.clientMessage || 'Erro interno no servidor. Por favor, entre em contato com o suporte.',
-    });
+	const status = err.status || 500;
+	const message = err.message || 'An unexpected error occurred.';
+
+	return res.status(status).json({ success: false, message });
 };
 
-module.exports = errorMiddleware;
+module.exports = errorHandler;

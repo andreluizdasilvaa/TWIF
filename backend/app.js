@@ -10,7 +10,7 @@ const authRoutes = require('./routes/authRoutes');
 const perfilRoutes = require('./routes/perfilRoutes');
 const relatorioRoutes = require('./routes/relatorioRoutes')
 
-const errorHandler = require('./utils/errorHandler')
+const errorHandler = require('./utils/errorHandler');
 
 dotenv.config();
 const app = express();
@@ -24,6 +24,11 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
+app.use((req, res, next) => {
+  console.log('Passei pelo log');;
+  next()
+})
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -34,7 +39,6 @@ app.use('/auth', authRoutes);
 app.use('/relatorios', relatorioRoutes);
 app.use('/', perfilRoutes, commentRoutes, feedRoutes);
 
-// tratamento de erro padrão
 app.use(errorHandler);
 
 module.exports = app;
