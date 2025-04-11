@@ -7,6 +7,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model like {
+  id     Int   @id @default(autoincrement())
+  userId Int
+  postId Int
+
+  user   user  @relation(fields: [userId], references: [id])
+  post   post  @relation(fields: [postId], references: [id])
+
+  @@unique([userId, postId], map: "Like_userId_postId_key")
+  @@index([postId], map: "like_postId_fkey")
+}
+
 model comment {
   id        Int      @id @default(autoincrement())
   content   String
@@ -15,18 +27,13 @@ model comment {
   createdAt DateTime @default(now())
   updatedAt DateTime
 
+  post      post     @relation(fields: [postId], references: [id])
+  user      user     @relation(fields: [userId], references: [id])
+
   @@index([postId], map: "Comment_PostId_FK")
   @@index([userId], map: "Comment_userId_fkey")
 }
 
-model like {
-  id     Int @id @default(autoincrement())
-  userId Int
-  postId Int
-
-  @@unique([userId, postId], map: "Like_userId_postId_key")
-  @@index([postId], map: "like_postId_fkey")
-}
 
 model notification {
   id            Int      @id @default(autoincrement())
@@ -45,13 +52,18 @@ model notification {
 }
 
 model post {
-  id        Int      @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   content   String
-  createdAt DateTime @default(now())
+  createdAt DateTime  @default(now())
   userId    Int
+
+  user      user      @relation(fields: [userId], references: [id])
+  comments  comment[]
+  likes     like[]
 
   @@index([userId], map: "Post_userId_fkey")
 }
+
 
 model postdeleted {
   id        Int      @id @default(autoincrement())
@@ -72,4 +84,9 @@ model user {
   isadmin        Boolean  @default(false)
   profilePicture String   @default("defaultphoto.png")
   createdAt      DateTime @default(now())
+
+  // Lados opostos das relações
+  posts          post[]
+  comments       comment[]
+  likes          like[]
 }
