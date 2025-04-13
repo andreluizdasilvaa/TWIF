@@ -1,9 +1,10 @@
-const prisma = require('../../models/prisma');
-var cookieParser = require('cookie-parser');
+const { countLikes } = require('../../models/relatorio/relatorioModel');
+const asyncHandler = require('../../utils/asyncHandler');
 
-const countLike = async (req, res) => {
-    const resposta = await prisma.like.count()
-    res.json({quantidade: resposta})
-}
+const countLikeController = asyncHandler(async (req, res) => {
+    const resposta = await countLikes();
+    res.json({ quantidade: resposta });
 
-module.exports = countLike;
+});
+
+module.exports = countLikeController;

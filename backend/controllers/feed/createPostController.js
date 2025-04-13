@@ -1,7 +1,7 @@
 const createPostModel = require('../../models/feed/createPostModel');
 const asyncHandler = require('../../utils/asyncHandler');
 
-const createPost = asyncHandler(async (req, res, next) => {
+const createPost = asyncHandler(async (req, res) => {
     const { conteudo } = req.body;
     const userId = req.user.id;
 

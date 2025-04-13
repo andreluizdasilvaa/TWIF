@@ -1,6 +1,6 @@
-const createHttpError = require('http-errors');
-const asyncHandler = require('../../utils/asyncHandler');
 const deleteCommentModel = require('../../models/comment/deleteCommentModel');
+const asyncHandler = require('../../utils/asyncHandler');
+const createHttpError = require('http-errors');
 
 const deleteComment = asyncHandler(async (req, res) => {
     const { commentId } = req.params;

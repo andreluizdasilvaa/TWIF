@@ -25,9 +25,7 @@ async function createCommentModel(postId, content, userId) {
         select: { userId: true },
     });
 
-    if (!post) {
-        throw createHttpError(404, 'Post não encontrado');
-    }
+    if (!post) throw createHttpError(404, 'Post não encontrado');
 
     const authorId = post.userId;
 

@@ -1,8 +1,6 @@
 const prisma = require('../prisma');
-const createHttpError = require('http-errors');
 
 const listCommentModel = async (postId) => {
-
     const comments = await prisma.comment.findMany({
         where: { postId: parseInt(postId) },
         include: {
@@ -17,6 +15,6 @@ const listCommentModel = async (postId) => {
         },
         orderBy: { createdAt: 'desc' },
     });
+    return comments;
 }
-
 module.exports = listCommentModel;

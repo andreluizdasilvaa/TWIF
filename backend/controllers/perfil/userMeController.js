@@ -1,21 +1,12 @@
-const prisma = require('../../models/prisma');
-var cookieParser = require('cookie-parser');
+const userMeModel = require('../../models/perfil/userMeModel')
+const asyncHandler = require('../../utils/asyncHandler')
 
-const userMe = async (req, res) => {
-    try {
-        const user = await prisma.user.findUnique({
-            where: { id: req.user.id }, // Usa o userId do token
-            select: { id: true, nome: true, profilePicture: true, usernick: true, isadmin: true },
-        });
-        if (user) {
-            res.json(user);
-        } else {
-            res.status(404).send('Usuário não encontrado');
-        }
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Erro ao buscar o usuário');
-    };
-}
+const userMe = asyncHandler(async (req, res) => {
+    const userId = req.user.id;
+
+    const user = await userMeModel(userId);
+
+    res.status(200).json(user);
+});
 
 module.exports = userMe;

@@ -23,7 +23,7 @@ const deletePostModel = async (idPost, user) => {
     }
 
     // Move o post para a tabela 'PostDeleted'
-    const postDeleted = await prisma.postDeleted.create({
+    const postDeleted = await prisma.postdeleted.create({
         data: {
             postId:     post.id,
             content:    post.content,

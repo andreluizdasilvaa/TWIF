@@ -1,5 +1,4 @@
 const prisma = require('../../models/prisma');
-const createHttpError = require('http-errors');
 
 const listPostModel = async (userId) => {
     const posts = await prisma.post.findMany({

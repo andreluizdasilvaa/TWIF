@@ -15,9 +15,7 @@ const searchPostByIdModel = async (postId) => {
         },
     });
 
-    if (!post) {
-        throw createHttpError(404, 'Post não encontrado');
-    }
+    if (!post) throw createHttpError(404, 'Post não encontrado');
 
     return post;
 }

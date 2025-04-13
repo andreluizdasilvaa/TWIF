@@ -1,16 +1,15 @@
-const prisma = require('../../models/prisma');
 const listCommentModel = require('../../models/comment/listCommentModel');
+const asyncHandler = require('../../utils/asyncHandler');
+const createHttpError = require('http-errors');
 
-const listComment = async (req, res) => {
+const listComment = asyncHandler(async (req, res) => {
     const { postId } = req.params;
 
-        if (!postId) {
-            return res.status(400).json({ msg: 'ID do post não fornecido' });
-        }
+    if (!postId) throw createHttpError(400, 'ID do post não fornecido');
+    
+    const comments = await listCommentModel(postId);
 
-        await listCommentModel(postId);
-
-        res.status(200).json(comments);
-}
+    res.status(200).json(comments);
+})
 
 module.exports = listComment;
