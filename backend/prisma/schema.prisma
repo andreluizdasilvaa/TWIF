@@ -81,6 +81,8 @@ model user {
   senha          String
   usernick       String   @unique(map: "User_usernick_key")
   nome           String
+  nascimento     String
+  course         String
   isadmin        Boolean  @default(false)
   profilePicture String   @default("defaultphoto.png")
   createdAt      DateTime @default(now())
