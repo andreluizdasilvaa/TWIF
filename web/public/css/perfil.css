@@ -602,6 +602,23 @@ button.filesPost {
     div.second-icon-header {
         top: 10px;
     }
+
+    div.newPost{
+        width: 100%;
+    }
+
+    .posts{
+        max-width: 100%;
+    }
+
+    body .modal-content {
+        width: 580px !important;
+    }
+
+    body .avatar-button img {
+        width: 90px !important;
+        height: 90px !important;
+    }
 }
 
 .content_post_loading {

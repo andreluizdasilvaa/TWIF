@@ -378,3 +378,11 @@ body.dark-mode .delete-icon{
 body.dark-mode .backToFeed{
     filter: invert(1);
 }
+
+@media (max-width: 800px) {
+
+    header{
+        margin: 20px 50px 20px 50px;
+    }
+}
+   

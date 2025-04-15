@@ -39,6 +39,12 @@
                         <label for="senha" class="icon" id="i-senha">
                             <i class="fa-solid fa-lock"></i>
                         </label>
+                        <label for="nascimento" class="icon" id="i-nascimento">
+                            <i class="fa-solid fa-cake-candles"></i>
+                        </label>
+                        <label for="curso" class="icon" id="i-curso">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </label>
                     </div>
 
                     <div class="the-items">
@@ -59,6 +65,26 @@
                         <div class="item">
                             <input type="password" name="senha" id="senha" class="preenchimento" placeholder="Senha"
                                 required minlength="8" maxlength="191">
+                        </div>
+
+                        <div class="item">
+                            <input type="date" name="nascimento" id="nascimento" class="preenchimento" required>
+                        </div>
+
+                        <div class="item">
+                            <select name="curso" id="curso" class="preenchimento" required>
+                                <option value="" disabled selected>Selecione seu curso</option>
+                                <option value="Tec. em T.I.">Técnico em T.I.</option>
+                                <option value="Tec. em ADM">Técnico em ADM</option>
+                                <option value="Tec. em Edificações">Técnico em Edificações</option>
+                                <option value="Tec. em Meio Ambiente">Técnico em Meio Ambiente</option>
+                                <option value="Engenharia Civil">Engenharia Civil</option>
+                                <option value="ADS">Análise e Desenvolvimento de Sistemas</option>
+                                <option value="Física">Física</option>
+                                <option value="Química">Química</option>
+                                <option value="Processos Gerenciais">Processos Gerenciais</option>
+                                <option value="Matemática">Matemática</option>
+                            </select>
                         </div>
                     </div>
                 </div>
