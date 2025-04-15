@@ -1,0 +1,92 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model like {
+  id     Int   @id @default(autoincrement())
+  userId Int
+  postId Int
+
+  user   user  @relation(fields: [userId], references: [id])
+  post   post  @relation(fields: [postId], references: [id])
+
+  @@unique([userId, postId], map: "Like_userId_postId_key")
+  @@index([postId], map: "like_postId_fkey")
+}
+
+model comment {
+  id        Int      @id @default(autoincrement())
+  content   String
+  postId    Int
+  userId    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+
+  post      post     @relation(fields: [postId], references: [id])
+  user      user     @relation(fields: [userId], references: [id])
+
+  @@index([postId], map: "Comment_PostId_FK")
+  @@index([userId], map: "Comment_userId_fkey")
+}
+
+
+model notification {
+  id            Int      @id @default(autoincrement())
+  userId        Int
+  triggeredById Int
+  postId        Int?
+  postDeletedId Int?
+  action        String
+  isViewed      Boolean  @default(false)
+  createdAt     DateTime @default(now())
+
+  @@index([postDeletedId], map: "Notification_postDeletedId_fkey")
+  @@index([postId], map: "Notification_postId_fkey")
+  @@index([triggeredById], map: "Notification_triggeredById_fkey")
+  @@index([userId, isViewed], map: "Notification_userId_isViewed_idx")
+}
+
+model post {
+  id        Int       @id @default(autoincrement())
+  content   String
+  createdAt DateTime  @default(now())
+  userId    Int
+
+  user      user      @relation(fields: [userId], references: [id])
+  comments  comment[]
+  likes     like[]
+
+  @@index([userId], map: "Post_userId_fkey")
+}
+
+
+model postdeleted {
+  id        Int      @id @default(autoincrement())
+  postId    Int      @unique(map: "PostDeleted_postId_key")
+  content   String
+  createdAt DateTime @default(now())
+  userId    Int
+
+  @@index([userId], map: "PostDeleted_userId_fkey")
+}
+
+model user {
+  id             Int      @id @default(autoincrement())
+  email          String   @unique(map: "User_email_key")
+  senha          String
+  usernick       String   @unique(map: "User_usernick_key")
+  nome           String
+  isadmin        Boolean  @default(false)
+  profilePicture String   @default("defaultphoto.png")
+  createdAt      DateTime @default(now())
+
+  // Lados opostos das relações
+  posts          post[]
+  comments       comment[]
+  likes          like[]
+}

@@ -1,41 +1,39 @@
-// app.js
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
 const cors = require('cors');
 
-// Importando rotas
-// const pagesRoutes = require('./routes/pagesRoutes');
 const feedRoutes = require('./routes/feedRoutes');
 const commentRoutes = require('./routes/commentRoutes')
 const authRoutes = require('./routes/authRoutes');
 const perfilRoutes = require('./routes/perfilRoutes');
 const relatorioRoutes = require('./routes/relatorioRoutes')
 
+const errorHandler = require('./utils/errorHandler');
+
 dotenv.config();
 const app = express();
 
-app.use(cors({
-  origin: 'http://localhost:8000', // Replace with the specific origin
-  credentials: true, // Allow credentials (cookies, authorization headers, etc.)
-}));
+// Cors - config
+const corsOptions = {
+  origin: process.env.CLIENT_ORIGIN_URL,
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  credentials: true
+};
 
-// Middleware para JSON e URL encoded
+app.use(cors(corsOptions));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Paginas estaticas
 app.use('/auth', authRoutes);
 app.use('/relatorios', relatorioRoutes);
 app.use('/', perfilRoutes, commentRoutes, feedRoutes);
-// app.use('/feed', feedRoutes);  // Rotas do feed
-// app.use('/perfil', perfilRoutes);  // Rotas de perfil
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor rodando em http://localhost:${PORT}`);
-});
+app.use(errorHandler);
+
+module.exports = app;

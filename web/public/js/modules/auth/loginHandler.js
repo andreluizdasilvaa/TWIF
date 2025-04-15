@@ -22,5 +22,8 @@ export default function loginForm() {
         .then((data) => {
             data.redirect ? window.location.href = data.redirect : null
         })
+        .catch((error) => {
+            console.error('Erro:', error);
+        });
     });
 }

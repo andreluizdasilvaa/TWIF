@@ -27,11 +27,11 @@ export default function likedPost(post, postElement) {
         })
             .then((response) => response.json())
             .then((data) => {
-                if (data.message === 'Post curtido' || data.ok) {
+                if (data.message === 'Post curtido com sucesso' || data.ok) {
                     likeCountElement.textContent = parseInt(likeCountElement.textContent) + 1;
                     likeFalse.style.display = 'none';
                     likeTrue.style.display = 'block';
-                } else if (data.message === 'Curtida removida' || data.ok) {
+                } else  {
                     likeCountElement.textContent = parseInt(likeCountElement.textContent) - 1;
                     likeTrue.style.display = 'none';
                     likeFalse.style.display = 'block';

@@ -1,30 +1,15 @@
-const prisma = require('../../models/prisma');
-var cookieParser = require('cookie-parser');
+const listCommentModel = require('../../models/comment/listCommentModel');
+const asyncHandler = require('../../utils/asyncHandler');
+const createHttpError = require('http-errors');
 
-const listComment = async (req, res) => {
+const listComment = asyncHandler(async (req, res) => {
     const { postId } = req.params;
 
-    try {
-        const comments = await prisma.comment.findMany({
-            where: { postId: parseInt(postId) },
-            include: {
-                user: {
-                    select: {
-                        id: true,
-                        nome: true,
-                        usernick: true,
-                        profilePicture: true,
-                    },
-                },
-            },
-            orderBy: { createdAt: 'desc' },
-        });
+    if (!postId) throw createHttpError(400, 'ID do post não fornecido');
+    
+    const comments = await listCommentModel(postId);
 
-        res.status(200).json(comments);
-    } catch (error) {
-        console.error('Erro ao listar os comentários:', error);
-        res.status(500).json({ msg: 'Erro ao listar os comentários' });
-    }
-}
+    res.status(200).json(comments);
+})
 
 module.exports = listComment;
