@@ -15,7 +15,7 @@ export default function submitPostInNewModal() {
     contador.style.color = "#666";
     conteudoPost.parentNode.appendChild(contador);
 
-    const maxCaracteres = 184;
+    const maxCaracteres = 250;
 
     // Atualizar contador de caracteres em tempo real
     function atualizarContador() {
