@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
     container: {
         width: '100%',
-        height: '100%',
+        flex: 1,
     },
     header: {
         flexDirection: 'row',
@@ -17,6 +17,9 @@ const styles = StyleSheet.create({
         borderRadius: '100%',
         borderBlockColor: '#000000',
         borderWidth: 1,
+    },
+    containerPosts: {
+        margin: 'auto',
     },
 });
 

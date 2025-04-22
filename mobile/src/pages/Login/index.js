@@ -37,7 +37,7 @@ export default function Login({ navigation }) {
                 </View>
 
                 <View style={styles.containerInputSubmit}>
-                    <StandardButton>ENTRAR</StandardButton>
+                    <StandardButton onPress={() => navigation.navigate('Feed')}>ENTRAR</StandardButton>
                     <Text style={[styles.forgotPassword, { textAlign: 'center' }]}>
                         Ainda não possui uma conta?
                         <Pressable onPress={() => navigation.navigate('Register')}>
