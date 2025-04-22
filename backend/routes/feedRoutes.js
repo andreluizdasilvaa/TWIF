@@ -10,8 +10,8 @@ const likedPostOrNot = require('../controllers/feed/likedPostOrNotController')
 const deletePostId = require('../controllers/feed/deletePostIdController')
 
 
-// Rota para retornar todos os posts do DB
-router.get('/feed/posts', auth_user, posts); 
+// Rota para retornar todos os posts do DB ( !ADICIONA O SESSION REQUIRE DEPOIS ) !
+router.get('/feed/posts', posts); 
 
 // Retorna um post com base no id do post( postId )
 router.get('/posts/:postId', searchPostId);

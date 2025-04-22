@@ -11,7 +11,8 @@ const styles = StyleSheet.create({
         boxShadow: '2px 2px 0px #000000',
         position: 'fixed',
         bottom: 50,
-        right: 50
+        right: 50,
+        zIndex: 1000,
     },
 })
 

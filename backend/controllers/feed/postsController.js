@@ -4,7 +4,7 @@ var cookieParser = require('cookie-parser');
 
 const posts = async (req, res) => {
     try {
-        const userId = req.user.id; // ID do usuário autenticado
+        // const userId = req.user.id; // ID do usuário autenticado
 
         const posts = await prisma.post.findMany({
             include: {
@@ -35,20 +35,20 @@ const posts = async (req, res) => {
         });
 
         // Adiciona o campo 'likedByCurrentUser' em cada post usando um loop for
-        for (let i = 0; i < posts.length; i++) {
-            const post = posts[i];
-            let likedByCurrentUser = false;
+        // for (let i = 0; i < posts.length; i++) {
+        //     const post = posts[i];
+        //     let likedByCurrentUser = false;
 
-            // Itera sobre cada curtida do post para verificar se o usuário curtiu
-            for (let j = 0; j < post.likes.length; j++) {
-                if (post.likes[j].userId === userId) {
-                    likedByCurrentUser = true;
-                    break; // Interrompe a busca após encontrar a curtida do usuário
-                }
-            }
+        //     // Itera sobre cada curtida do post para verificar se o usuário curtiu
+        //     for (let j = 0; j < post.likes.length; j++) {
+        //         if (post.likes[j].userId === userId) {
+        //             likedByCurrentUser = true;
+        //             break; // Interrompe a busca após encontrar a curtida do usuário
+        //         }
+        //     }
 
-            post.likedByCurrentUser = likedByCurrentUser;
-        }
+        //     post.likedByCurrentUser = likedByCurrentUser;
+        // }
 
         res.status(200).json(posts);
     } catch (err) {

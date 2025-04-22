@@ -1,9 +1,9 @@
-import { StyleSheet } from "react-native"
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
         width: '100%',
-        height: '100%'
+        height: '100%',
     },
     header: {
         flexDirection: 'row',
@@ -16,8 +16,8 @@ const styles = StyleSheet.create({
         height: 40,
         borderRadius: '100%',
         borderBlockColor: '#000000',
-        borderWidth: 1
+        borderWidth: 1,
     },
-})
+});
 
 export default styles;

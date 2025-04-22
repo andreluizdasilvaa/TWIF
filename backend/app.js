@@ -24,7 +24,7 @@ const corsOptions = {
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
 };
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 // Middleware para JSON e URL encoded
 app.use(express.json());
