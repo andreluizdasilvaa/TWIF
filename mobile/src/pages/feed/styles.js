@@ -20,6 +20,9 @@ const styles = StyleSheet.create({
     // },
     containerPosts: {
         flex: 1,
+        backgroundColor: '#000',
+        width: '100%',
+        height: '100%',
     },
 });
 

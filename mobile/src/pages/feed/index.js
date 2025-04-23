@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Image } from 'expo-image';
-import { View, ScrollView, FlatList } from 'react-native';
+import { View, ScrollView, FlatList, Platform } from 'react-native';
 import Entypo from '@expo/vector-icons/Entypo';
 
 import styles from './styles';
@@ -26,9 +26,13 @@ export default function Feed({ navigation }) {
     }, []);
 
     return (
-        <View style={{ flex: 1 }}>
+        <>
             <FlatList
-                style={styles.containerPosts}
+                style={{
+                    flex: 1,
+                    width: '100%',
+                    maxHeight: Platform.OS === 'web' ? '100vh' : null,
+                }}
                 data={posts}
                 renderItem={({ item: post }) => (
                     <Post
@@ -42,6 +46,6 @@ export default function Feed({ navigation }) {
                 keyExtractor={post => post.id}
             />
             <StatusBar style="auto" />
-        </View>
+        </>
     );
 }

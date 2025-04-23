@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import Login from './pages/login/index';
 import Register from './pages/register/index';
-import Feed from './pages/Feed/index';
+import Feed from './pages/feed/index';
 
 const Stack = createStackNavigator();
 
