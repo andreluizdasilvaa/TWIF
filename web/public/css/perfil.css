@@ -535,6 +535,13 @@ button.filesPost {
     color: var(--vermelho);
 }
 
+.info-extra-perfil{
+    display: flex;
+    gap: 8px;
+    margin-left: 50px;
+    margin-top: 20px;
+}
+
 /* ===== Botão de Sair ===== */
 .sair {
     background-color: var(--vermelho);
@@ -861,3 +868,8 @@ body.dark-mode #salvar-avatar:hover {
     background-color: var(--verde-neutro);
     color: var(--verde-padrao);
 }
+
+body.dark-mode .info-extra-perfil{
+    color: white;
+}
+
