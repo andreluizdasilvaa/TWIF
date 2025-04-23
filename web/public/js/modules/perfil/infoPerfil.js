@@ -7,6 +7,7 @@ export default function infoPerfil() {
     const user_nick = document.querySelector('.p-perfil');
     const user_birth = document.getElementById('User_birth');
     const user_course = document.getElementById('User_course');
+    const user_bio = document.getElementById('User_bio');
 
     const pathSegments = window.location.pathname.split('/');
     const usernick = pathSegments[pathSegments.length - 1];
@@ -48,6 +49,10 @@ user_birth.innerHTML = data.nascimento
 user_course.innerHTML = data.course
     ? `<i class="fa-regular fa-star"></i> ${data.course}`
     : `<i class="fa-regular fa-star"></i>Não informado`;
+
+user_bio.innerHTML = data.bio
+    ? `<i class="fa-regular fa-comment-dots"></i> ${data.bio}`
+    : `<i class="fa-regular fa-comment-dots"></i> Nenhuma biografia`;    
 })
 .catch((error) => {
     console.error('Erro ao buscar informações do usuário:', error);

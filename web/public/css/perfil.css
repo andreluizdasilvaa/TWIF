@@ -542,6 +542,12 @@ button.filesPost {
     margin-top: 20px;
 }
 
+.bio{
+    margin-left: 50px;
+   margin-top: 20px;
+   max-width: 10%;
+}
+
 /* ===== Botão de Sair ===== */
 .sair {
     background-color: var(--vermelho);
@@ -873,3 +879,14 @@ body.dark-mode .info-extra-perfil{
     color: white;
 }
 
+body.dark-mode .info-extra-perfil i{
+    color: #7EC543;
+}
+
+body.dark-mode .bio{
+    color: white;
+}
+
+body.dark-mode .bio i{
+    color: #7EC543;
+}

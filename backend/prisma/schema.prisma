@@ -83,6 +83,7 @@ model user {
   nome           String
   nascimento     String?
   course         String?
+  bio            String?
   isadmin        Boolean  @default(false)
   profilePicture String   @default("defaultphoto.png")
   createdAt      DateTime @default(now())
