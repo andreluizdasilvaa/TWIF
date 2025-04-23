@@ -8,12 +8,12 @@ const userByNick = require('../controllers/perfil/userByNickController');
 const replaceAvatar = require('../controllers/perfil/replaceAvatarController');
 
 // retornar todas as informações do usuario que está acessando a rota
-router.get('/user/me', auth_user, userMe);
+router.get('/me', auth_user, userMe);
 
 // Rota para acessar o perfil pelo usernick
-router.get('/api/perfil/:usernick', auth_user, userByNick);
+router.get('/perfil/:usernick', auth_user, userByNick);
 
 // Troca de avatar
-router.patch('/api/troca/avatar/:avatar', auth_user, replaceAvatar);
+router.patch('/troca/avatar/:avatar', auth_user, replaceAvatar);
 
 module.exports = router;

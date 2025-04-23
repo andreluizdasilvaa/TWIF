@@ -35,7 +35,7 @@ const register = async (req, res) => {
         }
 
         // Criptografando a senha com proteção 8
-        const senhaHash = await bcrypt.hash(senha, 8);
+        const senhaHash = await bcrypt.hash(senha, process.env.SALT_ROUNDS || 8);
 
         // Cria um novo usuário no banco de dados com os dados fornecidos
         const user = await prisma.user.create({

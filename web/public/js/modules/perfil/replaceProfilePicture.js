@@ -57,7 +57,7 @@ export default function replaceProfilePicture() {
             const pathSegments = window.location.pathname.split('/');
             const usernick = pathSegments[pathSegments.length - 1];
             
-            fetch(`${CONFIG.URL_API}/api/troca/avatar/${img_escolhida}`, {
+            fetch(`${CONFIG.URL_API}/user/troca/avatar/${img_escolhida}`, {
                 method: "PATCH",
                 headers: {
                     'Content-Type': 'application/json',

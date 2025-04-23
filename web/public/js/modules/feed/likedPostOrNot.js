@@ -18,7 +18,7 @@ export default function likedPost(post, postElement) {
     likeButton.addEventListener('click', () => {
         const postId = likeButton.getAttribute('data-post-id');
 
-        fetch(`${CONFIG.URL_API}/posts/${postId}/like`, {
+        fetch(`${CONFIG.URL_API}/feed/posts/${postId}/like`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
