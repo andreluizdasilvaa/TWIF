@@ -26,39 +26,21 @@ export default function Feed({ navigation }) {
     }, []);
 
     return (
-        <>
-            <ModalInputPost />
-            <View style={styles.header}>
-                <Entypo
-                    name="menu"
-                    size={30}
-                    color="black"
-                    onPress={() => navigation.navigate('Login')}
-                />
-                <Logo width={100} height={60} />
-                <Image
-                    source={{
-                        uri: 'https://th.bing.com/th/id/OIP.qp_LN0rfFLziKT4SOs4tDAHaHa?rs=1&pid=ImgDetMain',
-                    }}
-                    style={styles.imageUser}
-                />
-            </View>
-            (
+        <View style={{ flex: 1 }}>
             <FlatList
                 style={styles.containerPosts}
                 data={posts}
-                renderItem={({item: post}) => 
-                        <Post
-                            picture={post.user.profilePicture}
-                            nameUser={post.user.nome}
-                            description={post.content}
-                            quantLike={post.likes.length}
-                            quantComment={post.comments.length}
-                        />
-                }
+                renderItem={({ item: post }) => (
+                    <Post
+                        picture={post.user.profilePicture}
+                        nameUser={post.user.nome}
+                        description={post.content}
+                        quantLike={post.likes.length}
+                        quantComment={post.comments.length}
+                    />
+                )}
                 keyExtractor={post => post.id}
             />
-            )
             <StatusBar style="auto" />
         </View>
     );
