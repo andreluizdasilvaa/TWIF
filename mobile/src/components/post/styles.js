@@ -2,7 +2,8 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
-        width: '100%',
+        width: '90%',
+        margin: 'auto',
         minHeight: 180,
         backgroundColor: '#fff',
         shadowColor: '#000',
@@ -13,9 +14,9 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         shadowRadius: 1.41,
         elevation: 2,
-        marginVertical: 10,
-        padding: 10,
-        borderRadius: 8,
+        marginVertical: 16,
+        padding: 18,
+        borderRadius: 24,
     },
     header: {
         flexDirection: 'row',
@@ -23,19 +24,22 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         gap: 10,
     },
+    nameUser: {
+        fontWeight: 'medium',
+        fontSize: 16
+    },
     content: {
-        marginBottom: 10,
+        marginVertical: 10,
     },
     footer: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'flex-end',
+        gap: 5
     },
     imageUser: {
-        width: 40,
-        height: 40,
-        borderRadius: 20,
-        borderColor: '#000',
-        borderWidth: 1,
+        width: 50,
+        height: 50,
+        borderRadius: 25,
     },
 });
 

@@ -5,9 +5,11 @@ import { View, ScrollView, FlatList, Platform } from 'react-native';
 import Entypo from '@expo/vector-icons/Entypo';
 
 import styles from './styles';
-import Logo from '../../components/Logo';
+import HeaderFeed from '../../components/headerFeed';
 import ModalInputPost from '../../components/modalInputPost';
 import Post from '../../components/post';
+
+import appConfig from '../../config/appConfig'
 
 export default function Feed({ navigation }) {
     const [posts, setPosts] = useState([]);
@@ -15,7 +17,7 @@ export default function Feed({ navigation }) {
     // Api para teste
     useEffect(() => {
         try {
-            fetch('http://localhost:3000/feed/posts')
+            fetch(`${appConfig.URL_API}/feed/posts`)
                 .then(r => r.json())
                 .then(resp => {
                     setPosts(resp);
@@ -27,6 +29,7 @@ export default function Feed({ navigation }) {
 
     return (
         <>
+        <HeaderFeed />
             <FlatList
                 style={{
                     flex: 1,
@@ -45,6 +48,7 @@ export default function Feed({ navigation }) {
                 )}
                 keyExtractor={post => post.id}
             />
+            <ModalInputPost />
             <StatusBar style="auto" />
         </>
     );

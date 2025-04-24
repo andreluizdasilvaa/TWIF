@@ -1,17 +1,18 @@
-import { View, Text, Button } from "react-native";
-import { Image } from "expo-image";
+import { View, Text, Button } from 'react-native';
+import { Image } from 'expo-image';
 
-import styles from "./styles";
+import styles from './styles';
+import profilePictures from '../../config/profilePictures';
 
 export default function Post({ picture, nameUser, description, quantLike, quantComment }) {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
                 <Image
-                    source={{ uri: picture }}
+                    source={profilePictures[picture] || profilePictures['defaultphoto.png']}
                     style={styles.imageUser}
                 />
-                <Text>{nameUser}</Text>
+                <Text style={styles.nameUser}>{nameUser}</Text>
             </View>
 
             <View style={styles.content}>
