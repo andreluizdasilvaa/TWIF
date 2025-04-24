@@ -93,3 +93,10 @@ model user {
   comments       comment[]
   likes          like[]
 }
+
+model SupportRequest {
+  id       Int    @id @default(autoincrement())
+  nome     String
+  email    String
+  problema String
+}
