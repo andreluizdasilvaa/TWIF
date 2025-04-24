@@ -26,15 +26,21 @@ const styles = StyleSheet.create({
     },
     nameUser: {
         fontWeight: 'medium',
-        fontSize: 16
+        fontSize: 16,
     },
     content: {
         marginVertical: 10,
     },
     footer: {
+        marginTop: 15,
         flexDirection: 'row',
         justifyContent: 'flex-end',
-        gap: 5
+        gap: 20,
+    },
+    containerIcon: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 5,
     },
     imageUser: {
         width: 50,

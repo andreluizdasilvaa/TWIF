@@ -1,15 +1,13 @@
 import { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Image } from 'expo-image';
-import { View, ScrollView, FlatList, Platform } from 'react-native';
-import Entypo from '@expo/vector-icons/Entypo';
-
+import { View, FlatList } from 'react-native';
 import styles from './styles';
+
 import HeaderFeed from '../../components/headerFeed';
 import ModalInputPost from '../../components/modalInputPost';
 import Post from '../../components/post';
 
-import appConfig from '../../config/appConfig'
+import appConfig from '../../config/appConfig';
 
 export default function Feed({ navigation }) {
     const [posts, setPosts] = useState([]);
@@ -29,13 +27,9 @@ export default function Feed({ navigation }) {
 
     return (
         <>
-        <HeaderFeed />
+            <HeaderFeed />
             <FlatList
-                style={{
-                    flex: 1,
-                    width: '100%',
-                    maxHeight: Platform.OS === 'web' ? '100vh' : null,
-                }}
+                style={styles.containerPosts}
                 data={posts}
                 renderItem={({ item: post }) => (
                     <Post
