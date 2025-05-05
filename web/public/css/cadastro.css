@@ -364,4 +364,39 @@ body.dark-mode #botao-cadastrar:hover {
   .dark-mode-switch:checked + .slider:before {
     transform: translateX(30px);
   }
-  
+
+.alert {
+    display: none; 
+    color: black;
+    background-color:2px solid var(--main-color);; 
+    border: 2px solid var(--main-color); ;
+    padding: 10px; 
+    margin-top: 10px;
+    text-align: center; 
+    font-size: 14px; 
+    width: 20px;
+    left: -2px;
+    box-shadow: 0 3px 0 var(--main-color);
+    box-sizing: border-box; 
+}
+
+.alerta {
+    background-color: #ffdddd;
+    color: #a94442;
+    border: 1px solid #f5c6cb;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    margin: 10px 0 20px;
+    text-align: center;
+    font-family: 'Lexend Deca', sans-serif;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+/* Exemplo de dark mode */
+body.dark-mode .alerta {
+    background-color: #4d2f2f;
+    color: #f8d7da;
+    border-color: #a94442;
+}
